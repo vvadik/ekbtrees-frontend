@@ -1,0 +1,43 @@
+.user-statistics {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 10px;
+}
+.tree-stat {
+    display: flex;
+    justify-content: space-between;
+    width: 48%;
+    padding: 15px 10px;
+    background-color: #50802c;
+    border-radius: 15px;
+}
+.icon-container {
+    height: 50px;
+    width: 50px;
+    border-radius: 25px;
+    background-color: #edad08;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0px 5px;
+}
+.fa-tree,
+.fa-pagelines {
+    color: white;
+    font-size: 20px;
+    font-weight: 600;
+}
+.trees-summary {
+    display: block;
+    font-size: 18px;
+    font-weight: 600;
+}
+.trees-comment {
+    color: white;
+    font-size: 12px;
+    font-weight: 600;
+    width: 20px;
+}
+.trees-info {
+    width: 60%;
+}

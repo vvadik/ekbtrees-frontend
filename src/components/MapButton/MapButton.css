@@ -1,0 +1,30 @@
+.log-in-map {
+    height: 40px;
+    position: fixed;
+    z-index: 999;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    background-color: #50802c;
+    color: white;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    border-radius: 5px;
+    padding: 5px 30px;
+}
+
+.fa-sign-in {
+    margin-right: 10px;
+    font-size: 30px;
+}
+
+@media screen and (min-width: 768px) {
+    .log-in-map {
+        top: 180px;
+        position: absolute;
+        z-index: 999;
+    }
+}

@@ -1,0 +1,126 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+.topnav {
+    background-color: #50802c;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.burger-btn {
+    background: none;
+    font-size: 25px;
+    padding: 15px 20px;
+    cursor: pointer;
+}
+
+.desktop-header {
+    display: none;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px 20px;
+    margin-bottom: 40px;
+}
+
+.logo h1 {
+    color: #50802c;
+    font-weight: 400;
+    padding: 10px 0px;
+}
+
+.logo .small-header {
+    font-family: "Merriweather", serif;
+    font-size: 20px;
+    display: block;
+    text-align: center;
+}
+
+.logo .big-header {
+    font-family: "Merriweather", serif;
+    font-size: 40px;
+    line-height: 30px;
+}
+
+.menu {
+    display: flex;
+    justify-content: space-between;
+}
+
+.menu a {
+    letter-spacing: 0.05vw;
+    font-weight: bold;
+    color: rgb(0, 92, 92);
+    margin: 0px 10px;
+    font-size: 12px;
+}
+
+.menu a:hover {
+    color: #3e69b6;
+}
+
+.sign-links {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.sign-links a {
+    margin-left: 10px;
+    color: #3e69b6;
+    padding: 10px 15px;
+}
+
+.sign-links .active {
+    background-color: #50802c;
+    border: none;
+    color: white;
+}
+
+.ekb-trees {
+    font-family: "Merriweather", serif !important;
+    color: white;
+    font-weight: 400;
+    margin: 0;
+    padding: 0;
+    padding-top: 10px;
+    line-height: 40px;
+    padding-left: 7px;
+}
+
+.ekb-trees .small-header-mobile {
+    font-size: 20px;
+    padding-left: 2px;
+    /*display: block;*/
+}
+
+.ekb-trees .big-header-mobile {
+    font-family: "Merriweather", serif;
+    font-size: 40px;
+    line-height: 30px;
+}
+
+@media screen and (min-width: 768px) {
+    .mobile-header {
+        display: none;
+    }
+
+    .desktop-header {
+        display: flex;
+    }
+}
+@media screen and (min-width: 1024px) {
+    .desktop-header {
+        padding: 0px 10%;
+    }
+
+    .menu a {
+        font-size: 14px;
+    }
+}

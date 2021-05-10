@@ -10,7 +10,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: npm install
-      - run: npm build
+      - run: npm run build
       - uses: appleboy/scp-action@master
         with:
           host: ${{ secrets.HOST }}

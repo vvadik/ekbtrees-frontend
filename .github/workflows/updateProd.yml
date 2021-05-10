@@ -14,5 +14,5 @@ jobs:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.KEY }}
-          source: "build"
+          source: "build/*"
           target: "var/www/ekbtrees.ru/html"

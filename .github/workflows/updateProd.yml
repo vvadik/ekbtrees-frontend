@@ -3,18 +3,16 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:
 jobs:
-  build-static:
+  build-and-push:
     runs-on: ubuntu-latest
     steps:
       - run: npm install build
-  push-static:
-    runs-on: ubuntu-latest
-    steps:
       - uses: appleboy/scp-action@master
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.KEY }}
           source: "build"
-          target: "/var/www/ekbtrees.ru/html"
+          target: "var/www/ekbtrees.ru/html"

@@ -1,0 +1,58 @@
+.user-list-item {
+  background-color: #F5F1F1FF;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  margin: 10px 0;
+  padding: 5% 0;
+  
+}
+.btn-blue {
+  background-color: #3C64B1FF;
+  width: 16px;
+  height: 16px;
+}
+
+.btn-red {
+  background-color: #EC0B0BFF;
+  width: 16px;
+  height: 16px;
+}
+
+.btn-blue:hover {
+cursor: pointer;
+background-color: rgb(48, 87, 160);
+}
+
+.btn-red:hover {
+  cursor: pointer;
+  background-color: rgb(219, 3, 3);
+}
+.user-list-item-table {
+  width: 100%;
+}
+
+.user-list-item-table :nth-child(n) :nth-child(2) {
+  display: inline;
+  cursor: pointer;
+  color: rgb(196, 196, 196);
+  word-wrap: break-word;
+  width: 20px;
+  
+}
+@media screen and (min-width: 768px) {
+  .user-list-item {
+    padding: 10px;
+    line-height: 18px;
+    font-size: 16px;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0px 0px 15px -5px rgb(34 60 80 / 57%);
+
+  }
+  .user-list-item-table :nth-child(1) :nth-child(1) :nth-child(1) {
+    width: 100px;
+    
+  }
+  }

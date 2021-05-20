@@ -6,7 +6,7 @@ export default class AuthForm extends Component {
     render(){
         return(
             <div className="welcome">
-                <NavLink exact to='/home' activeclassname="active"  className="big-header">Ekb <span className="small-header">Trees</span></NavLink>                
+                <NavLink exact to='/home' activeclassname="active"  className="big-header">Ekb <span className="small-header">Trees</span></NavLink>             
                 <h2>Добро пожаловать!</h2>
                 <p>Пожалуйста, войдите в аккаунт или зарегистрируйтесь, чтобы начать</p>
                 <div className="links">

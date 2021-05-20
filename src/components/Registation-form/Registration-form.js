@@ -2,15 +2,13 @@ import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import './Registration-form.css';
 import FormHeader from '../AuthForm';
-import twitterIcon from '../../img/twitter.png';
 import vkIcon from '../../img/vk.png';
 import facebookIcon from '../../img/facebook.png';
-import googleIcon from '../../img/google.png';
+
 
 export default class RegistrationForm extends Component {
     state = {
-        touchStart: null,
-        touchEnd: 200
+        touchStart: null
     }
     handleTouch = (e) => {
         this.setState({
@@ -18,11 +16,8 @@ export default class RegistrationForm extends Component {
         })
     }
     handleTouchEnd = (e) => {
-        this.setState({
-            touchEnd: e.changedTouches[0].clientX
-        })
-        let difference = this.state.touchEnd - this.state.touchStart;
-        if (difference > 20) {
+        let difference = e.changedTouches[0].clientX - this.state.touchStart;
+        if (difference > 40) {
             this.pushLogin()
         }
     }
@@ -43,18 +38,12 @@ export default class RegistrationForm extends Component {
                         <button type="submit">Продолжить</button>
 
                         <p className="login-message">или зарегистрируйтесь с</p>
-                        <div className="flex">
-                            <div className="social">
-                                <a href="#!" target="_blank"><img src={googleIcon} alt="google-link"></img></a>
-                            </div>
+                        <div className="flex-social">
                             <div className="social">
                                 <a href="#!" target="_blank"><img src={vkIcon} alt="google-link"></img></a>
                             </div>
                             <div className="social">
                                 <a href="#!" target="_blank"><img src={facebookIcon} alt="facebook-link"></img></a>
-                            </div>
-                            <div className="social">
-                                <a href="#!" target="_blank"><img src={twitterIcon} alt="twitter-link"></img></a>
                             </div>
                         </div>
                         <p className="privacy-terms">© 2020 — 2021 Privacy-Terms</p>

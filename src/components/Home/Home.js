@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import MapContain from '../Map/MapContain';
 import MapButton from '../MapButton';
-import './Home.css';
+import './home.css';
 
 export default class Home extends Component {
   renderMobileSection() {

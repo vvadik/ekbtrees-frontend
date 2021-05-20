@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
-import './Footer.css';
+import './footer.css';
 import facebookIcon from '../../img/facebook.png';
 import twitterIcon from '../../img/twitter.png';
 import instagramIcon from '../../img/instagram.png';

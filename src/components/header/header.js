@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import Menu from '../Menu';
-import './Header.css';
+import './header.css';
 
 export default class Header extends Component {
     handleClick() {

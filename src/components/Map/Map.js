@@ -1,8 +1,12 @@
+import { useState } from "react";
 import { MapContainer, TileLayer } from "react-leaflet";
 import GeojsonLayer from "./GeojsonLayer";
+import { AddTreeButton } from "./../AddTreeButton/AddTreeButton";
+import { MapSate } from "./MapState";
 
 const Map = ({url}) => {
-    const defaultPosition = [56.8391040, 60.6082500]; // Yekaterinburg position
+    const defaultPosition = { lat: 56.8391040, lng: 60.6082500 }; // Yekaterinburg position
+    const [mapState , setMapState] = useState(MapSate.default);
 
     return (
         <div className="map-container">
@@ -14,12 +18,13 @@ const Map = ({url}) => {
                     accessToken='pk.eyJ1IjoieWVodXV1IiwiYSI6ImNrbXJ3YnU0YTA3dmcyb25zM2hqaGgzZmMifQ.YH_abJ3UPrBUTNebAKIiZg'
                     tileSize={512}
                     zoomOffset={-1}
-                    maxZoom={21}
+                    maxZoom={22}
                 />
-                <GeojsonLayer url={url}/>
+                <GeojsonLayer mapState={ mapState } setMapState={ setMapState } url={ url }/>
             </MapContainer>
+            <AddTreeButton mapState={ mapState } setMapState={ setMapState }/>
         </div>
-    );
+    )
 };
 
 export default Map;

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
-import './Login-form.css';
+import './login-form.css';
 import FormHeader from '../AuthForm';
 import twitterIcon from '../../img/twitter.png';
 import vkIcon from '../../img/vk.png';

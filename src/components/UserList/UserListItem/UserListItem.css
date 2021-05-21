@@ -33,7 +33,7 @@ background-color: rgb(48, 87, 160);
   width: 100%;
 }
 
-.user-list-item-table :nth-child(n) :nth-child(2) {
+.user-list-item-table :nth-child(1) :nth-child(n) :nth-child(2) {
   display: inline;
   cursor: pointer;
   color: rgb(196, 196, 196);

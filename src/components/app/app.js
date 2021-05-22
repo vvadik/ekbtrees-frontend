@@ -11,16 +11,12 @@ export default class App extends Component {
         }
     }
     render() {
-        return ( <
-            div className = "page" >
-            <
-            Header / >
-            <
-            Main / >
-            <
-            Footer / >
-            <
-            /div>
+        return ( 
+        <div className = "page" >
+            <Header />
+            <Main />
+            <Footer />
+            </div>
         )
     }
 }

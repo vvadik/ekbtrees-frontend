@@ -74,9 +74,12 @@ button:focus {
     padding: 30px 0px;
 }
 
+.table-img{
+    width: 40px;
+    height: 40px;
+}
 .fa-pencil {
     font-size: 23px;
-    position: relative;
     bottom: 2px;
     margin-left: 10px;
     color: rgb(97, 96, 96);
@@ -91,10 +94,12 @@ button:focus {
     background: inherit;
     font-size: 20px;
     color: grey;
+    cursor: pointer;
 }
 
 .active-tree {
     color: black;
+    border-bottom: 2px solid #FB8F07;
 }
 
 @media screen and (min-width: 768px) {

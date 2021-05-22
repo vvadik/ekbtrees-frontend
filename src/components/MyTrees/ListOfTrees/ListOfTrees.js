@@ -51,12 +51,11 @@ export default class ListOfTrees extends Component {
     })
     return (
       <tr key={this.state.currentKey}>
-        <td><input id={this.state.currentKey} type="checkbox" className="tree-checkbox"></input>
-          <i className="fa fa-pencil" aria-hidden="true"></i></td>
+        <td><i className="fa fa-pencil" aria-hidden="true"></i></td>
         <td><label htmlFor={this.state.currentKey}>{tree.name}</label></td>
         <td>{tree.age} лет</td>
         <td>{tree.height} метров</td>
-        <td>{tree.geoposition[0]}; {tree.geoposition[1]}</td>
+        <td><img src={tree.image} alt='tree' className='table-img'></img></td>
         <td>{tree.date}</td>
       </tr>
     )
@@ -113,7 +112,7 @@ export default class ListOfTrees extends Component {
         <div className="tree-container-desktop">
           <table className="tree-table">
             <thead>
-              <tr><th>Действия</th><th>Порода</th><th>Возраст</th><th>Высота</th><th>Геопозиция</th><th>Дата добавления</th></tr>
+              <tr><th>Действия</th><th>Порода</th><th>Возраст</th><th>Высота</th><th>Изображение</th><th>Дата добавления</th></tr>
             </thead>
             <tbody>
               {renderDesktopItems}

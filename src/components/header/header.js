@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink} from 'react-router-dom';
 import Menu from '../Menu';
 import './Header.css';
 
 export default class Header extends Component {
+    
     handleClick() {
         const navBar = document.getElementById("navBar");
         const icon = document.querySelector(".fa");
@@ -17,7 +18,7 @@ export default class Header extends Component {
         return (
             <div className="mobile-header">
                 <div className="topnav">
-                    <h1 class="ekb-trees"><span class="big-header-mobile">Ekb</span><span class="small-header-mobile">Trees</span></h1>
+                    {this.renderLogo()}
                     <button className="burger-btn" onClick={this.handleClick}>
                         <i className="fa fa-bars"></i>
                     </button>
@@ -46,6 +47,11 @@ export default class Header extends Component {
                 </div>
             </div>
         )
+    }
+    renderLogo(){
+            return (
+                <NavLink exact to='/home' activeclassname="active-logo" className="ekb-trees"><span className="big-header-mobile">Ekb</span><span className="small-header-mobile">Trees</span></NavLink>                
+            )
     }
     render() {
         return (

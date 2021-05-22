@@ -94,6 +94,11 @@
     padding-left: 7px;
 }
 
+.ekb-trees.active {
+    color: white;
+    border: none;
+}
+
 .ekb-trees .small-header-mobile {
     font-size: 20px;
     padding-left: 2px;

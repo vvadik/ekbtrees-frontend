@@ -1,0 +1,28 @@
+.user-nav-bar {
+  width: 180px;
+  position: absolute;
+}
+
+.user-nav-bar a{
+  background-color: #282A3DFF;
+  color: #54ABFDFF;
+  text-transform: uppercase;
+  display: block;
+  font-size: 10px;
+  font-weight: 600;
+}
+
+.user-nav-bar a:hover{
+  background-color: #383B56FF;
+}
+
+.fas {
+  font-size: 14px;
+  padding: 8px 10px;
+}
+
+@media screen and (min-width: 768px) {
+  .user-nav-bar {
+    left: 10%;
+  }
+  }

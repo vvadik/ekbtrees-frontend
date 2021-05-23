@@ -5,6 +5,10 @@
     border: 0;
 }
 
+.headerWrapper {
+    flex-shrink: 0;
+}
+
 .topnav {
     background-color: #50802c;
     display: flex;

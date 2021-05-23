@@ -5,7 +5,7 @@ export default class MapButton extends Component {
     render() {
         return (
             <NavLink className="log-in-map" exact to={this.props.link} activeclassname="active">
-                <i className="fa fa-sign-in" aria-hidden="true"></i>
+                <i className="fa fa-sign-in" aria-hidden="true" />
                 {this.props.name}
             </NavLink>
         )

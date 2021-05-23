@@ -17,15 +17,15 @@ export default class Main extends Component {
     return (
       <main className="mainWrapper">
         <Switch>
-          <Route exact path='/' component={LoginForm} />
+          <Route exact path='/login' component={LoginForm} />
           <Route exact path='/registration' component={RegistrationForm} />
           <Route exact path='/map'
             render={props => <Map {...props} />}
           />
           <Route exact path='/addtree/:lat/:lng' component={AddNewTreeForm} />
-          <Route exact path='/home' component={Home} />
-          <Route exact path='/myTrees' component={MyTrees} />
-          <Route exact path='/userList' component={UserList} />
+          <Route exact path='/' component={Home} />
+          <Route exact path='/trees' component={MyTrees} />
+          <Route exact path='/users' component={UserList} />
           <Route exact path='/profileSettings' component={ProfileSettings} />
           <Route exact path='/passRecovery' component={PassRecovery} />
           <Route exact path='/aboutUs' component={AboutUs} />

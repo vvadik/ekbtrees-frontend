@@ -6,6 +6,7 @@ import './MyTrees.css';
 
 export default class MyTrees extends Component {
     service = new JsonService();
+
     render() {
         return (
             <React.Fragment>

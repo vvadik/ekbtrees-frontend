@@ -2,15 +2,15 @@ import React, { Component, Fragment } from 'react';
 import './ListOfTrees.css';
 
 export default class ListOfTrees extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
+
     this.state = {
-      mobileData: [],
-      desktopData: [],
-      currentKey: 0,
       currentPage: 1,
-      todosPerPage: 9
+      todosPerPage: 9,
+      trees: []
     };
+
     this.handleClick = this.handleClick.bind(this);
   }
 
@@ -21,118 +21,119 @@ export default class ListOfTrees extends Component {
   }
 
   componentDidMount() {
-    const { getData } = this.props;
+    const {getData} = this.props;
+
     getData()
       .then((data) => {
-        data.map(this.addTree)
+        this.setState({trees: data})
       });
   }
 
-  addTree = (tree) => {
-    const newTreeMobile = this.renderTreeMobile(tree);
-    const newTreeDesktop = this.renderTreeDesktop(tree);
-    this.setState(({ mobileData }) => {
-      const newDataMobile = [...mobileData, newTreeMobile];
-      return {
-        mobileData: newDataMobile
-      }
-    })
-    this.setState(({ desktopData }) => {
-      const newDataDesktop = [...desktopData, newTreeDesktop];
-      return {
-        desktopData: newDataDesktop
-      }
-    })
-  }
-
-  openWindow(e){
+  openWindow = (e) => {
     e.stopPropagation();
     alert("Window here")
   }
-  
-  renderTreeDesktop(tree) {
-    const currentKey = this.state.currentKey + 1;
-    this.setState({
-      currentKey
-    })
-    return (
-      <tr key={this.state.currentKey} className="tr-link" onClick={this.openWindow}>
-        <td><img src={tree.image} alt='tree' className='table-img'></img></td>
-        <td><label htmlFor={this.state.currentKey}>{tree.name}</label></td>
-        <td>{tree.age} лет</td>
-        <td>{tree.height} метров</td>       
-        <td>{tree.date}</td>
-        <td><i className="fa fa-pencil pencil-desktop" aria-hidden="true" onClick={this.openWindow}></i></td>
-      </tr>
-    )
-  }
-  renderTreeMobile(tree) {
-    const currentKey = this.state.currentKey + 1;
-    this.setState({
-      currentKey
-    })
-    return (
-      <div key={this.state.currentKey} className="tree" style={{ backgroundImage: `linear-gradient(lightgrey, lightgrey), url(${tree.image})` }}>
-        <input id={this.state.currentKey} type="checkbox" className="tree-checkbox checkbox-mobile"></input>
-        <i className="fa fa-pencil pencil-mobile" aria-hidden="true"></i>
-      </div>
-    )
-  }
 
-  render() {
-    const { mobileData, desktopData, currentPage, todosPerPage } = this.state;
+    getTree = (tree, index) => {
+        return (
+            <div className="treeTableItemWrapper" key={index} onClick={this.openWindow.bind(this)}>
+                <div className="treeTableItem treeTableItemImg">
+                    <img src={tree.image} alt='tree' className='tableImg' />
+                </div>
+                <div className="treeTableItem">
+                    <span className="treeTablePrefix">Порода: </span>
+                    <label htmlFor={index}>{tree.name}</label>
+                </div>
+                <div className="treeTableItem">
+                    <span className="treeTablePrefix">Возраст: </span>
+                    {tree.age} лет
+                </div>
+                <div className="treeTableItem">
+                    <span className="treeTablePrefix">Высота: </span>
+                    {tree.height} метров
+                </div>
+                <div className="treeTableItem">
+                    <span className="treeTablePrefix">Дата добавления: </span>
+                    {tree.date}
+                </div>
+                <div className="treeTableItem treeTablePencil">
+                    <button className="treTableEditButton">Редактировать</button>
+                    <i className="fa fa-pencil" aria-hidden="true" />
+                </div>
+            </div>
+        )
+    }
+
+  renderTrees () {
+    const {trees, currentPage, todosPerPage } = this.state;
     const indexOfLastTodo = currentPage * todosPerPage;
     const indexOfFirstTodo = indexOfLastTodo - todosPerPage;
-    const desktopItems = desktopData.slice(indexOfFirstTodo, indexOfLastTodo);
-    const modileItems = mobileData.slice(indexOfFirstTodo, indexOfLastTodo);
-    const renderDesktopItems = desktopItems.map((todo) => {
-      return todo;
-    });
-    const renderMobileItems = modileItems.map((todo) => {
-      return todo;
-    });
+    const items = trees.slice(indexOfFirstTodo, indexOfLastTodo);
+
+    return items.map(this.getTree);
+  }
+
+  getPageNumbers () {
+    const {trees, todosPerPage } = this.state;
     const pageNumbers = [];
-    for (let i = 1; i <= Math.ceil(desktopData.length / todosPerPage); i++) {
+
+    for (let i = 1; i <= Math.ceil(trees.length / todosPerPage); i++) {
       pageNumbers.push(i);
     }
 
-    const renderPageNumbers = pageNumbers.map(number => {
-      const clazz = number === currentPage ? "btn btn-secondary active-tree" : "btn btn-secondary";
+    return pageNumbers;
+  }
+
+  renderButtonsByNumbers () {
+    return this.getPageNumbers().map(number => {
+      const className = number === this.state.currentPage
+          ? "buttonNavigation activeNavigationButton"
+          : "buttonNavigation";
+
       return (
-        <button
-          key={number}
-          onClick={this.handleClick}
-          id={number}
-          className={clazz}>
-          {number}
-        </button>
+          <button
+              key={number}
+              onClick={this.handleClick}
+              id={number}
+              className={className}>
+            {number}
+          </button>
       );
     });
+  }
 
+  renderTable () {
+      return (
+          <div className="treeTable">
+              <div className="treeTableHeader">
+                  <p className="treeTableHeaderItem">Изображение</p>
+                  <p className="treeTableHeaderItem">Порода</p>
+                  <p className="treeTableHeaderItem">Возраст</p>
+                  <p className="treeTableHeaderItem">Высота</p>
+                  <p className="treeTableHeaderItem">Дата добавления</p>
+                  <p className="treeTableHeaderItem">Действия</p>
+              </div>
+              <div className="treeTableBody">
+                  {this.renderTrees()}
+              </div>
+          </div>
+      )
+  }
+
+  render() {
     return (
-      <Fragment>
-        <div className="tree-heading">
+      <>
+        <div className="treeHeader">
           <h3>Список деревьев</h3>
           <p>Нажмите, чтобы увидеть описание</p>
         </div>
-        <div className="tree-container-desktop">
-          <table className="tree-table">
-            <thead>
-              <tr><th>Изображение</th><th>Порода</th><th>Возраст</th><th>Высота</th><th>Дата добавления</th><th>Действия</th></tr>
-            </thead>
-            <tbody>
-              {renderDesktopItems}
-            </tbody>
-          </table>
-        </div>
-        <div className="tree-container-mobile">{renderMobileItems}</div>
-        <div className="list-nav">
+          {this.renderTable()}
+        <div className="treeNavigation">
           <div className="btn-group" role="group" aria-label="Basic example">
-            {renderPageNumbers}
+            {this.renderButtonsByNumbers()}
           </div>
         </div>
-
-      </Fragment>
+      </>
     );
   }
 }

@@ -47,11 +47,11 @@ export default class RegistrationForm extends Component {
             return(
                 <p>Пароль не соответствует</p>
             )
-        }      
+        }
     }
     async register(input){
         const response = await fetch('/auth/register', {
-            method: "POST",  
+            method: "POST",
             headers: new Headers({
                 "Content-Type": "application/json"
             }),
@@ -59,7 +59,7 @@ export default class RegistrationForm extends Component {
         })
         if(response.ok){
             alert("Пользователь зарегистрирован")
-        }              
+        }
     }
     render() {
         return (
@@ -73,10 +73,10 @@ export default class RegistrationForm extends Component {
                         <input type="email" placeholder="Введите почту" name="email" id="userEmail" required />
                         <input type="password" placeholder="Придумайте пароль" name="psw" id="userPassword" required />
                         <input type="password" placeholder="Подтвердите пароль" name="psw2" id="userConfirmPassword" required />
-                       
+
                         <div className="login-message">
                             {this.renderError()}
-                        </div> 
+                        </div>
                         <button type="submit">Продолжить</button>
 
                         <p className="login-message">или зарегистрируйтесь с</p>
@@ -93,7 +93,7 @@ export default class RegistrationForm extends Component {
                     <aside className="registration-aside">
                         <h2>Добро пожаловать!</h2>
                         <p>Введите данные, чтобы продолжить</p>
-                        <NavLink className="link-login" exact to='/' activeclassname="active">Авторизоваться</NavLink>
+                        <NavLink className="link-login" exact to='/login' activeclassname="active">Авторизоваться</NavLink>
                     </aside>
                 </section>
             </div>

@@ -6,7 +6,7 @@ import './App.css';
 export default class App extends Component {
     render() {
         return (
-        <div className = "page" >
+        <div className="page">
             <Header />
             <Main />
             </div>

@@ -2,16 +2,20 @@ import React, {Component} from 'react';
 import {NavLink} from 'react-router-dom';
 import './AuthForm.css';
 
-export default class AuthForm extends Component {  
-    render(){
+export default class AuthForm extends Component {
+    render() {
+        if (window.scrollY !== 0) {
+            window.scrollTo(0, 0);
+        }
+
         return(
             <div className="welcome">
-                <NavLink exact to='/home' activeclassname="active"  className="big-header">Ekb <span className="small-header">Trees</span></NavLink>             
+                <NavLink to='/' activeclassname="active"  className="big-header">Ekb <span className="small-header">Trees</span></NavLink>
                 <h2>Добро пожаловать!</h2>
                 <p>Пожалуйста, войдите в аккаунт или зарегистрируйтесь, чтобы начать</p>
                 <div className="links">
-                    <NavLink className="btn-login" exact to='/' activeclassname="active-link">Войти</NavLink>
-                    <NavLink className="btn-sign-up" exact to='/registration' activeclassname="active-link">Зарегистрироваться</NavLink>
+                    <NavLink className="btn-login" to='/login' activeclassname="active-link">Войти</NavLink>
+                    <NavLink className="btn-sign-up" to='/registration' activeclassname="active-link">Зарегистрироваться</NavLink>
                 </div>
             </div>
         )

@@ -10,7 +10,7 @@ export default class Home extends Component {
       <section className="container-2 mobile">
         <div className="map-container">
           <div className="map">
-            <MapContain url="Park.geojson" />
+            <MapContain/>
             <MapButton name="Вход" link='/' />
           </div>
         </div>
@@ -40,7 +40,7 @@ export default class Home extends Component {
             <div className="container-2">
               <div className="map-container">
                 <div className="map">
-                  <MapContain url="Park.geojson" />
+                  <MapContain/>
                   <MapButton name="Вход" link='/' />
                 </div>
               </div>

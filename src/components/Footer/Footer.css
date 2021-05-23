@@ -1,9 +1,10 @@
-footer{
-    margin-top: 40px;
+.footerWrapper {
     display: none;
+    flex-shrink: 0;
+    margin-top: 40px;
 }
 
-.menu{
+.menu {
     display: flex;
     align-items: center;
     width: 50%;
@@ -11,38 +12,38 @@ footer{
     margin: 0 auto;
 }
 
-.line{
+.line {
     background-color: #ADBEA5;
     height: 1px;
     width: 75%;
     margin: 0 auto;
 }
 
-footer .social{
+.footerWrapper .social {
     display: flex;
     width: 25%;
     margin: 30px auto;
     justify-content: space-between;
 }
 
-footer .social img{
+.footerWrapper .social img {
     height: auto;
     width: 30px;
 }
 
-.privacy-terms{
+.privacy-terms {
     display: flex;
     justify-content: center;
 }
 
 @media screen and (min-width: 768px){
-    footer{
+    .footerWrapper {
         display: block;
     }
 }
 
 @media screen and (min-width: 2000px){
-    footer{
-        padding: 0px 10%;
+    .footerWrapper {
+        padding: 0 10%;
     }
 }

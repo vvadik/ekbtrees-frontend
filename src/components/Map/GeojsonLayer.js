@@ -24,6 +24,10 @@ const GeojsonLayer = ({mapState, setMapState, url}) => {
             .then((jsonData) => {
                 setData(jsonData);
               })
+            .catch(err => {
+                alert("Возникла ошибка при загрузке деревьев");
+                console.log(err);
+            })
     }, [url]);
 
     return (

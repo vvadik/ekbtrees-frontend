@@ -11,7 +11,7 @@ export default class Footer extends Component {
     render() {
         return (
             <footer className="footerWrapper">
-                <div className="menu">
+                <div className="footer-menu">
                     <NavLink exact to='/map' activeclassname="active">Карта</NavLink>
                     <NavLink exact to='/myTrees' activeclassname="active">Мои деревья</NavLink>
                     <div className="logo">

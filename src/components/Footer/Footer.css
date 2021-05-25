@@ -4,12 +4,21 @@
     margin-top: 40px;
 }
 
-.menu {
+.footer-menu {
     display: flex;
     align-items: center;
     width: 50%;
     justify-content: space-between;
     margin: 0 auto;
+}
+
+.footer-menu a {
+    letter-spacing: 0.05vw;
+    font-weight: bold;
+    color: rgb(0, 92, 92);
+    margin: 0px 10px;
+    font-size: 12px;
+    text-align: center;
 }
 
 .line {
@@ -41,7 +50,11 @@
         display: block;
     }
 }
-
+@media screen and (min-width: 1024px) {
+    .footer-menu a {
+        font-size: 14px;
+    }  
+}
 @media screen and (min-width: 2000px){
     .footerWrapper {
         padding: 0 10%;

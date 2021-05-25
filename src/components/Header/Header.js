@@ -37,7 +37,9 @@ export default class Header extends Component {
                 </NavLink>
                 <div className="menu">
                     <NavLink exact to='/map' activeclassname="active">Карта</NavLink>
-                    <NavLink exact to='/myTrees' activeclassname="active">Мои деревья</NavLink>
+                    <NavLink exact to='/myTrees' activeclassname="active">Список деревьев</NavLink>
+                    <NavLink exact to='/userList' activeclassname="active">Список пользователей</NavLink>
+                    <NavLink exact to='/aboutUs' activeclassname="active">О нас</NavLink>
                     <a href="#!">Контакты</a>
                     <a href="#!">Помощь</a>
                 </div>

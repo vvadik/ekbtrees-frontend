@@ -4,7 +4,7 @@ import Menu from '../Menu';
 import './Header.css';
 
 export default class Header extends Component {
-    
+
     handleClick() {
         const navBar = document.getElementById("navBar");
         const icon = document.querySelector(".fa");
@@ -37,7 +37,9 @@ export default class Header extends Component {
                 </NavLink>
                 <div className="menu">
                     <NavLink exact to='/map' activeclassname="active">Карта</NavLink>
-                    <NavLink exact to='/myTrees' activeclassname="active">Мои деревья</NavLink>
+                    <NavLink exact to='/myTrees' activeclassname="active">Список деревьев</NavLink>
+                    <NavLink exact to='/userList' activeclassname="active">Список пользователей</NavLink>
+                    <NavLink exact to='/aboutUs' activeclassname="active">О нас</NavLink>
                     <a href="#!">Контакты</a>
                     <a href="#!">Помощь</a>
                 </div>
@@ -50,12 +52,12 @@ export default class Header extends Component {
     }
     renderLogo(){
             return (
-                <NavLink exact to='/home' activeclassname="active-logo" className="ekb-trees"><span className="big-header-mobile">Ekb</span><span className="small-header-mobile">Trees</span></NavLink>                
+                <NavLink exact to='/home' activeclassname="active-logo" className="ekb-trees"><span className="big-header-mobile">Ekb</span><span className="small-header-mobile">Trees</span></NavLink>
             )
     }
     render() {
         return (
-            <header>
+            <header className="headerWrapper">
                 {this.renderMobileHeader()}
                 {this.renderDesktopHeader()}
             </header>

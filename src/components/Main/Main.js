@@ -8,12 +8,11 @@ import MyTrees from '../MyTrees';
 import UserList from '../UserList';
 import ProfileSettings from '../ProfileSettings';
 import PassRecovery from '../PassRecovery';
-import './Main.css';
 
 export default class Main extends Component {
   render() {
     return (
-      <main className="mainWrapper">
+      <main>
         <Switch>
           <Route exact path='/' component={LoginForm} />
           <Route exact path='/registration' component={RegistrationForm} />

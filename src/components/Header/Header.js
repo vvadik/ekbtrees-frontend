@@ -4,7 +4,7 @@ import Menu from '../Menu';
 import './Header.css';
 
 export default class Header extends Component {
-
+    
     handleClick() {
         const navBar = document.getElementById("navBar");
         const icon = document.querySelector(".fa");
@@ -50,12 +50,12 @@ export default class Header extends Component {
     }
     renderLogo(){
             return (
-                <NavLink exact to='/home' activeclassname="active-logo" className="ekb-trees"><span className="big-header-mobile">Ekb</span><span className="small-header-mobile">Trees</span></NavLink>
+                <NavLink exact to='/home' activeclassname="active-logo" className="ekb-trees"><span className="big-header-mobile">Ekb</span><span className="small-header-mobile">Trees</span></NavLink>                
             )
     }
     render() {
         return (
-            <header className="headerWrapper">
+            <header>
                 {this.renderMobileHeader()}
                 {this.renderDesktopHeader()}
             </header>

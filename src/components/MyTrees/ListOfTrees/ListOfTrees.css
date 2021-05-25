@@ -1,0 +1,124 @@
+a:hover {
+    text-decoration: none;
+}
+
+button:focus {
+    outline: none;
+}
+
+.tree-container-mobile,
+.tree-heading {
+    padding: 10px 15px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    text-align: center;
+}
+
+.tree-heading p {
+    text-transform: uppercase;
+    text-align: center;
+    padding: 10px 0px;
+}
+
+.tree {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 90px;
+    height: 90px;
+    cursor: pointer;
+    margin-bottom: 5px;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-blend-mode: darken;
+    /* filter: brightness(90%); */
+}
+
+.checkbox-mobile {
+    background: white;
+}
+
+.tree-container-desktop {
+    display: none;
+}
+
+.tree-table {
+    width: 80%;
+}
+
+.tree-table th {
+    padding: 20px;
+    text-align: center;
+}
+
+.tree-table td {
+    padding: 5px 20px;
+    text-align: center;
+    color: grey;
+}
+
+.tree-checkbox {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
+.tree-table label {
+    cursor: pointer;
+}
+
+.list-nav {
+    display: flex;
+    justify-content: center;
+    padding: 30px 0px;
+}
+
+.table-img{
+    width: 40px;
+    height: 40px;
+}
+.fa-pencil {
+    font-size: 23px;
+    bottom: 2px;
+    margin-left: 10px;
+    color: rgb(97, 96, 96);
+}
+
+.pencil-mobile {
+    color: #fb8f07;
+}
+
+.btn-secondary {
+    margin: 10px;
+    background: inherit;
+    font-size: 20px;
+    color: grey;
+    cursor: pointer;
+}
+
+.active-tree {
+    color: black;
+    border-bottom: 2px solid #FB8F07;
+}
+
+@media screen and (min-width: 768px) {
+    .tree-heading {
+        flex-direction: column;
+    }
+    .tree-container-mobile {
+        display: none;
+    }
+    .tree-name,
+    .tree-age,
+    .tree-height {
+        display: inline;
+    }
+    .tree-container-desktop {
+        display: flex;
+        justify-content: center;
+    }
+    .tree-image {
+        display: none;
+    }
+}

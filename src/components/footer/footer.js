@@ -10,8 +10,8 @@ import pinterestIcon from '../../img/pinterest.png';
 export default class Footer extends Component {
     render() {
         return (
-            <footer>
-                <div className="menu">
+            <footer className="footerWrapper">
+                <div className="footer-menu">
                     <NavLink exact to='/map' activeclassname="active">Карта</NavLink>
                     <NavLink exact to='/myTrees' activeclassname="active">Мои деревья</NavLink>
                     <div className="logo">

@@ -44,19 +44,25 @@ export default class ListOfTrees extends Component {
       }
     })
   }
+
+  openWindow(e){
+    e.stopPropagation();
+    alert("Window here")
+  }
+  
   renderTreeDesktop(tree) {
     const currentKey = this.state.currentKey + 1;
     this.setState({
       currentKey
     })
     return (
-      <tr key={this.state.currentKey}>
-        <td><i className="fa fa-pencil" aria-hidden="true"></i></td>
+      <tr key={this.state.currentKey} className="tr-link" onClick={this.openWindow}>
+        <td><img src={tree.image} alt='tree' className='table-img'></img></td>
         <td><label htmlFor={this.state.currentKey}>{tree.name}</label></td>
         <td>{tree.age} лет</td>
-        <td>{tree.height} метров</td>
-        <td><img src={tree.image} alt='tree' className='table-img'></img></td>
+        <td>{tree.height} метров</td>       
         <td>{tree.date}</td>
+        <td><i className="fa fa-pencil pencil-desktop" aria-hidden="true" onClick={this.openWindow}></i></td>
       </tr>
     )
   }
@@ -112,7 +118,7 @@ export default class ListOfTrees extends Component {
         <div className="tree-container-desktop">
           <table className="tree-table">
             <thead>
-              <tr><th>Действия</th><th>Порода</th><th>Возраст</th><th>Высота</th><th>Изображение</th><th>Дата добавления</th></tr>
+              <tr><th>Изображение</th><th>Порода</th><th>Возраст</th><th>Высота</th><th>Дата добавления</th><th>Действия</th></tr>
             </thead>
             <tbody>
               {renderDesktopItems}

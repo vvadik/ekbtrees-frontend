@@ -12,6 +12,7 @@ import AboutUs from '../AboutUs';
 import './Main.css';
 
 export default class Main extends Component {
+  
   render() {
     return (
       <main className="mainWrapper">

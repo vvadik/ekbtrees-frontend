@@ -53,14 +53,13 @@
         display: block;
     }
 }
+
 @media screen and (min-width: 1024px) {
     .footer-menu a {
         font-size: 14px;
     }  
-    /* .under-line{
-        padding: 30px 30%;
-    } */
 }
+
 @media screen and (min-width: 2000px){
     .footerWrapper {
         padding: 0 10%;

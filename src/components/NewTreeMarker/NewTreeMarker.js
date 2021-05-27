@@ -1,6 +1,6 @@
 import { Marker } from 'react-leaflet';
 import { icon } from 'leaflet';
-import { useState, useRef, useMemo } from "react";
+import { useRef, useMemo } from "react";
 import styles from "./NewTreeMarker.css";
 import markerIcon1x from '../../img/marker-icon.png';
 import markerIcon2x from '../../img/marker-icon-2x.png';

@@ -6,32 +6,46 @@ import { TreeForm } from "../MarkerForm/TreeForm";
 import { NewTreeMarker } from "../NewTreeMarker/NewTreeMarker";
 import { MapSate } from "./MapState";
 import { useHistory } from "react-router-dom";
+import { getTreeMapInfoUrl, getTreeDataUrl } from './DataLoadHelper';
+import "./GeojsonLayer.css";
 
-const GeojsonLayer = ({mapState, setMapState, url}) => {
-    const [activeTree, setActiveTree] = useState(null);
+const GeojsonLayer = ({mapState, setMapState}) => {
+    const [activeTreeId, setActiveTreeId] = useState(null);
+    const [activeTreeData, setActiveTreeData] = useState(null);
     const [newTreePosition, setNewTreePosition] = useState(null);
-    const [data, setData] = useState([]);
+    const [mapData, setMapData] = useState([]);
     const history = useHistory();
+    const treeMapInfoUrl = getTreeMapInfoUrl({latTop: 56, lngTop: 60, latBottom: 57, lngBottom: 61});
 
     useMapEvents({
         click: (e) => {
             mapState === MapSate.addTreeBegin && 
                          (setMapState(MapSate.addTreeSelected) || setNewTreePosition(e.latlng));
-            console.log("Click position: " + JSON.stringify(newTreePosition, null, 2))
         }
     });
 
     useEffect(() => {
-        fetch(url)
-            .then(response => response.json())
+        fetchData(treeMapInfoUrl)
             .then((jsonData) => {
-                setData(jsonData);
+                setMapData(jsonData);
               })
             .catch(err => {
                 alert("Возникла ошибка при загрузке деревьев");
                 console.log(err);
             })
-    }, [url]);
+    }, [treeMapInfoUrl]);
+
+    useEffect(() => {
+        activeTreeId && 
+        fetchData(getTreeDataUrl(activeTreeId))
+            .then((jsonData) => {
+                setActiveTreeData(jsonData);
+            })
+            .catch(err => {
+                alert("Возникла ошибка при загрузке информации о дереве");
+                console.log(err);
+            })
+    });
 
     useEffect(() => {
         if (mapState == MapSate.addTreeSubmit) {
@@ -41,9 +55,11 @@ const GeojsonLayer = ({mapState, setMapState, url}) => {
 
     return (
         <>
-        {getMarkerClusterGroup(mapState, data, setActiveTree)}
+        {getMarkerClusterGroup(mapState, mapData, setActiveTreeId)}
         { newTreePosition && <NewTreeMarker position={newTreePosition} setPosition={setNewTreePosition}/>}
-        <TreeForm activeTree = {activeTree} setActiveTree = {setActiveTree}/>
+        <div className= {activeTreeId ? "tree-form-container active" : "tree-form-container"} onClick={() => setActiveTreeId(null)}>
+            <TreeForm activeTree = {activeTreeData}/>
+        </div>
         </>
     );
 }
@@ -55,7 +71,7 @@ function getMarkerClusterGroup(state, data, setActiveTree) {
                 //.filter(feaure => feaure.geometry.type === "Point" && feaure.properties.ekbtree)
                 .map((f, idx) => (
                     <Circle
-                        eventHandlers={{ click: () => state === MapSate.default && setActiveTree(f) }}
+                        eventHandlers={{ click: () => state === MapSate.default && setActiveTree(f.id) }}
                         key={idx}
                         center={[f.geographicalPoint.latitude, f.geographicalPoint.longitude]}
                         pathOptions={getCircleOptions(f.type)}

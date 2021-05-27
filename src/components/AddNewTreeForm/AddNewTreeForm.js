@@ -82,15 +82,6 @@ export default class AddNewTreeForm extends Component {
                                 </select>
                             </label>
                         </div>
-                        <div>
-                            <span> Культурная  посадка   или самосев </span>
-                            <label>
-                                <select dir="rtl">
-                                    <option> Культурная посадка </option>
-                                    <option> Самосев</option>
-                                </select>
-                            </label>
-                        </div>
                     </figure>
                     <h4 class="center h4"> фотографии и файлы </h4>
                     <figure class="main">

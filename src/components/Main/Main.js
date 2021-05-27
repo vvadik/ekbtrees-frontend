@@ -9,6 +9,7 @@ import UserList from '../UserList';
 import ProfileSettings from '../ProfileSettings';
 import PassRecovery from '../PassRecovery';
 import AboutUs from '../AboutUs';
+import AddNewTreeForm from '../AddNewTreeForm'
 import './Main.css';
 
 export default class Main extends Component {
@@ -19,8 +20,9 @@ export default class Main extends Component {
           <Route exact path='/' component={LoginForm} />
           <Route exact path='/registration' component={RegistrationForm} />
           <Route exact path='/map'
-            render={props => <Map url="Park.geojson" {...props} />}
+            render={props => <Map {...props} />}
           />
+          <Route exact path='/addtree/:lat/:lng' component={AddNewTreeForm} />
           <Route exact path='/home' component={Home} />
           <Route exact path='/myTrees' component={MyTrees} />
           <Route exact path='/userList' component={UserList} />

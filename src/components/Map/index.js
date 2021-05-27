@@ -1,2 +1,2 @@
-import Map from './Map';
-export default Map;
+import MapContain from './MapContain';
+export default MapContain;

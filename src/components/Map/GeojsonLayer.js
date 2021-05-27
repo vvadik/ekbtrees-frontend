@@ -1,73 +1,71 @@
 import React, { useState, useEffect } from 'react';
-import { Circle, Popup } from 'react-leaflet';
+import { Circle, useMapEvents } from 'react-leaflet';
 import MarkerClusterGroup from "react-leaflet-markercluster";
-import ColorProvider from "./ColorProvider";
+import { getCircleOptions, getCircleRadius, fetchData } from "./MapHelpers";
+import { TreeForm } from "../MarkerForm/TreeForm";
+import { NewTreeMarker } from "../NewTreeMarker/NewTreeMarker";
+import { MapSate } from "./MapState";
+import { useHistory } from "react-router-dom";
 
-function fetchData(url, options) {
-  let request = fetch(url, options);
+const GeojsonLayer = ({mapState, setMapState, url}) => {
+    const [activeTree, setActiveTree] = useState(null);
+    const [newTreePosition, setNewTreePosition] = useState(null);
+    const [data, setData] = useState([]);
+    const history = useHistory();
 
-  return request
-    .then(r => r.json())
-    .then(data => data.features);
+    useMapEvents({
+        click: (e) => {
+            mapState === MapSate.addTreeBegin && 
+                         (setMapState(MapSate.addTreeSelected) || setNewTreePosition(e.latlng));
+            console.log("Click position: " + JSON.stringify(newTreePosition, null, 2))
+        }
+    });
+
+    useEffect(() => {
+        fetch(url)
+            .then(response => response.json())
+            .then((jsonData) => {
+                setData(jsonData);
+              })
+            .catch(err => {
+                alert("Возникла ошибка при загрузке деревьев");
+                console.log(err);
+            })
+    }, [url]);
+
+    useEffect(() => {
+        if (mapState == MapSate.addTreeSubmit) {
+            history.push(`/addtree/${newTreePosition.lat}/${newTreePosition.lng}`);
+        }
+    })
+
+    return (
+        <>
+        {getMarkerClusterGroup(mapState, data, setActiveTree)}
+        { newTreePosition && <NewTreeMarker position={newTreePosition} setPosition={setNewTreePosition}/>}
+        <TreeForm activeTree = {activeTree} setActiveTree = {setActiveTree}/>
+        </>
+    );
 }
 
-function circleOptions(name) {
-  var color = ColorProvider(name);
-  return {
-    fillColor: color,
-    color: color
-  };
-}
-
-function circleRadius(height) {
-  var logValue = height < 7 ? 2 : Math.log(height);
-  return logValue / 2 + 1;
-}
-
-const GeojsonLayer = ({ url }) => {
-  const [data, setData] = useState([]);
-
-  useEffect(() => {
-    if (url) {
-      const abortController = new AbortController();
-
-      fetchData(url, { signal: abortController.signal }).then(data => {
-        setData(data);
-      });
-
-      // cancel fetch on component unmount
-      return () => {
-        abortController.abort();
-      };
-    }
-
-  }, [url]);
-
-  // console.info(data);
-
-  return (
-    <MarkerClusterGroup disableClusteringAtZoom={19}>
-      {data
-        .filter(feaure => feaure.geometry.type === "Point")
-        .map((f, idx) => (
-          <Circle
-            key={idx}
-            center={[f.geometry.coordinates[1], f.geometry.coordinates[0]]}
-            pathOptions={circleOptions(f.properties["genus:ru"])}
-            radius={circleRadius(f.properties.height ?? 3)}
-            weight={1}
-          >
-            <Popup minWidth={200} closeButton={false}>
-              <div>
-                <b>{f.properties["genus:ru"]}</b>
-                {f.properties.height && <p>Высота: {f.properties.height}</p>}
-                <p>{f.geometry.coordinates[1]} {f.geometry.coordinates[0]}</p>
-              </div>
-            </Popup>
-          </Circle>
-        ))}
-    </MarkerClusterGroup>
-  );
+function getMarkerClusterGroup(state, data, setActiveTree) {
+    return (
+        <MarkerClusterGroup disableClusteringAtZoom = {19}>
+            {data
+                //.filter(feaure => feaure.geometry.type === "Point" && feaure.properties.ekbtree)
+                .map((f, idx) => (
+                    <Circle
+                        eventHandlers={{ click: () => state === MapSate.default && setActiveTree(f) }}
+                        key={idx}
+                        center={[f.geographicalPoint.latitude, f.geographicalPoint.longitude]}
+                        pathOptions={getCircleOptions(f.type)}
+                        radius={getCircleRadius(f.diameterOfCrown ?? 0)}
+                        weight={1}
+                    >
+                    </Circle>
+            ))}
+        </MarkerClusterGroup>
+    );
 }
 
 export default GeojsonLayer;

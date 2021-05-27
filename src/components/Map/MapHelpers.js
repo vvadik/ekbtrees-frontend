@@ -1,8 +1,8 @@
 const colors = {
-    "береза": "#696969",
-    "вяз": "#800080",
-    "липа": "#654321",
-    "лиственница": "#218766",
+    "Береза": "#696969",
+    "Вяз": "#800080",
+    "Липа": "#654321",
+    "Лиственница": "#218766",
     "default": "blue"
 }
 
@@ -22,7 +22,7 @@ export const getCircleOptions = (treeName) => {
     return {fillColor: color, color};
 }
 
-export const getCircleRadius = (height) => {
-    const logValue = height < 7 ? 2 : Math.log(height);
-    return logValue / 2 + 1;
+export const getCircleRadius = (diameter_crown) => {
+    const circleDiameter = diameter_crown < 5 ? 5 * 0.8 : diameter_crown * 0.8;
+    return circleDiameter / 2;
 }

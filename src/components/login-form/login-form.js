@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 import { NavLink } from 'react-router-dom';
 import './Login-form.css';
 import FormHeader from '../AuthForm';
@@ -36,10 +37,15 @@ export default class LoginForm extends Component {
     renderMessage(){
         if(!this.state.logged)
         return(
-            <div className="login-message">
-                <p>Пользователь с данным логином и паролем не найден.</p>     
-            </div>           
+            <p>Пользователь с данным логином и паролем не найден.</p>             
         )
+    }
+    async authVk(e){
+        e.preventDefault();
+        const response = await fetch('/auth/oauth2/vk');
+            console.log(response.body)
+            // ReactDOM.render(response, document.getElementById('root'))
+          
     }
     render() {
         return (
@@ -55,7 +61,9 @@ export default class LoginForm extends Component {
                         <h2>Вход в аккаунт</h2>
                         <input type="text" placeholder="Логин" name="email" id="user-email" required />
                         <input type="password" placeholder="Пароль" name="psw" id="user-password" required />
-                        {this.renderMessage()}
+                        <div className="login-message">
+                            {this.renderMessage()}
+                        </div> 
                         <button type="submit">Войти</button>
                         <p className="login-help">
                             <NavLink className="restore" exact to='/passRecovery'>Забыли пароль?</NavLink>
@@ -63,7 +71,7 @@ export default class LoginForm extends Component {
                         <p className="login-message">или войдите с</p>
                         <div className="flex-social">
                             <div className="social">
-                                <a href="#!" target="_blank"><img src={vkIcon} alt="google-link"></img></a>
+                                <a href="#!" target="_blank" onClick={this.authVk}><img src={vkIcon} alt="google-link"></img></a>
                             </div>
                             <div className="social">
                                 <a href="#!" target="_blank"><img src={facebookIcon} alt="facebook-link"></img></a>

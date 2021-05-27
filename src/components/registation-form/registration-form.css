@@ -116,6 +116,10 @@ h2{
     clip-path: polygon(10% 0, 100% 0, 100% 100%, 0% 100%);
 }
 
+.reg-error{
+    color: red;
+}
+
 .registration-aside h2{
     color: white;
     font-size: 25px;
@@ -148,7 +152,7 @@ h2{
 
 @media screen and (min-width: 768px){
     .registration-container{
-      height: 550px;
+      height: 600px;
     }
 
     h2{

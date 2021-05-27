@@ -188,11 +188,13 @@ h2 {
 .login-aside p {
   padding: 10px 0px;
 }
+
 .flex-social{
   display: flex;
   justify-content: center;
   padding: 10px 0px;
 }
+
 .login-aside .link-register {
   width: 200px;
   height: 40px;
@@ -213,10 +215,12 @@ h2 {
   color: #4f802c;
   transition: ease-in 0.15s;
 }
+
 .login-message{
   height: 40px;
   padding: 10px 0px;
 }
+
 .login-message p{
   color: red;
 }

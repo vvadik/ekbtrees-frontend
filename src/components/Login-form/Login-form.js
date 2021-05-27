@@ -24,7 +24,6 @@ export default class LoginForm extends Component {
             this.pushSingUp()
         }
     }
-
     pushSingUp() {
         this.props.history.push('/registration');
     }

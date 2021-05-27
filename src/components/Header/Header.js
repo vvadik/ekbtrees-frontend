@@ -4,7 +4,6 @@ import Menu from '../Menu';
 import './Header.css';
 
 export default class Header extends Component {
-
     handleClick() {
         const navBar = document.getElementById("navBar");
         const icon = document.querySelector(".fa");
@@ -14,6 +13,7 @@ export default class Header extends Component {
         navBar.hidden ? icon.style.color = "black" : icon.style.color = "white";
         navBar.hidden ? burger.style.background = "inherit" : burger.style.background = "#333333";
     }
+
     renderMobileHeader() {
         return (
             <div className="mobile-header">

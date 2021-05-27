@@ -129,23 +129,28 @@
         right: 20px;
         top: 65px;
     }
+
     .menu{
         margin: 0;
         width: unset;
         align-items: unset;
     }
 }
+
 @media screen and (min-width: 1024px) {
     .desktop-header {
         padding: 0px 10%;
     }
+
     .sign-links{
         right: 10%;
     }
+
     .menu a {
         font-size: 14px;
     }  
 }
+
 @media screen and (min-width: 1200px){
     .sign-links{
         position: static;

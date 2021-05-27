@@ -8,10 +8,12 @@
 .container {
   margin: 10px;
 }
+
 .leaflet-container .leaflet-control-attribution,
 .leaflet-container .leaflet-control-scal {
   display: none;
 }
+
 .slogan {
   color: #50802c;
   text-transform: uppercase;

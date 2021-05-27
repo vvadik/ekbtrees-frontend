@@ -5,8 +5,13 @@ import Footer from '../Footer';
 import './App.css';
 
 export default class App extends Component {
+    componentDidMount() {
+        if (document.querySelector(".page").clientHeight < document.documentElement.clientHeight) {
+            document.querySelector(".page").style.height = document.documentElement.clientHeight + "px";
+        }
+    }
     render() {
-        return (
+        return ( 
         <div className = "page" >
             <Header />
             <Main />

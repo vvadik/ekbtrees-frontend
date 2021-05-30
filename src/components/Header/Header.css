@@ -9,6 +9,13 @@
     flex-shrink: 0;
 }
 
+.mobile-header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
 .topnav {
     background-color: #50802c;
     display: flex;
@@ -144,7 +151,7 @@
     }
     .menu a {
         font-size: 14px;
-    }  
+    }
 }
 @media screen and (min-width: 1200px){
     .sign-links{

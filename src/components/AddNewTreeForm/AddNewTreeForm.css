@@ -106,7 +106,7 @@
     }
 }
 
-@media screen and (min-width: 992px) and (max-width : 1199px) { 
+@media screen and (min-width: 992px) and (max-width : 1199px) {
     .add-tree-form-container {
         width: 75%;
         margin: 0 auto;
@@ -452,13 +452,18 @@
 }
 
 @media screen and  (max-width: 320px) {
+    .addTreeForm {
+        padding: 10px;
+    }
+
     .add-tree-form-container input{
-        text-align: right;
-        width: 35%;
-        margin: 1.7% 0% 1.7% 1.7%;
-        font-size: 50%;
-        padding: 1%;
+        text-align: left;
+        margin: 0;
+        width: 100%;
+        font-size: 16px;
+        padding: 5px;
         border: 1px solid rgba(0,0,0,0.5);
+        height: 35px;
    }
 
     .add-tree-form-container .metric {
@@ -470,37 +475,37 @@
    }
 
 
-    .add-tree-form-container span {
-        font-size: 50%;
-        width: 35%;
+    .addTreeFormMainTitle {
+        font-size: 18px;
+        width: 100%;
+        margin: 5px 0;
     }
 
     .add-tree-form-container select {
         text-align-last: right;
-        width: 35%;
-        margin: 1.7%;
-        font-size: 50%;
-        padding: 1%;
+        width: 100%;
+        font-size: 16px;
+        padding: 5px;
         border: 1px solid rgba(0,0,0,0.5);
+        height: 35px;
     }
 
     .add-tree-form-container .main {
-        width:220px;
         border-radius: 1.7%;
         background-color: #F3F6FA;
-        margin: 0 auto;
-        padding: 2%;
         flex-wrap: wrap;
+        padding: 20px 15px 20px 15px;
     }
 
     .add-tree-form-container .identifier {
         border: 1px solid #666;
         background-color: #d4d4d4;
-        width: 35%;
-        margin: 1.7%;
-        font-size: 50%;
-        padding: 1%;
-        text-align:right;
+        width: 100%;
+        font-size: 15px;
+        padding: 5px;
+        text-align: left;
+        height: 35px;
+        line-height: 24px;
     }
 
     .add-tree-form-container .block {
@@ -510,19 +515,17 @@
     .add-tree-form-container .center.p {
         margin:1%;
         color: rgba(0,0,0,0.5);
-        font-size: 75%;
+        font-size: 14px;
     }
 
     .add-tree-form-container .center.h3 {
         margin:1%;
         color: rgba(0,0,0,0.8);
-        font-size: 100%;
     }
 
     .add-tree-form-container .center.h4 {
         margin:1%;
-        font-size: 75%
-    }   
+    }
 }
 
 .add-tree-form-container input[type=file] {

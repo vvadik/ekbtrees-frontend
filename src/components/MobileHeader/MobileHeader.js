@@ -23,7 +23,7 @@ export class MobileHeader extends Component {
 		const {open} = this.state;
 		return open
 			? <div className="menuWrapper" ref={this.handleRef}>
-				<Menu />
+				<Menu onClick={this.handleClick} />
 			</div>
 			: null;
 	}

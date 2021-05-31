@@ -11,7 +11,7 @@ export default class Home extends Component {
         <div className="map-container">
           <div className="map">
             <MapContain url="Park.geojson" />
-            <MapButton name="Вход" link='/' />
+            <MapButton name="Вход" link='/login' />
           </div>
         </div>
       </section>
@@ -41,7 +41,7 @@ export default class Home extends Component {
               <div className="map-container">
                 <div className="map">
                   <MapContain url="Park.geojson" />
-                  <MapButton name="Вход" link='/' />
+                  <MapButton name="Вход" link='/login' />
                 </div>
               </div>
             </div>

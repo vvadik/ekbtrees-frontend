@@ -1,616 +1,191 @@
-.add-tree-form-container span {
-    font-size: 100%;
-    color: #4b4b4b;
-    display: inline-block;
+.addTreeForm {
+    margin: 20px 0;
 }
 
-@media screen and (min-width: 1200px) {
-    .add-tree-form-container {
-        width: 80%;
-        margin: 0 auto;
-    }
-
-    .add-tree-form-container input{
-        text-align: right;
-        width: 21%;
-        margin: 1.7% 0% 1.7% 1.7%;
-        font-size: 100%;
-        padding: 1%;
-        border: 1px solid rgba(0,0,0,0.5);
-    }
-
-    .add-tree-form-container .metric {
-        font-size: 100%;
-    }
-
-    .add-tree-form-container .metric.margin {
-        margin-right: 2%;
-    }
-
-    .add-tree-form-container .metric.margincm {
-        margin-right: 1%;
-    }
-
-    .add-tree-form-container input[type=text]{
-        width: 70.6%;
-    }
-
-    .add-tree-form-container input[type=email]{
-        width: 70.6%;
-    }
-
-    .add-tree-form-container input[type=datetime-local]{
-        margin-right: 2%;
-    }
-
-    .add-tree-form-container span {
-        width: 20%;
-    }
-
-    .add-tree-form-container input[type=number]::-webkit-inner-spin-button{
-        -webkit-appearance: none;
-    }
-
-    .add-tree-form-container select {
-        font-size: 100%;
-        width: 70.6%;
-        padding: 1%;
-        text-align-last: right;
-        margin: 1.7%;
-        border: 1px solid rgba(0,0,0,0.5);
-    }
-
-
-    .add-tree-form-container .main {
-        width:1150px;
-        border-radius: 1.7%;
-        background-color: white;
-        margin: 0 auto;
-        padding: 2%;
-        flex-wrap: wrap;
-    }
-
-
-    .add-tree-form-container select.status {
-        width: 21%;
-        margin: 1.7%;
-        font-size: 100%;
-        padding: 1%;
-    }
-
-    .add-tree-form-container .identifier {
-        border: 1px solid #666;
-        background-color: #d4d4d4;
-        width: 21%;
-        margin: 1.7%;
-        font-size: 100%;
-        padding: 1%;
-        text-align:right;
-    }
-
-    .add-tree-form-container .center.p {
-        margin:1%;
-        color: rgba(0,0,0,0.5);
-        font-size: 125%;
-    }
-
-    .add-tree-form-container .center.h3 {
-        margin:1%;
-        color: rgba(0,0,0,0.8);
-        font-size: 175%;
-    }
-
-    .add-tree-form-container .center.h4 {
-        margin:1%;
-        font-size: 125%
-    }
+.addTreeFormContainer {
+    padding: 0 9px;
 }
 
-@media screen and (min-width: 992px) and (max-width : 1199px) {
-    .add-tree-form-container {
-        width: 75%;
-        margin: 0 auto;
-    }
-
-    .add-tree-form-container input{
-        text-align: right;
-        width: 20%;
-        margin: 1.7% 0% 1.7% 1.7%;
-        font-size: 100%;
-        padding: 1%;
-        border: 1px solid rgba(0,0,0,0.5);
-    }
-
-    .add-tree-form-container .metric {
-        font-size: 100%;
-    }
-
-    .add-tree-form-container .metric.margin {
-        margin-right: 3%;
-    }
-
-    .add-tree-form-container .metric.margincm {
-        margin-right: 1.5%;
-    }
-
-    .add-tree-form-container input[type=text]{
-        width: 70.6%;
-    }
-
-    .add-tree-form-container input[type=email]{
-        width: 70.6%;
-    }
-
-    .add-tree-form-container input[type=datetime-local]{
-        margin-right: 3%;
-    }
-
-    .add-tree-form-container span {
-        width: 21%;
-    }
-
-    .add-tree-form-container select {
-        font-size: 100%;
-        width: 70.6%;
-        padding: 1%;
-        text-align-last: right;
-        margin: 1.7%;
-        border: 1px solid rgba(0,0,0,0.5);
-    }
-
-    .add-tree-form-container input[type=number]::-webkit-inner-spin-button{
-        -webkit-appearance: none;
-    }
-
-    .add-tree-form-container .main {
-        width:850px;
-        border-radius: 5.7px;
-        background-color: white;
-        margin: 0 auto;
-        padding-left: 4%;
-        flex-wrap: wrap;
-    }
-
-    .add-tree-form-container select.status {
-        width: 21%;
-        margin: 1.7%;
-        font-size: 100%;
-        padding: 1%;
-    }
-
-    .add-tree-form-container .identifier {
-        border: 1px solid #666;
-        background-color: #d4d4d4;
-        width: 20%;
-        margin: 1.7% 3% 1.7% 1.7%;
-        font-size: 100%;
-        padding: 1%;
-        text-align:right;
-    }
-
-    .add-tree-form-container .center.p {
-        margin:1%;
-        color: rgba(0,0,0,0.5);
-        font-size: 125%;
-    }
-
-    .add-tree-form-container .center.h3 {
-        margin:1%;
-        color: rgba(0,0,0,0.8);
-        font-size: 175%;
-    }
-
-    .add-tree-form-container .center.h4 {
-        margin:1%;
-        font-size: 125%
-    }
+.addTreeFormTitle,
+.addTreeSubTitle,
+.addTreeFormBlockTitle {
+    margin-top: 5px;
+    text-align: center;
 }
 
-@media screen and (min-width: 614px) and (max-width: 991px) {
-    .add-tree-form-container input{
-        text-align: right;
-        width: 17%;
-        margin: 1.7% 0% 1.7% 1.7%;
-        font-size: 100%;
-        padding: 1%;
-        border: 1px solid rgba(0,0,0,0.5);
-    }
-
-    .add-tree-form-container .metric {
-        font-size: 100%;
-    }
-
-
-    .add-tree-form-container .metric.margin {
-        margin-right: 4%;
-    }
-
-    .add-tree-form-container .metric.margincm {
-        margin-right: 2%;
-    }
-
-    .add-tree-form-container input[type=number]::-webkit-inner-spin-button{
-        -webkit-appearance: none;
-    }
-
-    .add-tree-form-container input[type=text]{
-        width: 70.6%;
-    }
-
-    .add-tree-form-container input[type=email]{
-        width: 70.6%;
-    }
-
-    .add-tree-form-container input[type=datetime-local]{
-        margin-right: 4%;
-    }
-
-    .add-tree-form-container span {
-        width: 23%;
-        word-wrap: break-word;
-    }
-
-    .add-tree-form-container select {
-        font-size: 100%;
-        width: 70.6%;
-        padding: 1%;
-        text-align-last: right;
-        margin: 1.7%;
-        border: 1px solid rgba(0,0,0,0.5);
-    }
-
-    .add-tree-form-container .main {
-        width: 700px;
-        border-radius: 1.7%;
-        background-color: white;
-        margin: 0 auto;
-        padding: 3%;
-        flex-wrap: wrap;
-    }
-
-    .add-tree-form-container select.status {
-        width: 17%;
-        margin: 1.7%;
-        font-size: 100%;
-        padding: 1%;
-    }
-
-    .add-tree-form-container .identifier {
-        border: 1px solid #666;
-        background-color: #d4d4d4;
-        width: 17%;
-        margin: 1.7% 4% 1.7% 1.7%;
-        font-size: 100%;
-        padding: 1%;
-        text-align:right;
-    }
-
-    .add-tree-form-container .center.p {
-        margin:1%;
-        color: rgba(0,0,0,0.5);
-        font-size: 125%;
-    }
-
-    .add-tree-form-container .center.h3 {
-        margin:1%;
-        color: rgba(0,0,0,0.8);
-        font-size: 175%;
-    }
-
-    .add-tree-form-container .center.h4{
-        margin:1%;
-        font-size: 125%
-    }
+.addTreeFormBlockTitle {
+    margin-bottom: 5px;
 }
 
-@media screen and (min-width: 481px) and (max-width: 613px) {
-    .add-tree-form-container input{
-        text-align: right;
-        width: 62%;
-        margin: 1.7% 0% 1.7% 1.7%;
-        font-size: 100%;
-        padding: 1%;
-        border: 1px solid rgba(0,0,0,0.5);
-    }
-
-    .add-tree-form-container .metric {
-        font-size: 100%;
-    }
-
-    .add-tree-form-container input[type=number]::-webkit-inner-spin-button{
-        -webkit-appearance: none;
-    }
-
-    .add-tree-form-container span {
-        width: 25%;
-        word-wrap: break-word;
-    }
-
-    .add-tree-form-container select {
-        font-size: 100%;
-        width: 62%;
-        padding: 1%;
-        text-align-last: right;
-        margin: 1.7%;
-        border: 1px solid rgba(0,0,0,0.5);
-    }
-
-    .add-tree-form-container .main {
-        width: 430px;
-        border-radius: 1.7%;
-        background-color: #F3F6FA;
-        margin: 0 auto;
-        padding: 5%;
-        flex-wrap: wrap;
-    }
-
-    .add-tree-form-container .identifier {
-        border: 1px solid #666;
-        background-color: #d4d4d4;
-        width: 62%;
-        margin: 1.7%;
-        font-size: 100%;
-        padding: 1%;
-        text-align:right;
-    }
-
-    .add-tree-form-container .center.p {
-        margin:1%;
-        color: rgba(0,0,0,0.5);
-        font-size: 125%;
-    }
-
-    .add-tree-form-container .block {
-        display: block;
-    }
-
-    .add-tree-form-container .center.h3 {
-        margin:1%;
-        color: rgba(0,0,0,0.8);
-        font-size: 175%;
-    }
-
-    .add-tree-form-container .center.h4 {
-        margin:1%;
-        font-size: 125%
-    }
+.addTreeFormBlock {
+    background-color: #F3F6FA;
+    border-radius: 10px;
+    padding: 15px 15px 20px 15px;
+    margin-bottom: 15px;
 }
 
-@media screen and (min-width: 321px) and (max-width: 480px) {
-    .add-tree-form-container input{
-        text-align: right;
-        width: 55%;
-        margin: 1.7% 0% 1.7% 1.7%;
-        font-size: 50%;
-        padding: 1%;
-        border: 1px solid rgba(0,0,0,0.5);
-    }
-
-    .add-tree-form-container .metric {
-        font-size: 50%;
-    }
-
-    .add-tree-form-container input[type=number]::-webkit-inner-spin-button{
-        -webkit-appearance: none;
-    }
-
-    .add-tree-form-container span {
-        font-size: 50%;
-        width: 25%;
-        word-wrap: break-word;
-    }
-
-    .add-tree-form-container select {
-        text-align-last: right;
-        width: 55%;
-        margin: 1.7%;
-        font-size: 50%;
-        padding: 1%;
-        border: 1px solid rgba(0,0,0,0.5);
-    }
-
-    .add-tree-form-container .main {
-        width:300px;
-        border-radius: 1.7%;
-        background-color: #F3F6FA;
-        margin: 0 auto;
-        padding: 2%;
-        flex-wrap: wrap;
-    }
-
-    .add-tree-form-container .identifier {
-        border: 1px solid #666;
-        background-color: #d4d4d4;
-        width: 55%;
-        margin: 1.7%;
-        font-size: 50%;
-        padding: 1%;
-        text-align:right;
-    }
-
-    .add-tree-form-container .center.p {
-        margin:1%;
-        color: rgba(0,0,0,0.5);
-        font-size: 75%;
-        word-wrap: normal;
-    }
-
-    .add-tree-form-container .center.h3 {
-        margin:1%;
-        color: rgba(0,0,0,0.8);
-        font-size: 100%;
-    }
-
-    .add-tree-form-container .center.h4 {
-        margin:1%;
-        font-size: 75%
-    }
-
-    .add-tree-form-container .block {
-        display: block;
-    }
+.addTreeFormBlockPrefix {
+    display: block;
+    font-size: 16px;
+    width: 100%;
+    margin: 5px 0;
 }
 
-@media screen and  (max-width: 320px) {
-    .addTreeForm {
-        padding: 10px;
-    }
-
-    .add-tree-form-container input{
-        text-align: left;
-        margin: 0;
-        width: 100%;
-        font-size: 16px;
-        padding: 5px;
-        border: 1px solid rgba(0,0,0,0.5);
-        height: 35px;
-   }
-
-    .add-tree-form-container .metric {
-        font-size: 50%;
-    }
-
-    .add-tree-form-container input[type=number]::-webkit-inner-spin-button{
-    -webkit-appearance: none;
-   }
-
-
-    .addTreeFormMainTitle {
-        font-size: 18px;
-        width: 100%;
-        margin: 5px 0;
-    }
-
-    .add-tree-form-container select {
-        text-align-last: right;
-        width: 100%;
-        font-size: 16px;
-        padding: 5px;
-        border: 1px solid rgba(0,0,0,0.5);
-        height: 35px;
-    }
-
-    .add-tree-form-container .main {
-        border-radius: 1.7%;
-        background-color: #F3F6FA;
-        flex-wrap: wrap;
-        padding: 20px 15px 20px 15px;
-    }
-
-    .add-tree-form-container .identifier {
-        border: 1px solid #666;
-        background-color: #d4d4d4;
-        width: 100%;
-        font-size: 15px;
-        padding: 5px;
-        text-align: left;
-        height: 35px;
-        line-height: 24px;
-    }
-
-    .add-tree-form-container .block {
-        display: block;
-    }
-
-    .add-tree-form-container .center.p {
-        margin:1%;
-        color: rgba(0,0,0,0.5);
-        font-size: 14px;
-    }
-
-    .add-tree-form-container .center.h3 {
-        margin:1%;
-        color: rgba(0,0,0,0.8);
-    }
-
-    .add-tree-form-container .center.h4 {
-        margin:1%;
-    }
+.addTreeFormBlockValue {
+    text-align: left;
+    margin: 0;
+    width: 100%;
+    font-size: 16px;
+    padding: 5px;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    height: 35px;
 }
 
-.add-tree-form-container input[type=file] {
-    width: 20%;
-    margin: 0px;
-    padding: 0px;
-    color: #3388ff;
-    border:1px solid #3388ff;
-    border-radius: 5.7px;
+.addTreeFormBlockSelect {
+    text-align-last: left;
+    width: 100%;
+    font-size: 16px;
+    padding: 5px;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    height: 35px;
 }
 
-.add-tree-form-container input[type=submit]{
+.addTreeFormBlockSelectOption {
+    text-align: left;
+}
+
+.addTreeFormBlockFileItem {
+    width: 100%;
+    border: 0;
+    margin: 0;
+    padding: 0;
+}
+
+.addTreeFormButton {
     color: white;
     background-color: #4eb543;
     border-color: #4eb543;
     text-align: center;
-    padding: 2%;
     width: 50%;
     opacity: 0.6;
+    height: 35px;
 }
 
-.add-tree-form-container input[type=submit]:hover{
-    opacity: 0.8;    ;
-}
-
-.add-tree-form-container input[type=submit]:active{
-    opacity: 1;
-}
-
-.add-tree-form-container .center {
-    text-align: center;
-}
-
-.add-tree-form-container .submit {
-    text-align: center;
-    padding: 0px 5% 5%;
-}
-
-.add-tree-form-container .input__file {
-    width: 20%;
-    visibility: hidden;
-    position: absolute;
-}
-
-.add-tree-form-container .input-wrapper {
-    position:sticky;
-}
-
-.add-tree-form-container .fileform {
-    cursor: pointer;
-    position: relative;
-    height: 20vh;
-    padding: 0.1%;
-    text-align: left;
-    width: 20%;
-}
-
-.add-tree-form-container .fileform.selectbutton {
-    color: #3388ff;
-    border:1px solid #3388ff;
-    border-radius: 2.8px;
-    left: 10%;
-    font-size: 100%;
-    padding: 0.05% 0.15%;
-    text-align: center;
-    width: 20%;
-    position: absolute;
-}
-
-.add-tree-form-container .fileform.upload{
-    position: absolute;
+.geopositionWrapper {
     width: 100%;
-    filter: alpha(opacity=0);
-    opacity: 0;
+    line-height: 21px;
 }
 
-.add-tree-form-container .fileform.fileformlabel {
-    float: left;
-    border: 1px solid #000000;
-    height: 2%;
-    font-size: 100%;
-    position: absolute;
-    padding: 0.05% 0.15%;
-    text-align: left;
-    width: 50%;
+.geopositionItem {
+    width: 100%;
+    display: block;
+}
+
+@media screen and (min-width: 550px) {
+    .addTreeFormBlockWrapper {
+        position: relative;
+        margin-top: 20px;
+    }
+
+    .addTreeFormBlockWrapper:first-child {
+        margin-top: 0;
+    }
+
+    .addTreeFormWrapperFlex {
+        margin-top: 20px;
+    }
+
+    .addTreeFormBlockPrefix {
+        display: inline-block;
+        width: 30%;
+    }
+
+    .addTreeFormBlockValue,
+    .addTreeFormBlockSelect {
+        position: absolute;
+        width: 68%;
+        top: 0;
+        right: 0;
+    }
+
+    .geopositionWrapper {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 68%;
+        display: inline-block;
+    }
+
+    .geopositionItem {
+        width: 50%;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .addTreeFormTitle {
+        font-size: 25px;
+    }
+
+    .addTreeFormBlockTitle {
+        font-size: 20px;
+    }
+
+    .addTreeSubTitle {
+        color: #4b4b4b;
+    }
+
+    .addTreeForm {
+        max-width: 1150px;
+        width: 100%;
+        margin: 20px auto 20px auto;
+    }
+
+    .addTreeFormWrapperFlex {
+        margin-top: 0;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    .addTreeFormBlock {
+        background-color: #fff;
+        padding: 25px 30px 30px 30px;
+    }
+
+    .addTreeFormBlockPrefix {
+        color: #4b4b4b;
+        max-width: 215px;
+        width: 100%;
+    }
+
+    .addTreeFormBlockWrapperDesktop {
+        width: 49%;
+    }
+
+    .addTreeFormBlockWrapperDesktop:first-child {
+        margin-top: 20px;
+    }
+
+    .addTreeFormBlockWrapperDesktop:nth-child(2n) {
+        margin-left: 2%;
+    }
+
+    .addTreeFormBlockSelect, .addTreeFormBlockValue {
+        position: static;
+        width: 77.5%;
+    }
+
+    .addTreeFormBlockWrapperDesktop .addTreeFormBlockValue {
+        width: 54%;
+    }
+
+    .geopositionWrapper {
+        position: static;
+    }
+
+    .addTreeFormBlockWrapper {
+        display: flex;
+    }
 }
 
 

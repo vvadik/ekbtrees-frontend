@@ -15,7 +15,7 @@ export const TreeForm = ({activeTree }) => {
                         <div>
                             <span> Порода </span>
                             <label>
-                                <input type="text" disabled value = {activeTree.type}/>
+                                <input type="text" disabled value = {activeTree.species.title}/>
                             </label>
                         </div>
                         <div>

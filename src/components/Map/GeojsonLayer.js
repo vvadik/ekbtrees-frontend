@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Circle, useMapEvents } from 'react-leaflet';
 import MarkerClusterGroup from "react-leaflet-markercluster";
-import { getCircleOptions, getCircleRadius, fetchData } from "./MapHelpers";
+import { getCircleOptions, getCircleRadius } from "./MapHelpers";
 import { TreeForm } from "../MarkerForm/TreeForm";
 import { NewTreeMarker } from "../NewTreeMarker/NewTreeMarker";
 import { MapSate } from "./MapState";
 import { useHistory } from "react-router-dom";
-import { getTreeMapInfoUrl, getTreeDataUrl } from './DataLoadHelper';
+import { getTreeMapInfoUrl, getTreeDataUrl, fetchData } from '../ApiDataLoadHelper/DataLoadHelper';
+import MapButton from '../MapButton';
 import "./GeojsonLayer.css";
 
 const GeojsonLayer = ({mapState, setMapState}) => {
@@ -60,6 +61,7 @@ const GeojsonLayer = ({mapState, setMapState}) => {
         <div className= {activeTreeId ? "tree-form-container active" : "tree-form-container"} onClick={() => setActiveTreeId(null)}>
             <TreeForm activeTree = {activeTreeData}/>
         </div>
+        <MapButton mapState={ mapState } setMapState={ setMapState } />
         </>
     );
 }
@@ -68,13 +70,12 @@ function getMarkerClusterGroup(state, data, setActiveTree) {
     return (
         <MarkerClusterGroup disableClusteringAtZoom = {19}>
             {data
-                //.filter(feaure => feaure.geometry.type === "Point" && feaure.properties.ekbtree)
                 .map((f, idx) => (
                     <Circle
                         eventHandlers={{ click: () => state === MapSate.default && setActiveTree(f.id) }}
                         key={idx}
                         center={[f.geographicalPoint.latitude, f.geographicalPoint.longitude]}
-                        pathOptions={getCircleOptions(f.type)}
+                        pathOptions={getCircleOptions(f.species.title)}
                         radius={getCircleRadius(f.diameterOfCrown ?? 0)}
                         weight={1}
                     >

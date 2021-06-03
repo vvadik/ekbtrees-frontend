@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import MapContain from '../Map/MapContain';
-import MapButton from '../MapButton';
 import './Home.css';
 
 export default class Home extends Component {
@@ -10,8 +9,7 @@ export default class Home extends Component {
       <section className="container-2 mobile">
         <div className="map-container">
           <div className="map">
-            <MapContain url="Park.geojson" />
-            <MapButton name="Вход" link='/login' />
+            <MapContain />
           </div>
         </div>
       </section>
@@ -40,8 +38,7 @@ export default class Home extends Component {
             <div className="container-2">
               <div className="map-container">
                 <div className="map">
-                  <MapContain url="Park.geojson" />
-                  <MapButton name="Вход" link='/login' />
+                  <MapContain/>
                 </div>
               </div>
             </div>

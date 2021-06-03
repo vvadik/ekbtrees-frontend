@@ -3,7 +3,6 @@ import { MapContainer, TileLayer } from "react-leaflet";
 import { useState } from "react";
 import GeojsonLayer from "./GeojsonLayer";
 import { MapSate } from "./MapState";
-import { AddTreeButton } from "./../AddTreeButton/AddTreeButton";
 import "./Map.css";
 
 const MapContain = () => {
@@ -25,7 +24,6 @@ const MapContain = () => {
           />
           <GeojsonLayer mapState={ mapState } setMapState={ setMapState }/>
         </MapContainer>
-        <AddTreeButton mapState={ mapState } setMapState={ setMapState }/>
       </div>
     </React.Fragment>
   );

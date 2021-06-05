@@ -9,8 +9,7 @@ const colors = {
 
 export const fetchData = (url, options) => {
     return fetch(url, options)
-        .then(r => r.json())
-        .then(data => data.features);
+        .then(r => r.json());
 }
 
 export const getColorByTreeName = (name = "default") => {

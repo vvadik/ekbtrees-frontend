@@ -3,14 +3,11 @@ import { MapContainer, TileLayer } from "react-leaflet";
 import { useState } from "react";
 import GeojsonLayer from "./GeojsonLayer";
 import { MapSate } from "./MapState";
-import { AddTreeButton } from "./../AddTreeButton/AddTreeButton";
 import "./Map.css";
 
 const MapContain = () => {
-  const baseUrl = "https://ekb-trees-help.ru/api/"
   const defaultPosition = [56.8391040, 60.6082500]; // Yekaterinburg position
   const [mapState , setMapState] = useState(MapSate.default);
-  const url = baseUrl + "tree-map-info/get-in-region?x1=56&y1=60&x2=57&y2=61";
 
   return (
     <React.Fragment>
@@ -25,9 +22,8 @@ const MapContain = () => {
             zoomOffset={-1}
             maxZoom={21}
           />
-          <GeojsonLayer mapState={ mapState } setMapState={ setMapState } url={ url }/>
+          <GeojsonLayer mapState={ mapState } setMapState={ setMapState }/>
         </MapContainer>
-        <AddTreeButton mapState={ mapState } setMapState={ setMapState }/>
       </div>
     </React.Fragment>
   );

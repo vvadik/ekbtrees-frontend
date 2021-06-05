@@ -1,4 +1,4 @@
-.log-in-map {
+.map-button {
     height: 40px;
     position: fixed;
     z-index: 999;
@@ -21,8 +21,16 @@
     font-size: 30px;
 }
 
+.map-button:hover{
+    background-color: #6bc22a;
+}
+
+.map-button:disabled{
+    background-color: #b9c5b0;
+}
+
 @media screen and (min-width: 768px) {
-    .log-in-map {
+    .map-button {
         top: 180px;
         position: absolute;
         z-index: 999;

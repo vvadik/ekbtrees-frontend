@@ -10,7 +10,7 @@
         margin: 0 auto;
     }
 
-    .add-tree-form-container input{
+    .add-tree-form-container input {
         text-align: right;
         width: 21%;
         margin: 1.7% 0% 1.7% 1.7%;
@@ -534,31 +534,53 @@
     border-radius: 5.7px;
 }
 
-.add-tree-form-container input[type=submit]{
+.add-tree-form-container input[type=submit] {
+    background-color: #50802c;
+}
+
+.add-tree-form-container input[type=button] {
+    background-color: #757575;
+}
+
+.add-tree-form-container input[type=submit], .add-tree-form-container input[type=button] {
     color: white;
-    background-color: #4eb543;
-    border-color: #4eb543;
+    border: none;
     text-align: center;
     padding: 2%;
     width: 50%;
-    opacity: 0.6;
 }
 
-.add-tree-form-container input[type=submit]:hover{
-    opacity: 0.8;    ;
+.add-tree-form-container input[type=submit]:hover, .add-tree-form-container input[type=button]:hover {
+    opacity: 0.8;
+}
+
+.add-tree-form-container input[type=submit]:disabled {
+    opacity: 0.5;
 }
 
 .add-tree-form-container input[type=submit]:active{
     opacity: 1;
 }
 
+.add-tree-form-container button {
+    color: white;
+    background-color: #50802c;
+    border: none;
+    text-align: center;
+    padding: 2%;
+    width: 50%;
+}
+
 .add-tree-form-container .center {
     text-align: center;
 }
 
-.add-tree-form-container .submit {
+.add-tree-form-container .submit, .add-tree-form-container .cencel-button {
     text-align: center;
-    padding: 0px 5% 5%;
+}
+
+.add-tree-form-container .submit:hover {
+    text-align: center;
 }
 
 .add-tree-form-container .input__file {

@@ -24,7 +24,7 @@ export class MobileHeader extends Component {
 		const {open} = this.state;
 		return open
 			? <div ref={this.handleRef}>
-				<Menu onClick={this.handleClick} />
+				<Menu onClick={this.handleClick} info = {this.props.info} />
 			</div>
 			: null;
 	}

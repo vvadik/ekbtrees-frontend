@@ -4,33 +4,38 @@ import styles from  './Menu.module.css';
 
 export default class Menu extends Component {
     renderLinks () {
+        const {info} = this.props;
         const links = [{
             activeClassName: styles.active,
             exact: true,
             onClick: this.props.onClick,
             title: 'Карта',
-            to: '/map'
+            to: '/map',
+            className: styles.visibleMenuLink
         },
         {
             activeClassName: styles.active,
             exact: true,
             onClick: this.props.onClick,
             title: 'Список деревьев',
-            to: '/trees'
+            to: '/trees',
+            className: info.role !== "admin" ? styles.invisibleMenuLink : styles.visibleMenuLink
         },
         {
             activeClassName: styles.active,
             exact: true,
             onClick: this.props.onClick,
             title: 'Список пользователей',
-            to: '/users'
+            to: '/users',
+            className: info.role !== "admin" ? styles.invisibleMenuLink : styles.visibleMenuLink
         },
         {
             activeClassName: styles.active,
             exact: true,
             onClick: this.props.onClick,
             title: 'О нас',
-            to: '/aboutUs'
+            to: '/aboutUs',
+            className: styles.visibleMenuLink
         }]
 
         return links.map(link => {
@@ -40,6 +45,8 @@ export default class Menu extends Component {
                     to={link.to}
                     activeClassName={link.activeClassName}
                     onClick={link.onClick}
+                    hidden={link.hidden}
+                    className={link.className}
                 >
                     {link.title}
                 </NavLink>
@@ -51,8 +58,8 @@ export default class Menu extends Component {
         return (
             <div id="navBar" className={styles.navBar}>
                 {this.renderLinks()}
-                <a href="#!">Контакты</a>
-                <a href="#!">Помощь</a>
+                <a href="#!" className={styles.visibleMenuLink}>Контакты</a>
+                <a href="#!" className={styles.visibleMenuLink} >Помощь</a>
             </div>
         )
     }

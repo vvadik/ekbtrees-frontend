@@ -82,10 +82,10 @@ export default class RegistrationForm extends Component {
                         <p className={styles.loginMessage}>или зарегистрируйтесь с</p>
                         <div className={styles.flexSocial}>
                             <div className={styles.social}>
-                                <a href="#!" target="_blank"><img src={vkIcon} alt="google-link" /></a>
+                                <NavLink to="/vk"><img src={vkIcon} alt="google-link" /></NavLink>
                             </div>
                             <div className={styles.social}>
-                                <a href="#!" target="_blank"><img src={facebookIcon} alt="facebook-link" /></a>
+                                <NavLink to="/fb"><img src={facebookIcon} alt="facebook-link" /></NavLink>
                             </div>
                         </div>
                         <p className={styles.privacyTerms}>© 2020 — 2021 Privacy-Terms</p>

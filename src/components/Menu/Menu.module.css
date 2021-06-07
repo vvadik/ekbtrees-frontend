@@ -2,7 +2,7 @@
     background: #333333;
 }
 
-.navBar a{
+.visibleMenuLink{
     color: white;
     display: block;
     padding: 20px 20px;
@@ -16,7 +16,11 @@
     color: #fb8f07;
 }
 
-.navBar a:hover{
+.visibleMenuLink:hover{
     background: white;
     color: #333333;
+}
+
+.invisibleMenuLink {
+    display: none;
 }

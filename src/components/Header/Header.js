@@ -5,10 +5,11 @@ import styles from './Header.module.css';
 
 export default class Header extends Component {
     render() {
+        const {onCookieRemove} = this.props;
         return (
             <header className={styles.headerWrapper}>
-                <MobileHeader />
-                <DesktopHeader />
+                <MobileHeader info = {this.props.info}/>
+                <DesktopHeader onCookieRemove={onCookieRemove} info = {this.props.info}/>
             </header>
         )
     }

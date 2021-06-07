@@ -6,8 +6,6 @@ import cn from 'classnames';
 
 export default class UserInfo extends Component {
     state = {
-        name: "Антон",
-        role: "Волонтер",
         openMenu: false
     }
 
@@ -44,15 +42,15 @@ export default class UserInfo extends Component {
                 <div className={styles.userContainer}>
                     <div className={styles.user}>
                         <div>
-                            <span className={styles.userName}>{this.state.name}</span>
-                            <span className={styles.userRole}>{this.state.role}</span>
+                            <span className={styles.userName}>{this.props.info.firstName}</span>
+                            <span className={styles.userRole}>{this.props.info.role}</span>
                         </div>
                         <img src={Man} className={styles.userIcon} alt="profile-icon" />
                         {this.renderToggleButton()}
                     </div>
                     <div className={styles.userControls}>
                         <i className={cn([styles.faBell, "fa"])} aria-hidden="true" />
-                        <i className={cn([styles.faSignOut, "fa"])} aria-hidden="true" />
+                        <i className={cn([styles.faSignOut, "fa"])} aria-hidden="true" onClick={this.props.onCookieRemove} />
                     </div>
                 </div>
                 {this.renderMenu()}

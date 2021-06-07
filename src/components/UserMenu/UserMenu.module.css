@@ -1,6 +1,8 @@
 .userNavBar {
   width: 180px;
   position: absolute;
+  z-index: 1000;
+  right: 7%;
 }
 
 .userNavBar a{
@@ -34,6 +36,12 @@
 
 @media screen and (min-width: 768px) {
   .userNavBar {
-    left: 10%;
+    right: 7%;
   }
+}
+
+@media screen and (min-width: 820px) {
+  .userNavBar {
+    right: 13%;
   }
+}

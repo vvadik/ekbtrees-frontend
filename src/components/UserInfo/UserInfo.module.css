@@ -2,10 +2,10 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 10px 15px;
-    box-shadow: 0px 0px 15px -5px rgba(34, 60, 80, 0.57);
+    /* padding: 10px 15px; */
+    /* box-shadow: 0px 0px 15px -5px rgba(34, 60, 80, 0.57); */
     position: relative;
-    background-color: white;
+    /* background-color: white; */
 }
 .user{
     display: flex;
@@ -46,6 +46,13 @@
 .faSignOut{
     color: lightgrey;
     font-size: 20px;
+    cursor: pointer;
+    margin-left:10px;
+}
+.faChevronDown:hover,
+.faBell:hover,
+.faSignOut:hover{
+    color: #54ABFDFF;
 }
 
 .faChevronDownActive {
@@ -86,6 +93,6 @@
         margin: 0;
     }
     .userContainer{
-        margin: 0px 10%;
+        /*margin: 0px 10%;*/
     }
 }

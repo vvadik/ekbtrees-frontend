@@ -46,7 +46,7 @@ const GeojsonLayer = ({mapState, setMapState}) => {
                 alert("Возникла ошибка при загрузке информации о дереве");
                 console.log(err);
             })
-    });
+    }, [activeTreeId]);
 
     useEffect(() => {
         if (mapState == MapSate.addTreeSubmit) {

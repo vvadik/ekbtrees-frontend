@@ -14,10 +14,12 @@ import './Main.css';
 
 export default class Main extends Component {
   render() {
+    const {onCookie, info} = this.props;
     return (
       <main className="mainWrapper">
         <Switch>
-          <Route exact path='/login' component={LoginForm} />
+          <Route exact path='/login' 
+          render={props => <LoginForm {...props} handleCookie={onCookie}/>} />
           <Route exact path='/registration' component={RegistrationForm} />
           <Route exact path='/map'
             render={props => <Map {...props} />}
@@ -29,6 +31,12 @@ export default class Main extends Component {
           <Route exact path='/profileSettings' component={ProfileSettings} />
           <Route exact path='/passRecovery' component={PassRecovery} />
           <Route exact path='/aboutUs' component={AboutUs} />
+          <Route path='/vk' component={() => {
+                    window.location.href = 'https://ekb-trees-help.ru/auth/oauth2/vk'
+                }}/>
+          <Route path='/fb' component={() => {
+              window.location.href = 'https://ekb-trees-help.ru/auth/oauth2/fb'
+          }}/>
         </Switch>
       </main>
     )

@@ -35,7 +35,6 @@
     justify-content: space-between;
     align-items: center;
     padding: 0px 20px;
-    margin-bottom: 40px;
 }
 
 .logo h1 {
@@ -130,12 +129,6 @@
     .desktop-header {
         display: flex;
     }
-
-    .sign-links{
-        position: absolute;
-        right: 20px;
-        top: 65px;
-    }
     .menu{
         margin: 0;
         width: unset;
@@ -153,8 +146,4 @@
         font-size: 14px;
     }
 }
-@media screen and (min-width: 1200px){
-    .sign-links{
-        position: static;
-    }
-}
+

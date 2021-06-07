@@ -5,10 +5,16 @@ import UserMenu from '../UserMenu';
 
 export default class UserInfo extends Component {
     state = {
-        name: "Антон",
-        role: "Волонтер",
+        name: null,
+        role: null
     }
-
+    componentDidMount(){
+        const {info} = this.props;
+        this.setState({           
+            name: info.firstName,
+            role: info.role           
+        })
+    }
     handleClick() {
         const userNavBar = document.getElementById("userNavBar");
         const icon = document.querySelector(".fa-chevron-down");
@@ -18,7 +24,7 @@ export default class UserInfo extends Component {
 
     }
 
-    render() {
+    render() {        
         return (
             <div className="container">
                 <div className="user-container">
@@ -34,7 +40,7 @@ export default class UserInfo extends Component {
                     </div>
                     <div className="user-controls">
                         <i className="fa fa-bell" aria-hidden="true"></i>
-                        <i className="fa fa-sign-out" aria-hidden="true"></i>
+                        <i className="fa fa-sign-out" aria-hidden="true" onClick={this.props.onCookieRemove}></i>
                     </div>
                 </div>
                 <UserMenu />

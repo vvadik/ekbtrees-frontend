@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { NavLink, Link } from 'react-router-dom';
+import ReactDOM from 'react-dom';
+import { NavLink } from 'react-router-dom';
 import './Login-form.css';
 import FormHeader from '../AuthForm';
 import vkIcon from '../../img/vk.png';
@@ -12,7 +13,6 @@ export default class LoginForm extends Component {
         touchStart: null,
         logged: "not logged"
     }
-    
     handleTouch = (e) => {
         this.setState({
             touchStart: e.changedTouches[0].clientX
@@ -40,8 +40,14 @@ export default class LoginForm extends Component {
             <p>Пользователь с данным логином и паролем не найден.</p>             
         )
     }
+    async authVk(e){
+        e.preventDefault();
+        const response = await fetch('/auth/oauth2/vk');
+            console.log(response.body)
+            // ReactDOM.render(response, document.getElementById('root'))
+          
+    }
     render() {
-        const {handleCookie} = this.props;
         return (
             <div>
                 <FormHeader />
@@ -65,11 +71,10 @@ export default class LoginForm extends Component {
                         <p className="login-message">или войдите с</p>
                         <div className="flex-social">
                             <div className="social">
-                                {/* <NavLink to="/vk"><img src={vkIcon} alt="google-link"></img></NavLink> */}
-                                <Link to="#!" onClick={handleCookie}><img src={vkIcon} alt="google-link"></img></Link>
+                                <a href="#!" target="_blank" onClick={this.authVk}><img src={vkIcon} alt="google-link"></img></a>
                             </div>
                             <div className="social">
-                                <NavLink to="/fb"><img src={facebookIcon} alt="facebook-link"></img></NavLink>
+                                <a href="#!" target="_blank"><img src={facebookIcon} alt="facebook-link"></img></a>
                             </div>
                         </div>
                         <div className="flex-register">

@@ -1,5 +1,6 @@
-import React, { Component, Fragment } from 'react';
-import './ListOfTrees.css';
+import React, { Component } from 'react';
+import styles from './ListOfTrees.module.css';
+import cn from "classnames";
 
 export default class ListOfTrees extends Component {
   constructor(props) {
@@ -36,29 +37,29 @@ export default class ListOfTrees extends Component {
 
     getTree = (tree, index) => {
         return (
-            <div className="treeTableItemWrapper" key={index} onClick={this.openWindow.bind(this)}>
-                <div className="treeTableItem treeTableItemImg">
-                    <img src={tree.image} alt='tree' className='tableImg' />
+            <div className={styles.treeTableItemWrapper} key={index} onClick={this.openWindow.bind(this)}>
+                <div className={cn([styles.treeTableItem, styles.treeTableItemImg])}>
+                    <img src={tree.image} alt='tree' className={styles.tableImg} />
                 </div>
-                <div className="treeTableItem">
-                    <span className="treeTablePrefix">Порода: </span>
+                <div className={styles.treeTableItem}>
+                    <span className={styles.treeTablePrefix}>Порода: </span>
                     <label htmlFor={index}>{tree.name}</label>
                 </div>
-                <div className="treeTableItem">
-                    <span className="treeTablePrefix">Возраст: </span>
+                <div className={styles.treeTableItem}>
+                    <span className={styles.treeTablePrefix}>Возраст: </span>
                     {tree.age} лет
                 </div>
-                <div className="treeTableItem">
-                    <span className="treeTablePrefix">Высота: </span>
+                <div className={styles.treeTableItem}>
+                    <span className={styles.treeTablePrefix}>Высота: </span>
                     {tree.height} метров
                 </div>
-                <div className="treeTableItem">
-                    <span className="treeTablePrefix">Дата добавления: </span>
+                <div className={styles.treeTableItem}>
+                    <span className={styles.treeTablePrefix}>Дата добавления: </span>
                     {tree.date}
                 </div>
-                <div className="treeTableItem treeTablePencil">
-                    <button className="treTableEditButton">Редактировать</button>
-                    <i className="fa fa-pencil" aria-hidden="true" />
+                <div className={cn([styles.treeTableItem, styles.treeTablePencil])}>
+                    <button className={styles.treTableEditButton}>Редактировать</button>
+                    <i className={cn([styles.faPencil, "fa", "fa-pencil"])} aria-hidden="true" />
                 </div>
             </div>
         )
@@ -86,16 +87,17 @@ export default class ListOfTrees extends Component {
 
   renderButtonsByNumbers () {
     return this.getPageNumbers().map(number => {
-      const className = number === this.state.currentPage
-          ? "buttonNavigation activeNavigationButton"
-          : "buttonNavigation";
+        const classNameCN = cn({
+            [styles.buttonNavigation]: true,
+            [styles.activeNavigationButton]: number === this.state.currentPage
+        });
 
       return (
           <button
               key={number}
               onClick={this.handleClick}
               id={number}
-              className={className}>
+              className={classNameCN}>
             {number}
           </button>
       );
@@ -104,16 +106,16 @@ export default class ListOfTrees extends Component {
 
   renderTable () {
       return (
-          <div className="treeTable">
-              <div className="treeTableHeader">
-                  <p className="treeTableHeaderItem">Изображение</p>
-                  <p className="treeTableHeaderItem">Порода</p>
-                  <p className="treeTableHeaderItem">Возраст</p>
-                  <p className="treeTableHeaderItem">Высота</p>
-                  <p className="treeTableHeaderItem">Дата добавления</p>
-                  <p className="treeTableHeaderItem">Действия</p>
+          <div className={styles.treeTable}>
+              <div className={styles.treeTableHeader}>
+                  <p className={styles.treeTableHeaderItem}>Изображение</p>
+                  <p className={styles.treeTableHeaderItem}>Порода</p>
+                  <p className={styles.treeTableHeaderItem}>Возраст</p>
+                  <p className={styles.treeTableHeaderItem}>Высота</p>
+                  <p className={styles.treeTableHeaderItem}>Дата добавления</p>
+                  <p className={styles.treeTableHeaderItem}>Действия</p>
               </div>
-              <div className="treeTableBody">
+              <div className={styles.treeTableBody}>
                   {this.renderTrees()}
               </div>
           </div>
@@ -123,13 +125,13 @@ export default class ListOfTrees extends Component {
   render() {
     return (
       <>
-        <div className="treeHeader">
+        <div className={styles.treeHeader}>
           <h3>Список деревьев</h3>
           <p>Нажмите, чтобы увидеть описание</p>
         </div>
           {this.renderTable()}
-        <div className="treeNavigation">
-          <div className="btn-group" role="group" aria-label="Basic example">
+        <div className={styles.treeNavigation}>
+          <div role="group" aria-label="Basic example">
             {this.renderButtonsByNumbers()}
           </div>
         </div>

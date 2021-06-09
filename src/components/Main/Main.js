@@ -10,18 +10,21 @@ import ProfileSettings from '../ProfileSettings';
 import PassRecovery from '../PassRecovery';
 import AboutUs from '../AboutUs';
 import AddNewTreeForm from '../AddNewTreeForm'
-import './Main.css';
+import styles from './Main.module.css';
 
+
+import MapPage from '../MapPage/MapPage';
 export default class Main extends Component {
   render() {
     return (
-      <main className="mainWrapper">
+      <main className={styles.mainWrapper}>
         <Switch>
           <Route exact path='/login' component={LoginForm} />
           <Route exact path='/registration' component={RegistrationForm} />
-          <Route exact path='/map'
+          {/* <Route exact path='/map'
             render={props => <Map {...props} />}
-          />
+          /> */}
+          <Route exact path='/map' component={MapPage} />
           <Route exact path='/addtree/:lat/:lng' component={AddNewTreeForm} />
           <Route exact path='/' component={Home} />
           <Route exact path='/trees' component={MyTrees} />

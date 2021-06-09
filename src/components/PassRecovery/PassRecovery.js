@@ -1,18 +1,19 @@
 import React, { Component, Fragment} from 'react';
-import './PassRecovery.css';
+import styles from './PassRecovery.module.css';
+import cn from "classnames";
 
 export default class PassRecovery extends Component{
     render(){
         return(
             <Fragment>
-                <h4 className="profile-heading">Восстановление пароля</h4>
-                <form className="recovery-form">
-                    <h4 className="recovery-heading">Забыли пароль?</h4>
-                    <p className="recovery-text">Пожалуйста, введите номер телефона или адрес электронной почты для восстановления пароля.</p>
-                    <label className="profile-flex recovery"><span>Телефон</span><input type="tel" className="profile-input recovery-input"></input></label>
-                    <p className="recovery-text">Или</p>
-                    <label className="profile-flex recovery"><span>Email</span><input type="email" className="profile-input recovery-input"></input></label>
-                    <button type="submit" className="profile-btn recovery-btn">Отправить</button>
+                <h4 className={styles.profileHeading}>Восстановление пароля</h4>
+                <form className={styles.recoveryForm}>
+                    <h4 className={styles.recoveryHeading}>Забыли пароль?</h4>
+                    <p className={styles.recoveryText}>Пожалуйста, введите номер телефона или адрес электронной почты для восстановления пароля.</p>
+                    <label className={cn([styles.profileFlex, styles.recovery])}><span>Телефон</span><input type="tel" className={cn([styles.profileInput, styles.recoveryInput])} /></label>
+                    <p className={styles.recoveryText}>Или</p>
+                    <label className={cn([styles.profileFlex, styles.recovery])}><span>Email</span><input type="email" className={cn([styles.profileInput, styles.recoveryInput])} /></label>
+                    <button type="submit" className={cn([styles.profileBtn, styles.recoveryBtn])}>Отправить</button>
                 </form>
             </Fragment>
         )

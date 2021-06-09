@@ -1,9 +1,9 @@
-.user-nav-bar {
+.userNavBar {
   width: 180px;
   position: absolute;
 }
 
-.user-nav-bar a{
+.userNavBar a{
   background-color: #282A3DFF;
   color: #54ABFDFF;
   text-transform: uppercase;
@@ -12,7 +12,18 @@
   font-weight: 600;
 }
 
-.user-nav-bar a:hover{
+.faUser {
+  padding: 8px 10px;
+  margin: 20px 0;
+  font-size: 14px;
+  color: #1d53aa;
+}
+
+.active {
+  border-bottom: 3px solid #fb8f07;
+}
+
+.userNavBar a:hover{
   background-color: #383B56FF;
 }
 
@@ -22,7 +33,7 @@
 }
 
 @media screen and (min-width: 768px) {
-  .user-nav-bar {
+  .userNavBar {
     left: 10%;
   }
   }

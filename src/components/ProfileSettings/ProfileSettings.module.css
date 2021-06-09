@@ -1,8 +1,8 @@
-.profile-heading{
+.profileHeading {
     text-align: center;
     padding: 20px 0px;
 }
-.profile-form{
+.profileForm{
     display: flex;
     flex-direction: column;
     box-shadow: 0px 0px 15px -5px rgb(34 60 80 / 57%);
@@ -10,12 +10,13 @@
     padding: 10px;
     background-color: white;
 }
-.profile-input{
+.profileInput{
     height: 35px;
     border: 1px solid grey;
     padding: 0px 10px;
     min-width: 60%;
-    resize: none; 
+    resize: none;
+    line-height: 45px;
 }
 .flex-column{
     flex-direction: column;
@@ -23,35 +24,35 @@
 .flex-column span{
     line-height: 35px;
 }
-.flex-column .profile-input{
+.flex-column .profileInput{
     width: 100%;
     line-height: 35px;
 }
-.text-info{
+.textInfo{
     height: 50px;
 }
-.profile-flex{
+.profileFlex{
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 5px 0px;
 }
-.profile-flex span{
+.profileFlex span{
     flex-basis: 10%;
 }
-.profile-controls{
+.profileControls{
     display: flex;
     justify-content: space-around;
     padding: 30px 10px;
 }
-.profile-btn{
+.profileBtn{
     padding: 10px 15px;
     border-radius: 5px;
     background: #50802C;
     color: white;
     font-size: 16px;
 }
-.profile-btn:hover{
+.profileBtn:hover{
     filter: brightness(80%);
 }
 @media screen and (min-width: 768px) {
@@ -59,38 +60,38 @@
         flex-grow: 1;
         max-width: unset;
     }
-    .profile-form{
+    .profileForm{
         border-radius: 5px;
         margin: 0px 10%;
     }
-    .profile-input{
+    .profileInput{
         flex-grow: 1;
         height: 45px;
     }
-    .profile-group{
+    .profileGroup{
         display: flex;
         justify-content: space-between;
         order: 0;
     }
-    .profile-group .profile-flex{
+    .profileGroup .profileFlex{
         flex-basis: 50%;
     }
-    .profile-group .profile-flex:nth-child(2){
+    .profileGroup .profileFlex:nth-child(2){
         padding-left: 10px;
     }
-    .profile-group .profile-flex .profile-input{
+    .profileGroup .profileFlex .profileInput{
         flex-grow: 1;
     }
-    .profile-group .profile-flex span{
+    .profileGroup .profileFlex span{
         flex-basis: 20%;
     }
-    .order-1{
+    .order1{
         order: 1;
     }
-    .order-2{
+    .order2{
         order: 2;
     }
-    .order-3{
+    .order3{
         order: 3;
     }
 }

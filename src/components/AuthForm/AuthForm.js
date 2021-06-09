@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {NavLink} from 'react-router-dom';
-import './AuthForm.css';
+import styles from './AuthForm.module.css';
 
 export default class AuthForm extends Component {
     render() {
@@ -9,13 +9,13 @@ export default class AuthForm extends Component {
         }
 
         return(
-            <div className="welcome">
-                <NavLink to='/' activeclassname="active"  className="big-header">Ekb <span className="small-header">Trees</span></NavLink>
+            <div className={styles.welcome}>
+                <NavLink to='/' className={styles.bigHeader}>Ekb <span className={styles.smallHeader}>Trees</span></NavLink>
                 <h2>Добро пожаловать!</h2>
                 <p>Пожалуйста, войдите в аккаунт или зарегистрируйтесь, чтобы начать</p>
-                <div className="links">
-                    <NavLink className="btn-login" to='/login' activeclassname="active-link">Войти</NavLink>
-                    <NavLink className="btn-sign-up" to='/registration' activeclassname="active-link">Зарегистрироваться</NavLink>
+                <div className={styles.links}>
+                    <NavLink className={styles.btnLogin} to='/login' activeClassName={styles.active}>Войти</NavLink>
+                    <NavLink className={styles.btnSignUp} to='/registration' activeClassName={styles.active}>Зарегистрироваться</NavLink>
                 </div>
             </div>
         )

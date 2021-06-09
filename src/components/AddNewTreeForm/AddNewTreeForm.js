@@ -1,6 +1,7 @@
+import cn from 'classnames';
 import React, { Component } from 'react';
 import { getTreeAddUrl, fetchData } from '../ApiDataLoadHelper/DataLoadHelper';
-import "./AddNewTreeForm.css";
+import styles from "./AddNewTreeForm.module.css";
 
 export default class AddNewTreeForm extends Component {
     constructor(props) {
@@ -63,11 +64,11 @@ export default class AddNewTreeForm extends Component {
         const lng = this.props.match.params.lng;
 
         return (
-            <div className="addTreeFormBlockWrapper">
-                <span className="addTreeFormBlockPrefix"> Геопозиция </span>
-                <div className="geopositionWrapper">
-                    <span className="geopositionItem">{lat}</span>
-                    <span className="geopositionItem">{lng}</span>
+            <div className={styles.addTreeFormBlockWrapper}>
+                <span className={styles.addTreeFormBlockPrefix}> Геопозиция </span>
+                <div className={styles.geopositionWrapper}>
+                    <span className={styles.geopositionItem}>{lat}</span>
+                    <span className={styles.geopositionItem}>{lng}</span>
                 </div>
             </div>
         )
@@ -80,55 +81,55 @@ export default class AddNewTreeForm extends Component {
                 if (first.title < second.title) return -1;
                 return 0;
             })
-            .map(item => <option className="addTreeFormBlockSelectOption" value={item.id}>{item.title}</option>);
+            .map(item => <option className={styles.addTreeFormBlockSelectOption} value={item.id}>{item.title}</option>);
     }
 
     renderMainInformation () {
         return (
-            <figure className="addTreeFormBlock">
+            <figure className={styles.addTreeFormBlock}>
                 {this.renderGEOPosition()}
-                <div className="addTreeFormBlockWrapper">
-                    <span className="addTreeFormBlockPrefix"> Порода </span>
-                    <select name="species" className="addTreeFormBlockSelect" dir="rtl">
+                <div className={styles.addTreeFormBlockWrapper}>
+                    <span className={styles.addTreeFormBlockPrefix}> Порода </span>
+                    <select name="species" className={styles.addTreeFormBlockSelect} dir="rtl">
                         {this.renderTypesOfTrees()}
                     </select>
                 </div>
-                <div className="addTreeFormWrapperFlex">
-                    <div className="addTreeFormBlockWrapper addTreeFormBlockWrapperDesktop">
-                        <span className="addTreeFormBlockPrefix"> Высота (в метрах)</span>
-                        <input name="treeHeight" className="addTreeFormBlockValue" type="number" min="1" max="50"/>
+                <div className={styles.addTreeFormWrapperFlex}>
+                    <div className={cn([styles.addTreeFormBlockWrapper, styles.addTreeFormBlockWrapperDesktop])}>
+                        <span className={styles.addTreeFormBlockPrefix}> Высота (в метрах)</span>
+                        <input name="treeHeight" className={styles.addTreeFormBlockValue} type="number" min="1" max="50"/>
                     </div>
-                    <div className="addTreeFormBlockWrapper addTreeFormBlockWrapperDesktop">
-                        <span className="addTreeFormBlockPrefix">Диаметр кроны (в метрах)</span>
-                        <input name="diameterOfCrown" className="addTreeFormBlockValue" type="number" min="1" max="50"/>
+                    <div className={cn([styles.addTreeFormBlockWrapper, styles.addTreeFormBlockWrapperDesktop])}>
+                        <span className={styles.addTreeFormBlockPrefix}>Диаметр кроны (в метрах)</span>
+                        <input name="diameterOfCrown" className={styles.addTreeFormBlockValue} type="number" min="1" max="50"/>
                     </div>
-                    <div className="addTreeFormBlockWrapper addTreeFormBlockWrapperDesktop">
+                    <div className={cn([styles.addTreeFormBlockWrapper, styles.addTreeFormBlockWrapperDesktop])}>
                         <span
-                            className="addTreeFormBlockPrefix"> Обхват <wbr/> самого толстого ствола (в сантиметрах)</span>
-                        <input name="trunkGirth" className="addTreeFormBlockValue" required type="number" min="1" max="10"/>
+                            className={styles.addTreeFormBlockPrefix}> Обхват <wbr/> самого толстого ствола (в сантиметрах)</span>
+                        <input name="trunkGirth" className={styles.addTreeFormBlockValue} required type="number" min="1" max="10"/>
                     </div>
-                    <div className="addTreeFormBlockWrapper addTreeFormBlockWrapperDesktop">
-                        <span className="addTreeFormBlockPrefix"> Число стволов </span>
-                        <input name="numberOfTreeTrunks" className="addTreeFormBlockValue" required type="number" min="1" max="5"
+                    <div className={cn([styles.addTreeFormBlockWrapper, styles.addTreeFormBlockWrapperDesktop])}>
+                        <span className={styles.addTreeFormBlockPrefix}> Число стволов </span>
+                        <input name="numberOfTreeTrunks" className={styles.addTreeFormBlockValue} required type="number" min="1" max="5"
                                placeholder="1"/>
                     </div>
-                    <div className="addTreeFormBlockWrapper addTreeFormBlockWrapperDesktop">
-                        <span className="addTreeFormBlockPrefix"> Высота первой ветви от земли (в метрах)</span>
-                        <input name="heightOfTheFirstBranch" className="addTreeFormBlockValue" type="number" min="1" max="50"/>
+                    <div className={cn([styles.addTreeFormBlockWrapper, styles.addTreeFormBlockWrapperDesktop])}>
+                        <span className={styles.addTreeFormBlockPrefix}> Высота первой ветви от земли (в метрах)</span>
+                        <input name="heightOfTheFirstBranch" className={styles.addTreeFormBlockValue} type="number" min="1" max="50"/>
                     </div>
-                    <div className="addTreeFormBlockWrapper addTreeFormBlockWrapperDesktop">
-                        <span className="addTreeFormBlockPrefix"> Возраст (в годах)</span>
-                        <input name="age" className="addTreeFormBlockValue" type="number" min="0"/>
+                    <div className={cn([styles.addTreeFormBlockWrapper, styles.addTreeFormBlockWrapperDesktop])}>
+                        <span className={styles.addTreeFormBlockPrefix}> Возраст (в годах)</span>
+                        <input name="age" className={styles.addTreeFormBlockValue} type="number" min="0"/>
                     </div>
                 </div>
-                <div className="addTreeFormBlockWrapper">
-                    <span className="addTreeFormBlockPrefix">Визуальная  оценка состояния</span>
-                    <select name="conditionAssessment" className="addTreeFormBlockSelect" dir="rtl">
-                        <option value="1" className="addTreeFormBlockSelectOption">1/5</option>
-                        <option value="2" className="addTreeFormBlockSelectOption">2/5</option>
-                        <option value="3" className="addTreeFormBlockSelectOption">3/5</option>
-                        <option value="4" className="addTreeFormBlockSelectOption">4/5</option>
-                        <option value="5" className="addTreeFormBlockSelectOption">5/5</option>
+                <div className={styles.addTreeFormBlockWrapper}>
+                    <span className={styles.addTreeFormBlockPrefix}>Визуальная  оценка состояния</span>
+                    <select name="conditionAssessment" className={styles.addTreeFormBlockSelect} dir="rtl">
+                        <option value="1" className={styles.addTreeFormBlockSelectOption}>1/5</option>
+                        <option value="2" className={styles.addTreeFormBlockSelectOption}>2/5</option>
+                        <option value="3" className={styles.addTreeFormBlockSelectOption}>3/5</option>
+                        <option value="4" className={styles.addTreeFormBlockSelectOption}>4/5</option>
+                        <option value="5" className={styles.addTreeFormBlockSelectOption}>5/5</option>
                     </select>
                 </div>
             </figure>
@@ -137,9 +138,9 @@ export default class AddNewTreeForm extends Component {
 
     renderFiles () {
         return (
-            <figure className="addTreeFormBlock">
-                <form className="addTreeFormBlockFile">
-                    <input className="addTreeFormBlockFileItem" type="file" multiple name="upload" />
+            <figure className={styles.addTreeFormBlock}>
+                <form>
+                    <input className={styles.addTreeFormBlockFileItem} type="file" multiple name="upload" />
                 </form>
             </figure>
         )
@@ -147,32 +148,32 @@ export default class AddNewTreeForm extends Component {
 
     renderAdditionalInformation () {
         return (
-            <figure className="addTreeFormBlock">
-                <div className="addTreeFormWrapperFlex">
-                <div className="addTreeFormBlockWrapper addTreeFormBlockWrapperDesktop">
-                    <span className="addTreeFormBlockPrefix"> Автоназначаемый  идентификатор </span>
-                    <input className="addTreeFormBlockValue" type="text" disabled value="10321"/>
+            <figure className={styles.addTreeFormBlock}>
+                <div className={styles.addTreeFormWrapperFlex}>
+                <div className={cn([styles.addTreeFormBlockWrapper, styles.addTreeFormBlockWrapperDesktop])}>
+                    <span className={styles.addTreeFormBlockPrefix}> Автоназначаемый  идентификатор </span>
+                    <input className={styles.addTreeFormBlockValue} type="text" disabled value="10321"/>
                 </div>
-                <div className="addTreeFormBlockWrapper addTreeFormBlockWrapperDesktop">
-                    <span className="addTreeFormBlockPrefix"> Статус дерева </span>
-                    <select dir="rtl" className="addTreeFormBlockSelect">
-                        <option className="addTreeFormBlockSelectOption"> Жив</option>
-                        <option className="addTreeFormBlockSelectOption"> Цел</option>
-                        <option className="addTreeFormBlockSelectOption"> Орел</option>
+                <div className={cn([styles.addTreeFormBlockWrapper, styles.addTreeFormBlockWrapperDesktop])}>
+                    <span className={styles.addTreeFormBlockPrefix}> Статус дерева </span>
+                    <select dir="rtl" className={styles.addTreeFormBlockSelect}>
+                        <option className={styles.addTreeFormBlockSelectOption}> Жив</option>
+                        <option className={styles.addTreeFormBlockSelectOption}> Цел</option>
+                        <option className={styles.addTreeFormBlockSelectOption}> Орел</option>
                     </select>
                 </div>
-                    <div className="addTreeFormBlockWrapper addTreeFormBlockWrapperDesktop">
-                        <span className="addTreeFormBlockPrefix"> Дата и время  добавления  записи  </span>
-                        <input name="created" className="addTreeFormBlockValue" type="datetime-local"/>
+                    <div className={cn([styles.addTreeFormBlockWrapper, styles.addTreeFormBlockWrapperDesktop])}>
+                        <span className={styles.addTreeFormBlockPrefix}> Дата и время  добавления  записи  </span>
+                        <input name="created" className={styles.addTreeFormBlockValue} type="datetime-local"/>
                     </div>
-                    <div className="addTreeFormBlockWrapper addTreeFormBlockWrapperDesktop">
-                        <span className="addTreeFormBlockPrefix"> Дата и время  последнего  редактирования  </span>
-                        <input name="updated" className="addTreeFormBlockValue" type="datetime-local"/>
+                    <div className={cn([styles.addTreeFormBlockWrapper, styles.addTreeFormBlockWrapperDesktop])}>
+                        <span className={styles.addTreeFormBlockPrefix}> Дата и время  последнего  редактирования  </span>
+                        <input name="updated" className={styles.addTreeFormBlockValue} type="datetime-local"/>
                     </div>
                 </div>
-                <div className="addTreeFormBlockWrapper">
-                    <span className="addTreeFormBlockPrefix"> Ссылка на  автора </span>
-                    <input name="user" className="addTreeFormBlockValue" type="email" autoCorrect="off" maxLength="60"/>
+                <div className={styles.addTreeFormBlockWrapper}>
+                    <span className={styles.addTreeFormBlockPrefix}> Ссылка на  автора </span>
+                    <input name="user" className={styles.addTreeFormBlockValue} type="email" autoCorrect="off" maxLength="60"/>
                 </div>
             </figure>
         )
@@ -180,9 +181,9 @@ export default class AddNewTreeForm extends Component {
 
     renderButtons () {
         return (
-            <div className="addTreeFormButtons">
-                <button disabled={!this.state.buttonEnable} className="addTreeFormAddButton" type="submit">Отправить</button>
-                <button onClick={this.props.history.goBack} className="addTreeFormCancelButton" type="submit">Отмена</button>
+            <div>
+                <button disabled={!this.state.buttonEnable} className={styles.addTreeFormAddButton} type="submit">Отправить</button>
+                <button onClick={this.props.history.goBack} className={styles.addTreeFormCancelButton} type="submit">Отмена</button>
             </div>
         )
     }
@@ -190,15 +191,15 @@ export default class AddNewTreeForm extends Component {
 
     render() {
         return (
-            <div className="addTreeFormContainer">
-                <h3 className="addTreeFormTitle"> Карточка дерева </h3>
-                <div className="addTreeSubTitle"> пожалуйста, добавьте  всю информацию о дереве  </div>
-                <h4 className="addTreeFormBlockTitle"> Основная информация</h4>
-                <form className="addTreeForm" onSubmit={this.handleSubmit}>
+            <div className={styles.addTreeFormContainer}>
+                <h3 className={styles.addTreeFormTitle}> Карточка дерева </h3>
+                <div className={styles.addTreeSubTitle}> пожалуйста, добавьте  всю информацию о дереве  </div>
+                <h4 className={styles.addTreeFormBlockTitle}> Основная информация</h4>
+                <form className={styles.addTreeForm} onSubmit={this.handleSubmit}>
                     {this.renderMainInformation()}
-                    <h4 className="addTreeFormBlockTitle">Фотографии и файлы </h4>
+                    <h4 className={styles.addTreeFormBlockTitle}>Фотографии и файлы </h4>
                     {this.renderFiles()}
-                    <h4 className="addTreeFormBlockTitle"> Дополнительная информация</h4>
+                    <h4 className={styles.addTreeFormBlockTitle}> Дополнительная информация</h4>
                     {this.renderAdditionalInformation()}
                     {this.renderButtons()}
                 </form>

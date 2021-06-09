@@ -5,14 +5,14 @@ import GeojsonLayer from "./GeojsonLayer";
 import { MapSate } from "./MapState";
 import "./Map.css";
 
-const MapContain = () => {
+const MapContain = (props) => {
   const defaultPosition = [56.8391040, 60.6082500]; // Yekaterinburg position
   const [mapState , setMapState] = useState(MapSate.default);
-
+  const { styleName } = props;
   return (
     <React.Fragment>
-      <div className="map-container">
-        <MapContainer center={defaultPosition} zoom={15} scrollWheelZoom={true}>
+      <div>
+        <MapContainer className={styleName} center={defaultPosition} zoom={15} scrollWheelZoom={true}>
           <TileLayer
             attribution='Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>'
             url="https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}"

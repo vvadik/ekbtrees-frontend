@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { MapSate } from "../Map/MapState";
-import './MapButton.css';
+import styles from './MapButton.module.css';
 
 export default class MapButton extends Component {
     render() {
         return (
-            <button disabled={this.props.mapState === MapSate.addTreeBegin} 
-            className="map-button" 
+            <button disabled={this.props.mapState === MapSate.addTreeBegin}
+            className={styles.mapButton}
             onClick={ () => buttonOnClickHandler(this.props.mapState, this.props.setMapState) }>
                 {getButtonText(this.props.mapState)}</button>
         )

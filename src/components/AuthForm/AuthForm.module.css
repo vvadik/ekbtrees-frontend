@@ -1,12 +1,11 @@
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
 a {
   text-decoration: none;
   color: inherit;
+}
+
+.active {
+  border-bottom: 3px solid #fb8f07;
+  color: #fb8f07;
 }
 
 .welcome {
@@ -14,12 +13,12 @@ a {
   text-align: center;
 }
 
-.small-header {
+.smallHeader {
   font-size: 20px;
   display: block;
 }
 
-.big-header {
+.bigHeader {
   font-size: 40px;
   font-family: "Merriweather", serif;
   color: white;
@@ -48,8 +47,8 @@ a {
   display: flex;
 }
 
-.btn-login,
-.btn-sign-up {
+.btnLogin,
+.btnSignUp {
   width: 50%;
   height: 4em;
   background-color: #50802c;

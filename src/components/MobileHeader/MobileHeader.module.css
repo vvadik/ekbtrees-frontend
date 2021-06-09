@@ -1,0 +1,59 @@
+.mobileHeader {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+.topNav {
+    background-color: #50802c;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.burgerBtn {
+    background: none;
+    border: 0;
+    font-size: 25px;
+    padding: 15px 20px;
+    cursor: pointer;
+}
+
+.menu {
+    display: flex;
+    justify-content: space-between;
+}
+
+.ekbTrees {
+    font-family: "Merriweather", serif !important;
+    color: white;
+    font-weight: 400;
+    margin: 0;
+    padding: 0;
+    padding-top: 10px;
+    line-height: 40px;
+    padding-left: 7px;
+}
+
+.active {
+    border-bottom: 3px solid #fb8f07;
+    color: #fb8f07;
+}
+
+.ekbTrees .smallHeader {
+    font-size: 20px;
+    padding-left: 2px;
+}
+
+.ekbTrees .bigHeaderMobile {
+    font-family: "Merriweather", serif;
+    font-size: 40px;
+    line-height: 30px;
+}
+
+@media screen and (min-width: 768px) {
+    .mobileHeader {
+        display: none;
+    }
+}

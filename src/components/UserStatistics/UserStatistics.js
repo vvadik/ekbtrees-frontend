@@ -1,5 +1,5 @@
-import React, {Component} from 'react'; 
-import './UserStatistics.css';
+import React, {Component} from 'react';
+import styles from './UserStatistics.module.css';
 
 export default class UserStatistics extends Component{
     state = {
@@ -8,23 +8,23 @@ export default class UserStatistics extends Component{
     }
     render(){
         return(
-                <section className="user-statistics">
-                    <div className="tree-stat">
-                        <div className="icon-container">
-                            <i className="fa fa-tree" aria-hidden="true"></i>
+                <section className={styles.userStatistics}>
+                    <div className={styles.treeStat}>
+                        <div className={styles.iconContainer}>
+                            <i className="fa fa-tree" aria-hidden="true" />
                         </div>
-                        <div className="trees-info">
-                            <span className="trees-summary">{this.state.treesAdded}</span>
-                            <span className="trees-comment">деревьев добавлено</span>
+                        <div className={styles.treesInfo}>
+                            <span className={styles.treesSummary}>{this.state.treesAdded}</span>
+                            <span className={styles.treesComment}>деревьев добавлено</span>
                         </div>
                     </div>
-                    <div className="tree-stat">
-                        <div className="icon-container">
-                            <i className="fa fa-pagelines" aria-hidden="true"></i>
+                    <div className={styles.treeStat}>
+                        <div className={styles.iconContainer}>
+                            <i className="fa fa-pagelines" aria-hidden="true" />
                         </div>
-                        <div className="trees-info">
-                            <span className="trees-summary">{this.state.treesDiffer}</span>
-                            <span className="trees-comment">добавлено различных деревьев</span>
+                        <div className={styles.treesInfo}>
+                            <span className={styles.treesSummary}>{this.state.treesDiffer}</span>
+                            <span className={styles.treesComment}>добавлено различных деревьев</span>
                         </div>
                     </div>
                 </section>

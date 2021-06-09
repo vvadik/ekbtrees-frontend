@@ -1,43 +1,61 @@
 import React, { Component } from 'react';
-import './UserInfo.css';
+import styles from './UserInfo.module.css';
 import Man from '../../img/man.png';
 import UserMenu from '../UserMenu';
+import cn from 'classnames';
 
 export default class UserInfo extends Component {
     state = {
         name: "Антон",
         role: "Волонтер",
+        openMenu: false
     }
 
-    handleClick() {
-        const userNavBar = document.getElementById("userNavBar");
-        const icon = document.querySelector(".fa-chevron-down");
+    handleClick = () => this.setState({openMenu: !this.state.openMenu});
 
-        userNavBar.hidden = !userNavBar.hidden;
-        userNavBar.hidden ? icon.style.color = "lightgrey" : icon.style.color = "#54ABFDFF";
+    renderMenu () {
+        const {openMenu} = this.state;
 
+        if (openMenu) {
+            return <UserMenu />;
+        }
+
+        return null;
+    }
+
+    renderToggleButton () {
+        const classNameCN = cn({
+            [styles.faChevronDown]: true,
+            'fa': true,
+            [styles.faChevronDownActive]: this.state.openMenu
+        })
+
+
+        return (
+            <button className={styles.userBtn} onClick={this.handleClick}>
+                <i className={classNameCN} aria-hidden="true" />
+            </button>
+        )
     }
 
     render() {
         return (
-            <div className="container">
-                <div className="user-container">
-                    <div className="user">
-                        <div className="user-fullname">
-                            <span className="user-name">{this.state.name}</span>
-                            <span className="user-role">{this.state.role}</span>
+            <div className={styles.container}>
+                <div className={styles.userContainer}>
+                    <div className={styles.user}>
+                        <div>
+                            <span className={styles.userName}>{this.state.name}</span>
+                            <span className={styles.userRole}>{this.state.role}</span>
                         </div>
-                        <img src={Man} className="user-icon" alt="profile-icon"></img>
-                        <button className="user-btn" onClick={this.handleClick}>
-                            <i className="fa fa-chevron-down" aria-hidden="true"></i>
-                        </button>
+                        <img src={Man} className={styles.userIcon} alt="profile-icon" />
+                        {this.renderToggleButton()}
                     </div>
-                    <div className="user-controls">
-                        <i className="fa fa-bell" aria-hidden="true"></i>
-                        <i className="fa fa-sign-out" aria-hidden="true"></i>
+                    <div className={styles.userControls}>
+                        <i className={cn([styles.faBell, "fa"])} aria-hidden="true" />
+                        <i className={cn([styles.faSignOut, "fa"])} aria-hidden="true" />
                     </div>
                 </div>
-                <UserMenu />
+                {this.renderMenu()}
             </div>
         )
     }

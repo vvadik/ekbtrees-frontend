@@ -1,32 +1,32 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
-import './Menu.css';
+import styles from  './Menu.module.css';
 
 export default class Menu extends Component {
     renderLinks () {
         const links = [{
-            activeclassname: 'active',
+            activeClassName: styles.active,
             exact: true,
             onClick: this.props.onClick,
             title: 'Карта',
             to: '/map'
         },
         {
-            activeclassname: 'active',
+            activeClassName: styles.active,
             exact: true,
             onClick: this.props.onClick,
             title: 'Список деревьев',
             to: '/trees'
         },
         {
-            activeclassname: 'active',
+            activeClassName: styles.active,
             exact: true,
             onClick: this.props.onClick,
             title: 'Список пользователей',
             to: '/users'
         },
         {
-            activeclassname: 'active',
+            activeClassName: styles.active,
             exact: true,
             onClick: this.props.onClick,
             title: 'О нас',
@@ -38,7 +38,7 @@ export default class Menu extends Component {
                 <NavLink
                     exact={link.exact}
                     to={link.to}
-                    activeclassname={link.activeclassname}
+                    activeClassName={link.activeClassName}
                     onClick={link.onClick}
                 >
                     {link.title}
@@ -49,7 +49,7 @@ export default class Menu extends Component {
 
     render() {
         return (
-            <div id="navBar" className="nav-bar">
+            <div id="navBar" className={styles.navBar}>
                 {this.renderLinks()}
                 <a href="#!">Контакты</a>
                 <a href="#!">Помощь</a>

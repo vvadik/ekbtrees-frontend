@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import UserInfo from '../UserInfo';
-import './UserList.css';
+import styles from './UserList.module.css';
 import UserListItem from './UserListItem';
 
 export default class UserList extends Component {
@@ -8,13 +8,13 @@ export default class UserList extends Component {
     return (
       <React.Fragment>
         <UserInfo />
-        <section className='user-list-section'>
-          <div className='user-list-column'>
+        <section className={styles.userListSection}>
+          <div className={styles.userListColumn}>
             <UserListItem />
             <UserListItem />
             <UserListItem />
           </div>
-          <div className='user-list-column'>
+          <div className={styles.userListColumn}>
             <UserListItem />
             <UserListItem />
             <UserListItem />

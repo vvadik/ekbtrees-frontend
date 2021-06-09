@@ -19,6 +19,7 @@ a:hover {
     font-size: 20px;
     color: grey;
     cursor: pointer;
+    border: 0;
 }
 
 .activeNavigationButton {
@@ -64,6 +65,7 @@ a:hover {
 }
 
 .treTableEditButton {
+    border: 0;
     max-width: 300px;
     width: 100%;
     border-radius: 15px;
@@ -78,7 +80,7 @@ a:hover {
     background: #FB8F07;
 }
 
-.fa-pencil {
+.faPencil {
     display: none;
 }
 
@@ -184,13 +186,13 @@ a:hover {
         display: none;
     }
 
-    .fa-pencil {
+    .faPencil {
         display: inline-block;
         font-size: 23px;
         color: rgb(97, 96, 96);
     }
 
-    .fa-pencil:hover {
+    .faPencil:hover {
         color: #181818;
     }
 }

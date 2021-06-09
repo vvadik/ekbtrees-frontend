@@ -1,16 +1,17 @@
-import "./TreeForm.css";
+import styles from "./TreeForm.module.css";
 import React from "react";
+import cn from "classnames";
 
 export const TreeForm = ({activeTree }) => {
     return (
         <>
         {activeTree &&
-            <figure class="tree-form-main" onClick={e => e.stopPropagation()}>
-                <h3 class="center h3"> Карточка дерева </h3>
+            <figure className={styles.treeFormMain} onClick={e => e.stopPropagation()}>
+                <h3 className={cn([styles.center, styles.h3])}> Карточка дерева </h3>
                 <form>
                         <label>
                             <span> Геопозиция </span>
-                            <input type="text" maxlength="10" disabled value = {`${activeTree.geographicalPoint.latitude}, ${activeTree.geographicalPoint.longitude}`}/>
+                            <input type="text" maxLength="10" disabled value = {`${activeTree.geographicalPoint.latitude}, ${activeTree.geographicalPoint.longitude}`}/>
                         </label>
                         <div>
                             <span> Порода </span>
@@ -19,30 +20,30 @@ export const TreeForm = ({activeTree }) => {
                             </label>
                         </div>
                         <div>
-                            <label class="block">
+                            <label className={styles.block}>
                                 <span> Высота в  метрах </span>
-                                <label class="input-wrapper meter">
+                                <label className={styles.inputWrapper}>
                                     <input type="number" min="1" max="50" value = {activeTree.treeHeight}/>
                                 </label>
-                                <label class="metric margin"> М </label>
+                                <label className={cn([styles.metric, styles.margin])}> М </label>
                             </label>
-                            <label class="block">
+                            <label className={styles.block}>
                                 <span> Диаметр  кроны </span>
-                                <label class="input-wrapper meter">
+                                <label className={styles.inputWrapper}>
                                     <input type="number" min="1" max="50" disabled value = {activeTree.diameterOfCrown}/>
                                 </label>
-                                <label class="metric margin"> М </label>
+                                <label className={cn([styles.metric, styles.margin])}> М </label>
                             </label>
                         </div>
                         <div>
-                            <label class="block">
+                            <label className={styles.block}>
                                 <span> Обхват <wbr/> (самого  толстого)   ствола </span>
-                                <label class="input-wrapper centimeter">
+                                <label className={styles.inputWrapper}>
                                     <input required type="number" min="1" max="10" disabled value = {activeTree.trunkGirth}/>
                                 </label>
-                                <label class="metric margincm"> СМ </label>
+                                <label className={cn([styles.metric, styles.margincm])}> СМ </label>
                             </label>
-                            <label class="block">
+                            <label className={styles.block}>
                                 <span> Число стволов </span>
                                 <label>
                                     <input required type="number" min="1" max="5" placeholder="1" disabled value = {activeTree.numberOfTreeTrunks}/>
@@ -50,14 +51,14 @@ export const TreeForm = ({activeTree }) => {
                             </label>
                         </div>
                         <div>
-                            <label class="block">
+                            <label className={styles.block}>
                                 <span> Высота первой  ветви от земли  в метрах  </span>
-                                <label  class="input-wrapper meterForBranch">
+                                <label  className={styles.inputWrapper}>
                                     <input required type="number" min="1" max="50"  disabled value = {activeTree.heightOfTheFirstBranch}/>
                                 </label>
-                                <label class="metric margin"> М </label>
+                                <label className={cn([styles.metric, styles.margin])}> М </label>
                             </label>
-                            <label class="block">
+                            <label className={styles.block}>
                                 <span> Возраст в годах </span>
                                 <input required type="number" min="0" max="100" disabled value = {activeTree.age}/>
                             </label>
@@ -71,4 +72,6 @@ export const TreeForm = ({activeTree }) => {
                 </form>
             </figure>}
         </>)
-}
+};
+
+export default TreeForm;

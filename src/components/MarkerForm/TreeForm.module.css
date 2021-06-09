@@ -1,16 +1,16 @@
-.tree-form-main {
+.treeFormMain {
     margin: 0 auto;
     border-radius: 1.7%;
     background-color: white;
     padding: 2%;
 }
 
-.tree-form-main label {
+.treeFormMain label {
     color: #4b4b4b;
 }
 
 @media screen and (min-width: 1200px) {
-    .tree-form-main {
+    .treeFormMain {
         width: 60%;
         margin: 0 auto;
         border-radius: 1.7%;
@@ -18,7 +18,7 @@
         padding: 2%;
     }
 
-    .tree-form-main input{
+    .treeFormMain input{
         text-align: right;
         width: 21%;
         margin: 1.7% 0% 1.7% 1.7%;
@@ -27,38 +27,38 @@
         border: 1px solid rgba(0,0,0,0.5);
     }
 
-    .tree-form-main .metric {
+    .treeFormMain .metric {
         font-size: 100%;
     }
 
-    .tree-form-main .metric.margin {
+    .treeFormMain .metric.margin {
         margin-right: 2%;
     }
 
-    .tree-form-main .metric.margincm {
+    .treeFormMain .metric.margincm {
         margin-right: 1%;
     }
 
-    .tree-form-main input[type=text]{
-        width: 70.6%;
-    }
-    
-    .tree-form-main input[type=email]{
+    .treeFormMain input[type=text]{
         width: 70.6%;
     }
 
-    .tree-form-main span {
+    .treeFormMain input[type=email]{
+        width: 70.6%;
+    }
+
+    .treeFormMain span {
         font-size: 100%;
         width: 20%;
         color: rgba(0,0,0,0.5);
         display: inline-block;
     }
 
-    .tree-form-main input[type=number]::-webkit-inner-spin-button{
+    .treeFormMain input[type=number]::-webkit-inner-spin-button{
         -webkit-appearance: none;
     }
 
-    .tree-form-main select {
+    .treeFormMain select {
         font-size: 100%;
         width: 70.6%;
         padding: 1%;
@@ -67,14 +67,14 @@
         border: 1px solid rgba(0,0,0,0.5);
     }
 
-    .tree-form-main select.status {
+    .treeFormMain select.status {
         width: 21%;
         margin: 1.7%;
         font-size: 100%;
         padding: 1%;
     }
-    
-    .tree-form-main .identifier {
+
+    .treeFormMain .identifier {
         border: 1px solid #666;
         background-color: #d4d4d4;
         width: 21%;
@@ -84,26 +84,26 @@
         text-align:right;
     }
 
-    .tree-form-main .center.p {
+    .treeFormMain .center.p {
         margin:1%;
         color: rgba(0,0,0,0.5);
         font-size: 125%;
     }
 
-    .tree-form-main .center.h3 {
+    .treeFormMain .center.h3 {
         margin:1%;
         color: rgba(0,0,0,0.8);
         font-size: 175%;
     }
-    
-    .tree-form-main .center.h4 {
+
+    .treeFormMain .center.h4 {
         margin:1%;
         font-size: 125%
     }
 }
 
-@media screen and (min-width: 992px) and (max-width : 1199px) { 
-    .tree-form-main .tree-form-main {
+@media screen and (min-width: 992px) and (max-width : 1199px) {
+    .treeFormMain .treeFormMain {
         width: 60%;
         margin: 0 auto;
         border-radius: 1.7%;
@@ -111,7 +111,7 @@
         padding: 2%;
     }
 
-    .tree-form-main input{
+    .treeFormMain input{
         text-align: right;
         width: 20%;
         margin: 1.7% 0% 1.7% 1.7%;
@@ -120,34 +120,34 @@
         border: 1px solid rgba(0,0,0,0.5);
     }
 
-    .tree-form-main .metric {
+    .treeFormMain .metric {
         font-size: 100%;
     }
 
-    .tree-form-main .metric.margin {
+    .treeFormMain .metric.margin {
         margin-right: 3%;
     }
 
-    .tree-form-main .metric.margincm {
+    .treeFormMain .metric.margincm {
         margin-right: 1.5%;
     }
 
-    .tree-form-main input[type=text]{
-        width: 70.6%;
-    }
-    
-    .tree-form-main input[type=email]{
+    .treeFormMain input[type=text]{
         width: 70.6%;
     }
 
-    .tree-form-main span {
+    .treeFormMain input[type=email]{
+        width: 70.6%;
+    }
+
+    .treeFormMain span {
         font-size: 100%;
         width: 21%;
         color: rgba(0,0,0,0.5);
         display: inline-block;
     }
 
-    .tree-form-main select {
+    .treeFormMain select {
         font-size: 100%;
         width: 70.6%;
         padding: 1%;
@@ -156,11 +156,11 @@
         border: 1px solid rgba(0,0,0,0.5);
     }
 
-    .tree-form-main input[type=number]::-webkit-inner-spin-button{
+    .treeFormMain input[type=number]::-webkit-inner-spin-button{
         -webkit-appearance: none;
     }
-    
-    .tree-form-main .main {
+
+    .treeFormMain .main {
         width:850px;
         border-radius: 5.7px;
         background-color: white;
@@ -169,14 +169,14 @@
         flex-wrap: wrap;
     }
 
-    .tree-form-main select.status {
+    .treeFormMain select.status {
         width: 21%;
         margin: 1.7%;
         font-size: 100%;
         padding: 1%;
     }
 
-    .tree-form-main .identifier {
+    .treeFormMain .identifier {
         border: 1px solid #666;
         background-color: #d4d4d4;
         width: 20%;
@@ -186,26 +186,26 @@
         text-align:right;
     }
 
-    .tree-form-main .center.p {
+    .treeFormMain .center.p {
         margin:1%;
         color: rgba(0,0,0,0.5);
         font-size: 125%;
     }
 
-    .tree-form-main .center.h3 {
+    .treeFormMain .center.h3 {
         margin:1%;
         color: rgba(0,0,0,0.8);
         font-size: 175%;
     }
-    
-    .tree-form-main .center.h4 {
+
+    .treeFormMain .center.h4 {
         margin:1%;
         font-size: 125%
     }
 }
 
 @media screen and (min-width: 691px) and (max-width: 991px) {
-    .tree-form-main {
+    .treeFormMain {
         width: 60%;
         margin: 0 auto;
         border-radius: 1.7%;
@@ -213,7 +213,7 @@
         padding: 2%;
     }
 
-    .tree-form-main input{
+    .treeFormMain input{
         text-align: right;
         width: 17%;
         margin: 1.7% 0% 1.7% 1.7%;
@@ -222,32 +222,32 @@
         border: 1px solid rgba(0,0,0,0.5);
     }
 
-    .tree-form-main .metric {
+    .treeFormMain .metric {
         font-size: 100%;
     }
 
 
-    .tree-form-main .metric.margin {
+    .treeFormMain .metric.margin {
         margin-right: 4%;
     }
 
-    .tree-form-main .metric.margincm {
+    .treeFormMain .metric.margincm {
         margin-right: 2%;
     }
 
-    .tree-form-main input[type=number]::-webkit-inner-spin-button{
+    .treeFormMain input[type=number]::-webkit-inner-spin-button{
         -webkit-appearance: none;
     }
 
-    .tree-form-main input[type=text]{
-        width: 70.6%;
-    }
-    
-    .tree-form-main input[type=email]{
+    .treeFormMain input[type=text]{
         width: 70.6%;
     }
 
-    .tree-form-main span {
+    .treeFormMain input[type=email]{
+        width: 70.6%;
+    }
+
+    .treeFormMain span {
         font-size: 100%;
         width: 23%;
         color: rgba(0,0,0,0.5);
@@ -255,7 +255,7 @@
         word-wrap: break-word;
     }
 
-    .tree-form-main select {
+    .treeFormMain select {
         font-size: 100%;
         width: 70.6%;
         padding: 1%;
@@ -264,7 +264,7 @@
         border: 1px solid rgba(0,0,0,0.5);
     }
 
-    .tree-form-main .main {
+    .treeFormMain .main {
         width: 700px;
         border-radius: 1.7%;
         background-color: white;
@@ -273,14 +273,14 @@
         flex-wrap: wrap;
     }
 
-    .tree-form-main select.status {
+    .treeFormMain select.status {
         width: 17%;
         margin: 1.7%;
         font-size: 100%;
         padding: 1%;
     }
 
-    .tree-form-main .identifier {
+    .treeFormMain .identifier {
         border: 1px solid #666;
         background-color: #d4d4d4;
         width: 17%;
@@ -290,33 +290,33 @@
         text-align:right;
     }
 
-    .tree-form-main .center.p {
+    .treeFormMain .center.p {
         margin:1%;
         color: rgba(0,0,0,0.5);
         font-size: 125%;
     }
 
-    .tree-form-main .center.h3 {
+    .treeFormMain .center.h3 {
         margin:1%;
         color: rgba(0,0,0,0.8);
         font-size: 175%;
     }
-    
-    .tree-form-main .center.h4{
+
+    .treeFormMain .center.h4{
         margin:1%;
         font-size: 125%
     }
 }
 
 @media screen and (min-width: 481px) and (max-width: 690px) {
-    .tree-form-main {
+    .treeFormMain {
         width: 100%;
         margin: 0 auto;
         border-radius: 1.7%;
         background-color: white;
         padding: 2%;
     }
-    .tree-form-main input{
+    .treeFormMain input{
         text-align: right;
         width: 62%;
         margin: 1.7% 0% 1.7% 1.7%;
@@ -325,15 +325,15 @@
         border: 1px solid rgba(0,0,0,0.5);
     }
 
-    .tree-form-main .metric {
+    .treeFormMain .metric {
         font-size: 100%;
     }
 
-    .tree-form-main input[type=number]::-webkit-inner-spin-button{
+    .treeFormMain input[type=number]::-webkit-inner-spin-button{
         -webkit-appearance: none;
     }
 
-    .tree-form-main span {
+    .treeFormMain span {
         font-size: 100%;
         width: 25%;
         color: rgba(0,0,0,0.5);
@@ -341,7 +341,7 @@
         word-wrap: break-word;
     }
 
-    .tree-form-main select {
+    .treeFormMain select {
         font-size: 100%;
         width: 62%;
         padding: 1%;
@@ -350,7 +350,7 @@
         border: 1px solid rgba(0,0,0,0.5);
     }
 
-    .tree-form-main .main {
+    .treeFormMain .main {
         width: 430px;
         border-radius: 1.7%;
         background-color: #F3F6FA;
@@ -359,7 +359,7 @@
         flex-wrap: wrap;
     }
 
-    .tree-form-main .identifier {
+    .treeFormMain .identifier {
         border: 1px solid #666;
         background-color: #d4d4d4;
         width: 62%;
@@ -369,30 +369,30 @@
         text-align:right;
     }
 
-    .tree-form-main .center.p {
+    .treeFormMain .center.p {
         margin:1%;
         color: rgba(0,0,0,0.5);
         font-size: 125%;
     }
 
-    .tree-form-main .block {
+    .treeFormMain .block {
         display: block;
     }
 
-    .tree-form-main .center.h3 {
+    .treeFormMain .center.h3 {
         margin:1%;
         color: rgba(0,0,0,0.8);
         font-size: 175%;
     }
-    
-    .tree-form-main .center.h4 {
+
+    .treeFormMain .center.h4 {
         margin:1%;
         font-size: 125%
     }
 }
 
 @media screen and (min-width: 321px) and (max-width: 480px) {
-    .tree-form-main {
+    .treeFormMain {
         width: 70%;
         margin: 0 auto;
         border-radius: 1.7%;
@@ -401,7 +401,7 @@
         flex-wrap: wrap;
     }
 
-    .tree-form-main input{
+    .treeFormMain input{
         text-align: right;
         width: 55%;
         margin: 1.7% 0% 1.7% 1.7%;
@@ -410,15 +410,15 @@
         border: 1px solid rgba(0,0,0,0.5);
     }
 
-    .tree-form-main .metric {
+    .treeFormMain .metric {
         font-size: 50%;
     }
 
-    .tree-form-main input[type=number]::-webkit-inner-spin-button{
+    .treeFormMain input[type=number]::-webkit-inner-spin-button{
         -webkit-appearance: none;
     }
 
-    .tree-form-main span {
+    .treeFormMain span {
         font-size: 50%;
         width: 25%;
         color: rgba(0,0,0,0.5);
@@ -426,7 +426,7 @@
         word-wrap: break-word;
     }
 
-    .tree-form-main select {
+    .treeFormMain select {
         text-align-last: right;
         width: 55%;
         margin: 1.7%;
@@ -435,7 +435,7 @@
         border: 1px solid rgba(0,0,0,0.5);
     }
 
-    .tree-form-main .main {
+    .treeFormMain .main {
         width:300px;
         border-radius: 1.7%;
         background-color: #F3F6FA;
@@ -444,7 +444,7 @@
         flex-wrap: wrap;
     }
 
-    .tree-form-main .identifier {
+    .treeFormMain .identifier {
         border: 1px solid #666;
         background-color: #d4d4d4;
         width: 55%;
@@ -454,31 +454,31 @@
         text-align:right;
     }
 
-    .tree-form-main .center.p {
+    .treeFormMain .center.p {
         margin:1%;
         color: rgba(0,0,0,0.5);
         font-size: 75%;
         word-wrap: normal;
     }
 
-    .tree-form-main .center.h3 {
+    .treeFormMain .center.h3 {
         margin:1%;
         color: rgba(0,0,0,0.8);
         font-size: 100%;
     }
-    
-    .tree-form-main .center.h4 {
+
+    .treeFormMain .center.h4 {
         margin:1%;
         font-size: 75%
     }
 
-    .tree-form-main .block {
+    .treeFormMain .block {
         display: block;
     }
 }
 
 @media screen and  (max-width: 320px) {
-    input{
+   .treeFormMain  input{
         text-align: right;
         width: 35%;
         margin: 1.7% 0% 1.7% 1.7%;
@@ -487,22 +487,22 @@
         border: 1px solid rgba(0,0,0,0.5);
     }
 
-    .tree-form-main .metric {
+    .treeFormMain .metric {
         font-size: 50%;
     }
 
-    .tree-form-main input[type=number]::-webkit-inner-spin-button{
+    .treeFormMain input[type=number]::-webkit-inner-spin-button{
     -webkit-appearance: none;
     }
 
-    .tree-form-main span {
+    .treeFormMain span {
         font-size: 50%;
         width: 35%;
         color: rgba(0,0,0,0.5);
         display: inline-block;
     }
 
-    .tree-form-main select {
+    .treeFormMain select {
         text-align-last: right;
         width: 35%;
         margin: 1.7%;
@@ -511,7 +511,7 @@
         border: 1px solid rgba(0,0,0,0.5);
     }
 
-    .tree-form-main .main {
+    .treeFormMain .main {
         width:220px;
         border-radius: 1.7%;
         background-color: #F3F6FA;
@@ -520,7 +520,7 @@
         flex-wrap: wrap;
     }
 
-    .tree-form-main .identifier {
+    .treeFormMain .identifier {
         border: 1px solid #666;
         background-color: #d4d4d4;
         width: 35%;
@@ -530,29 +530,29 @@
         text-align:right;
     }
 
-    .tree-form-main .block {
+    .treeFormMain .block {
         display: block;
     }
 
-    .tree-form-main .center.p {
+    .treeFormMain .center.p {
         margin:1%;
         color: rgba(0,0,0,0.5);
         font-size: 75%;
     }
 
-    .tree-form-main .center.h3 {
+    .treeFormMain .center.h3 {
         margin:1%;
         color: rgba(0,0,0,0.8);
         font-size: 100%;
     }
-    
-    .tree-form-main .center.h4 {
+
+    .treeFormMain .center.h4 {
         margin:1%;
         font-size: 75%
-    }   
+    }
 }
 
-.tree-form-main input[type=file] {
+.treeFormMain input[type=file] {
     width: 20%;
     margin: 0px;
     padding: 0px;
@@ -561,7 +561,7 @@
     border-radius: 5.7px;
 }
 
-.tree-form-main input[type=submit]{
+.treeFormMain input[type=submit]{
     color: white;
     background-color: #4eb543;
     border-color: #4eb543;
@@ -571,34 +571,34 @@
     opacity: 0.6;
 }
 
-.tree-form-main input[type=submit]:hover{
+.treeFormMain input[type=submit]:hover{
     opacity: 0.8;    ;
 }
 
-.tree-form-main input[type=submit]:active{
+.treeFormMain input[type=submit]:active{
     opacity: 1;
 }
 
-.tree-form-main .center {
+.treeFormMain .center {
     text-align: center;
 }
 
-.tree-form-main .submit {
+.treeFormMain .submit {
     text-align: center;
     padding: 0px 5% 5%;
 }
 
-.tree-form-main .input__file {
+.treeFormMain .input__file {
     width: 20%;
     visibility: hidden;
     position: absolute;
 }
 
-.tree-form-main .input-wrapper {
+.treeFormMain .inputWrapper {
     position:sticky;
 }
 
-.tree-form-main .fileform {
+.treeFormMain .fileform {
     cursor: pointer;
     position: relative;
     height: 20vh;
@@ -607,7 +607,7 @@
     width: 20%;
 }
 
-.tree-form-main .fileform .selectbutton {
+.treeFormMain .fileform .selectbutton {
     color: #3388ff;
     border:1px solid #3388ff;
     border-radius: 2.8px;
@@ -619,14 +619,14 @@
     position: absolute;
 }
 
-.tree-form-main .fileform.upload{
+.treeFormMain .fileform.upload{
     position: absolute;
     width: 100%;
     filter: alpha(opacity=0);
     opacity: 0;
 }
 
-.tree-form-main .fileform .fileformlabel {
+.treeFormMain .fileform .fileformlabel {
     float: left;
     border: 1px solid #000000;
     height: 2%;

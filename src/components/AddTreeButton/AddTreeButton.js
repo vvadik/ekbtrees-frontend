@@ -1,10 +1,10 @@
 import { MapSate } from "../Map/MapState";
-import styles from "./AddTreeButton.css";
+import styles from "./AddTreeButton.module.css";
 
 export const AddTreeButton = ({mapState, setMapState}) => {
     return(
-        <button disabled={mapState === MapSate.addTreeBegin} 
-            className="addTreeButton" 
+        <button disabled={mapState === MapSate.addTreeBegin}
+            className={styles.addTreeButton}
             onClick={ () => buttonOnClickHandler(mapState, setMapState) }>{getButtonText(mapState)}</button>
     );
 }

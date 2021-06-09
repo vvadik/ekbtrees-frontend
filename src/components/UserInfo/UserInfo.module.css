@@ -1,4 +1,4 @@
-.user-container{
+.userContainer{
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -15,45 +15,77 @@
 .user-heading{
     font-size: 18px;
 }
-.user-name, .user-role{
+.userName, .userRole{
     display: block;
 }
-.user-name{
+.userName{
     font-weight: 600;
 }
-.user-role{
+.userRole{
     font-size: 12px;
     color: grey;
     text-transform: lowercase;
     line-height: 1.5;
 }
-.user-icon{
+.userIcon{
     width: 35px;
     height: 35px;
     border: 1px solid black;
     border-radius: 20px;
     margin: 0px 5px;
 }
-.fa-chevron-down, 
-.fa-bell,
-.fa-sign-out{
+
+.userBtn {
+    cursor: pointer;
+    background: none;
+    border: 0;
+}
+
+.faChevronDown,
+.faBell,
+.faSignOut{
     color: lightgrey;
     font-size: 20px;
 }
-.user-controls{
+
+.faChevronDownActive {
+    color: rgb(84, 171, 253);
+}
+
+.faBell:before {
+    content: "\f0f3";
+}
+
+.faSignOut:before {
+    content: "\f08b";
+}
+
+.faChevronDown {
+    background: none;
+    border: 0;
+}
+
+.faChevronDown:before {
+    content: "\f078";
+}
+
+.userControls{
     display: flex;
     justify-content: space-between;
     flex-basis: 60px;
 }
-.user-btn {
-    background-color: inherit;
-    cursor: pointer;
+
+@media screen and (min-width: 320px) {
+    .container {
+        margin: 10px;
+    }
 }
+
 @media screen and (min-width: 768px){
     .container{
         margin: 0;
     }
-    .user-container{
+    .userContainer{
         margin: 0px 10%;
     }
 }

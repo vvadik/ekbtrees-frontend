@@ -3,7 +3,7 @@
   font-family: "Recursive", sans-serif;
 }
 
-.login-form {
+.loginForm {
   display: flex;
   flex-direction: column;
   width: 80%;
@@ -12,12 +12,12 @@
   padding-bottom: 0;
 }
 
-.login-container {
+.loginContainer {
   box-shadow: 0px 0px 15px -5px rgba(34, 60, 80, 0.57);
   background-color: white;
 }
 
-.login-form input {
+.loginForm input {
   box-sizing: border-box;
   font-weight: 500;
   font-size: 14px;
@@ -28,12 +28,12 @@
   padding: 0px 24px;
 }
 
-.login-form input:focus {
+.loginForm input:focus {
   outline: none;
   border: 2px solid rgb(104, 103, 103);
 }
 
-.login-form button {
+.loginForm button {
   box-sizing: border-box;
   font-weight: 500;
   font-size: 14px;
@@ -47,53 +47,54 @@
   margin: 15px 0px;
 }
 
-.login-form button:hover,
-.login-form button:active {
+.loginForm button:hover,
+.loginForm button:active {
   background-color: #4c7929;
 }
 
-.login-form .login-message {
+.loginForm .loginMessage {
   color: lightgray;
   text-align: center;
   margin: 0;
   font-size: 14px;
 }
 
-.login-form .flex {
+.loginForm .flex {
   display: flex;
   justify-content: space-between;
   width: 70%;
   margin: 15px auto;
 }
 
-.flex-register {
+.flexRegister {
   display: flex;
   justify-content: center;
   white-space: nowrap;
 }
 
-.flex-register p {
+.flexRegister p {
   font-weight: 500;
   font-size: 14px;
 }
 
-.flex-register .yellow {
+.flexRegister .yellow {
   color: #fb8f07;
 }
 
-.flex-register .yellow a {
+.flexRegister .yellow a {
   color: #fb8f07;
   text-decoration: none;
   padding-left: 3px;
 }
 
-.privacy-terms {
+.privacyTerms {
   font-weight: 500;
   font-size: 12px;
   text-align: center;
+  padding: 15px 0;
 }
 
-.login-help {
+.loginHelp {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
@@ -166,11 +167,11 @@ h2 {
   padding: 30px 0px;
 }
 
-.login-container {
+.loginContainer {
   display: flex;
 }
 
-.login-aside {
+.loginAside {
   display: none;
   flex-basis: 50%;
   background-color: #4f802c;
@@ -180,20 +181,20 @@ h2 {
   clip-path: polygon(0 0, 100% 0, 90% 100%, 0% 100%);
 }
 
-.login-aside h2 {
+.loginAside h2 {
   color: white;
   font-size: 25px;
 }
 
-.login-aside p {
+.loginAside p {
   padding: 10px 0px;
 }
-.flex-social{
+.flexSocial{
   display: flex;
   justify-content: center;
   padding: 10px 0px;
 }
-.login-aside .link-register {
+.loginAside .linkRegister {
   width: 200px;
   height: 40px;
   text-align: center;
@@ -207,21 +208,21 @@ h2 {
   margin: 10px 0px;
 }
 
-.login-aside .link-register:hover,
-.login-aside .link-register:active {
+.loginAside .linkRegister:hover,
+.loginAside .linkRegister:active {
   background-color: white;
   color: #4f802c;
   transition: ease-in 0.15s;
 }
-.login-message{
+.loginMessage{
   height: 40px;
   padding: 10px 0px;
 }
-.login-message p{
+.loginMessage p{
   color: red;
 }
 @media screen and (min-width: 768px) {
-  .login-container {
+  .loginContainer {
     height: 550px;
   }
 
@@ -229,29 +230,29 @@ h2 {
     display: inline;
   }
 
-  .login-aside {
+  .loginAside {
     display: flex;
   }
 
-  .login-form {
+  .loginForm {
     flex-basis: 50%;
     padding: 0px 40px;
   }
 
-  .privacy-terms {
+  .privacyTerms {
     display: none;
   }
 }
 
 @media screen and (min-width: 1024px) {
-  .login-container {
+  .loginContainer {
     width: 80%;
     margin: 0 auto;
   }
 }
 
 @media screen and (min-width: 1440px) {
-  .login-container {
+  .loginContainer {
     width: 1000px;
     margin: 0 auto;
   }

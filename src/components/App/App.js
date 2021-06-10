@@ -15,29 +15,31 @@ export default class App extends Component {
         lastName: null,
         cookieSet: false
     }
+    componentDidMount(){
+        this.handleState();
+    }
     handleCookie = () => {       
         cookies.addChangeListener(this.onCookieChange);              
-        cookies.set(
-            'AccessToken', 
-            'eyJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJFS0JUcmVlcyBBdXRoIFNlcnZpY2UiLCJpYXQiOjE2MjMwNjYwOTMsImV4cCI6MTYyMzA2Nzg5MywiaWQiOjUsImZpcnN0TmFtZSI6IkFuemhlbGluYSIsImxhc3ROYW1lIjoiR2FmdXJvdmEiLCJyb2xlcyI6WyJ2b2x1bnRlZXIiXX0.n5Syvs0Wbv2EZYGXxMGV_MVhGjGy_cBUNaS8_YwsJEwyBt1N8MVBq-F7BMyFg_DzI5aQ1IufvoMcN4BfMz4oxA', 
-            { path: '/' }
-            );  
-        this.setState({
-            cookieSet: true
-        })    
+        // cookies.set(
+        //     'AccessToken', 
+        //     'eyJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJFS0JUcmVlcyBBdXRoIFNlcnZpY2UiLCJpYXQiOjE2MjMwNjYwOTMsImV4cCI6MTYyMzA2Nzg5MywiaWQiOjUsImZpcnN0TmFtZSI6IkFuemhlbGluYSIsImxhc3ROYW1lIjoiR2FmdXJvdmEiLCJyb2xlcyI6WyJ2b2x1bnRlZXIiXX0.n5Syvs0Wbv2EZYGXxMGV_MVhGjGy_cBUNaS8_YwsJEwyBt1N8MVBq-F7BMyFg_DzI5aQ1IufvoMcN4BfMz4oxA', 
+        //     { path: '/' }
+        //     );           
         this.handleState();               
     }
     removeCookie = () => {
+        console.log(cookies)
         cookies.remove('AccessToken');
         this.setState({
             cookieSet: false
         }) 
     }
     handleState() {
-        const cookie = cookies.get('AccessToken')  
-        if(cookie){
-            const decodedCookie = jwt_decode(cookie);
+        const cookieAccess = cookies.get('AccessToken');       
+        if(cookieAccess){
+            const decodedCookie = jwt_decode(cookieAccess);
             this.setState({
+                cookieSet: true,
                 role: decodedCookie.roles[0],
                 firstName: decodedCookie.firstName,
                 lastName: decodedCookie.lastName

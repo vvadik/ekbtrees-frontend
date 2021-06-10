@@ -4,34 +4,24 @@ import Man from '../../img/man.png';
 import UserMenu from '../UserMenu';
 
 export default class UserInfo extends Component {
-    state = {
-        name: null,
-        role: null
-    }
-    componentDidMount(){
-        const {info} = this.props;
-        this.setState({           
-            name: info.firstName,
-            role: info.role           
-        })
-    }
+    
     handleClick() {
         const userNavBar = document.getElementById("userNavBar");
         const icon = document.querySelector(".fa-chevron-down");
 
         userNavBar.hidden = !userNavBar.hidden;
         userNavBar.hidden ? icon.style.color = "lightgrey" : icon.style.color = "#54ABFDFF";
-
     }
 
-    render() {        
+    render() {    
+  
         return (
             <div className="container">
                 <div className="user-container">
                     <div className="user">
                         <div className="user-fullname">
-                            <span className="user-name">{this.state.name}</span>
-                            <span className="user-role">{this.state.role}</span>
+                            <span className="user-name">{this.props.info.firstName}</span>
+                            <span className="user-role">{this.props.info.role}</span>
                         </div>
                         <img src={Man} className="user-icon" alt="profile-icon"></img>
                         <button className="user-btn" onClick={this.handleClick}>

@@ -19,7 +19,7 @@ export default class Main extends Component {
       <main className="mainWrapper">
         <Switch>
           <Route exact path='/login' 
-          render={props => <LoginForm {...props} handleCookie={onCookie} info={info}/>} />
+          render={props => <LoginForm {...props} handleCookie={onCookie}/>} />
           <Route exact path='/registration' component={RegistrationForm} />
           <Route exact path='/map'
             render={props => <Map {...props} />}

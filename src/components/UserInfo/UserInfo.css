@@ -42,8 +42,13 @@
 .fa-sign-out{
     color: lightgrey;
     font-size: 20px;
-
+    cursor: pointer;
     margin-left:10px
+}
+.fa-chevron-down:hover,
+.fa-bell:hover,
+.fa-sign-out:hover{
+    color: #54ABFDFF;
 }
 .user-controls{
     display: flex;

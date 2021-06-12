@@ -1,20 +1,20 @@
 import React, { Component } from 'react';
 import { getTreeAddUrl, fetchData } from '../ApiDataLoadHelper/DataLoadHelper';
-import styles from "./AddNewTreeForm.css";
+import "./AddNewTreeForm.css";
 
 export default class AddNewTreeForm extends Component {
     constructor(props) {
         super(props);
         this.state = {speciesValues: [], buttonEnable: true};
-    
+
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     componentDidMount() {
         fetchData("/api/species/get-all")
-        .then((jsonData) => {
-            this.setState({speciesValues: jsonData});
-        });
+            .then((jsonData) => {
+                this.setState({speciesValues: jsonData});
+            });
     }
 
     handleSubmit(event) {
@@ -35,7 +35,7 @@ export default class AddNewTreeForm extends Component {
         });
 
         data["geographicalPoint"] = {
-            "latitude": this.props.match.params.lat, 
+            "latitude": this.props.match.params.lat,
             "longitude": this.props.match.params.lng
         };
 
@@ -45,166 +45,162 @@ export default class AddNewTreeForm extends Component {
             headers: { 'Content-Type': 'application/json' },
             body: json,
         })
-        .then(response => {
-            if (response.status === 201) {
-                alert("Дерево успешно добавлено");
-                this.props.history.goBack();
-            }
-            else {
-                alert("Возникла ошибка при попытке добавить дерево")
-                console.log(response.status);
-                console.log(json);
-                this.setState({buttonEnable: true});
-            }
-        });
+            .then(response => {
+                if (response.status === 201) {
+                    alert("Дерево успешно добавлено");
+                    this.props.history.goBack();
+                } else {
+                    alert("Возникла ошибка при попытке добавить дерево")
+                    console.log(response.status);
+                    console.log(json);
+                    this.setState({buttonEnable: true});
+                }
+            });
     }
 
-    render() {
+    renderGEOPosition () {
         const lat = this.props.match.params.lat;
         const lng = this.props.match.params.lng;
-        const speciesValues = this.state.speciesValues
+
+        return (
+            <div className="addTreeFormBlockWrapper">
+                <span className="addTreeFormBlockPrefix"> Геопозиция </span>
+                <div className="geopositionWrapper">
+                    <span className="geopositionItem">{lat}</span>
+                    <span className="geopositionItem">{lng}</span>
+                </div>
+            </div>
+        )
+    }
+
+    renderTypesOfTrees () {
+        return this.state.speciesValues
             .sort((first, second) => {
                 if (first.title > second.title) return 1;
                 if (first.title < second.title) return -1;
                 return 0;
             })
-            .map(item => <option value={item.id}>{item.title}</option>);
+            .map(item => <option className="addTreeFormBlockSelectOption" value={item.id}>{item.title}</option>);
+    }
 
+    renderMainInformation () {
         return (
-            <div class="add-tree-form-container">
-                <h3 class="center h3"> Карточка дерева </h3>
-                <div class="center p"> пожалуйста, добавьте  всю информацию о дереве  </div>
-                <h4 class="center h4"> Основная информация</h4>
-                <form onSubmit={this.handleSubmit}>
-                    <figure class="main">
-                        <label>
-                            <span> Геопозиция </span>
-                            <input name="geoposition" type="text" maxlength="10" disabled value = {`${lat}, ${lng}`}/>
-                        </label>
-                        <div>
-                            <label>
-                                <span> Порода </span>
-                                <select name="species" dir="rtl">
-                                    {speciesValues}
-                                </select>
-                            </label>
-                        </div>
-                        <div>
-                            <label class="block">
-                                <span> Высота в  метрах </span>
-                                <label>
-                                    <input name="treeHeight" type="number" min="1" max="50"/>
-                                </label>
-                                <label class="metric margin"> М </label>
-                            </label>
-                            <label class="block">
-                                <span> Диаметр  кроны </span>
-                                <label>
-                                    <input name="diameterOfCrown" type="number" min="1" max="50"/>
-                                </label>
-                                <label class="metric margin"> М </label>
-                            </label>
-                        </div>
-                        <div>
-                            <label class="block">
-                                <span> Обхват <wbr/> (самого  толстого)   ствола </span>
-                                <label>
-                                    <input name="trunkGirth" type="number" min="1" max="1000"/>
-                                </label>
-                                <label class="metric margincm"> СМ </label>
-                            </label>
-                            <label class="block">
-                                <span> Число стволов </span>
-                                <label>
-                                    <input name="numberOfTreeTrunks" type="number" min="1" max="10"/>
-                                </label>
-                            </label>
-                        </div>
-                        <div>
-                            <label class="block">
-                                <span> Высота первой  ветви от земли  в метрах  </span>
-                                <label>
-                                    <input name="heightOfTheFirstBranch" type="number" min="1" max="50"/>
-                                </label>
-                                <label class="metric margin"> М </label>
-                            </label>
-                            <label class="block">
-                                <span> Возраст в годах </span>
-                                <input name="age" type="number" min="0"/>
-                            </label>
-                        </div>
-                        <div>
-                            <span> Визуальная  оценка   состояния </span>
-                            <label>
-                                <select name="conditionAssessment" dir="rtl">
-                                    <option value="1"> 1/5</option>
-                                    <option value="2"> 2/5 </option>
-                                    <option value="3"> 3/5 </option>
-                                    <option value="4"> 4/5 </option>
-                                    <option value="5"> 5/5 </option>
-                                </select>
-                            </label>
-                        </div>
-                    </figure>
-                    <h4 class="center h4"> фотографии и файлы </h4>
-                    <figure class="main">
-                        <div>
-                        <form class="file">
-                                <figure class="picture"> </figure>
-                                <input type="file"  multiplie name="upload" class="fileform upload" />
-                                <div class="fileform">
-                                    <img src="/upload.png" class="center"/>
-                                    <label class="fileformlabel"  id="fileformlabel"></label>
-                                    <label class="selectbutton">Browse..</label>
-                                </div>
-                        </form>
+            <figure className="addTreeFormBlock">
+                {this.renderGEOPosition()}
+                <div className="addTreeFormBlockWrapper">
+                    <span className="addTreeFormBlockPrefix"> Порода </span>
+                    <select name="species" className="addTreeFormBlockSelect" dir="rtl">
+                        {this.renderTypesOfTrees()}
+                    </select>
+                </div>
+                <div className="addTreeFormWrapperFlex">
+                    <div className="addTreeFormBlockWrapper addTreeFormBlockWrapperDesktop">
+                        <span className="addTreeFormBlockPrefix"> Высота (в метрах)</span>
+                        <input name="treeHeight" className="addTreeFormBlockValue" type="number" min="1" max="50"/>
                     </div>
-                    </figure>
-                    <h4 class="center h4"> Дополнительная информация</h4>
-                    <figure class="main">
-                        <div>
-                            <label name="id" class="block">
-                                <span> Автоназначаемый  идентификатор </span>
-                                <label>
-                                    <span class="identifier"> 10321 </span>
-                                </label>
-                            </label>
-                            <label class="block">
-                                <span> Статус дерева </span>
-                                <select dir="rtl" class="status">
-                                    <option> Жив </option>
-                                    <option> Цел </option>
-                                    <option> Орел </option>
-                                </select>
-                            </label>
-                        </div>
-                        <div>
-                            <label class="block">
-                                <span> Дата и время  добавления  записи  </span>
-                                <label>
-                                    <input name="created" type="datetime-local"/>
-                                </label>
-                            </label>
-                            <label class="block">
-                                <span> Дата и время  последнего  редактирования  </span>
-                                <label>
-                                    <input name="updated" type="datetime-local"/>
-                                </label>
-                            </label>
-                        </div>
-                        <div>
-                            <span> Ссылка на  автора </span>
-                            <label>
-                                <input type="email" name="user" autocorrect="off" maxlength="60"/>  
-                            </label>
-                        </div>
-                    </figure>
-                    <div class="submit">
-                        <input type="submit" value="Отправить" disabled={!this.state.buttonEnable}/>
+                    <div className="addTreeFormBlockWrapper addTreeFormBlockWrapperDesktop">
+                        <span className="addTreeFormBlockPrefix">Диаметр кроны (в метрах)</span>
+                        <input name="diameterOfCrown" className="addTreeFormBlockValue" type="number" min="1" max="50"/>
                     </div>
-                    <div class="cencel-button">
-                        <input type="button" onClick={this.props.history.goBack} value="Отмена"/>
+                    <div className="addTreeFormBlockWrapper addTreeFormBlockWrapperDesktop">
+                        <span
+                            className="addTreeFormBlockPrefix"> Обхват <wbr/> самого толстого ствола (в сантиметрах)</span>
+                        <input name="trunkGirth" className="addTreeFormBlockValue" required type="number" min="1" max="10"/>
                     </div>
+                    <div className="addTreeFormBlockWrapper addTreeFormBlockWrapperDesktop">
+                        <span className="addTreeFormBlockPrefix"> Число стволов </span>
+                        <input name="numberOfTreeTrunks" className="addTreeFormBlockValue" required type="number" min="1" max="5"
+                               placeholder="1"/>
+                    </div>
+                    <div className="addTreeFormBlockWrapper addTreeFormBlockWrapperDesktop">
+                        <span className="addTreeFormBlockPrefix"> Высота первой ветви от земли (в метрах)</span>
+                        <input name="heightOfTheFirstBranch" className="addTreeFormBlockValue" type="number" min="1" max="50"/>
+                    </div>
+                    <div className="addTreeFormBlockWrapper addTreeFormBlockWrapperDesktop">
+                        <span className="addTreeFormBlockPrefix"> Возраст (в годах)</span>
+                        <input name="age" className="addTreeFormBlockValue" type="number" min="0"/>
+                    </div>
+                </div>
+                <div className="addTreeFormBlockWrapper">
+                    <span className="addTreeFormBlockPrefix">Визуальная  оценка состояния</span>
+                    <select name="conditionAssessment" className="addTreeFormBlockSelect" dir="rtl">
+                        <option value="1" className="addTreeFormBlockSelectOption">1/5</option>
+                        <option value="2" className="addTreeFormBlockSelectOption">2/5</option>
+                        <option value="3" className="addTreeFormBlockSelectOption">3/5</option>
+                        <option value="4" className="addTreeFormBlockSelectOption">4/5</option>
+                        <option value="5" className="addTreeFormBlockSelectOption">5/5</option>
+                    </select>
+                </div>
+            </figure>
+        )
+    }
+
+    renderFiles () {
+        return (
+            <figure className="addTreeFormBlock">
+                <form className="addTreeFormBlockFile">
+                    <input className="addTreeFormBlockFileItem" type="file" multiple name="upload" />
+                </form>
+            </figure>
+        )
+    }
+
+    renderAdditionalInformation () {
+        return (
+            <figure className="addTreeFormBlock">
+                <div className="addTreeFormWrapperFlex">
+                <div className="addTreeFormBlockWrapper addTreeFormBlockWrapperDesktop">
+                    <span className="addTreeFormBlockPrefix"> Автоназначаемый  идентификатор </span>
+                    <input className="addTreeFormBlockValue" type="text" disabled value="10321"/>
+                </div>
+                <div className="addTreeFormBlockWrapper addTreeFormBlockWrapperDesktop">
+                    <span className="addTreeFormBlockPrefix"> Статус дерева </span>
+                    <select dir="rtl" className="addTreeFormBlockSelect">
+                        <option className="addTreeFormBlockSelectOption"> Жив</option>
+                        <option className="addTreeFormBlockSelectOption"> Цел</option>
+                        <option className="addTreeFormBlockSelectOption"> Орел</option>
+                    </select>
+                </div>
+                    <div className="addTreeFormBlockWrapper addTreeFormBlockWrapperDesktop">
+                        <span className="addTreeFormBlockPrefix"> Дата и время  добавления  записи  </span>
+                        <input name="created" className="addTreeFormBlockValue" type="datetime-local"/>
+                    </div>
+                    <div className="addTreeFormBlockWrapper addTreeFormBlockWrapperDesktop">
+                        <span className="addTreeFormBlockPrefix"> Дата и время  последнего  редактирования  </span>
+                        <input name="updated" className="addTreeFormBlockValue" type="datetime-local"/>
+                    </div>
+                </div>
+                <div className="addTreeFormBlockWrapper">
+                    <span className="addTreeFormBlockPrefix"> Ссылка на  автора </span>
+                    <input name="user" className="addTreeFormBlockValue" type="email" autoCorrect="off" maxLength="60"/>
+                </div>
+            </figure>
+        )
+    }
+
+    renderButtons () {
+        return (
+            <div className="addTreeFormButtons">
+                <button disabled={!this.state.buttonEnable} className="addTreeFormAddButton" type="submit">Отправить</button>
+                <button onClick={this.props.history.goBack} className="addTreeFormCancelButton" type="submit">Отмена</button>
+            </div>
+        )
+    }
+
+
+    render() {
+        return (
+            <div className="addTreeFormContainer">
+                <h3 className="addTreeFormTitle"> Карточка дерева </h3>
+                <div className="addTreeSubTitle"> пожалуйста, добавьте  всю информацию о дереве  </div>
+                <h4 className="addTreeFormBlockTitle"> Основная информация</h4>
+                <form className="addTreeForm" onSubmit={this.handleSubmit}>
+                    {this.renderMainInformation()}
+                    <h4 className="addTreeFormBlockTitle">Фотографии и файлы </h4>
+                    {this.renderFiles()}
+                    <h4 className="addTreeFormBlockTitle"> Дополнительная информация</h4>
+                    {this.renderAdditionalInformation()}
+                    {this.renderButtons()}
                 </form>
             </div>
         );

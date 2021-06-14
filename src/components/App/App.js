@@ -5,7 +5,7 @@ import jwt_decode from "jwt-decode";
 
 import Header from '../Header';
 import Main from '../Main';
-import './App.css';
+//import './App.css';
 
 const cookies = new Cookies();
 export default class App extends Component {

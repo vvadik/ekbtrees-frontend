@@ -55,9 +55,6 @@
   font-weight: 300;
 }
 
-.desktop {
-  display: none;
-}
 .map {
   height: 100%;
 }
@@ -74,197 +71,266 @@ main {
   height: 100%;
 } */
 
-@media screen and (min-width: 768px) {
   /* .leaflet-container {
     height: 100%;
   } */
 
-  .mobile {
+.flexSearchMap {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+  margin-bottom: 60px;
+}
+
+.search {
+  width: 20%;
+}
+
+.desktopMap {
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+}
+
+    .slogan {
+      font-size: 24px;
+    }
+
+.green {
+  background-color: #50802c;
+}
+
+.searchBlock {
+  height: 30px;
+  margin-bottom: 10px;
+}
+
+.mapBlock {
+  height: 10px;
+}
+
+.getStart {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 0px 20px;
+}
+
+.regular {
+  font-family: "Recursive", sans-serif;
+  margin: 40px 0;
+  font-size: 20px;
+  font-weight: 400;
+}
+
+.regular2 {
+  font-family: "Recursive", sans-serif;
+  margin-top: 40px;
+  font-size: 20px;
+  font-weight: 400;
+}
+
+
+.bold {
+  font-weight: bold;
+  font-size: 26px;
+}
+
+.get-start-left {
+  width: 30%;
+}
+
+.getStartRight {
+  width: 500px;
+  display: flex;
+  justify-content: space-around;
+}
+
+.getStartRight button {
+  margin: 70px 0;
+}
+
+.containerSearch {
+  width: 100%;
+  vertical-align: middle;
+  white-space: nowrap;
+  position: relative;
+}
+
+.inputSearch {
+  font-family: "Recursive", sans-serif;
+  width: 100%;
+  height: 50px;
+  background: white;
+  border: none;
+  font-size: 16px;
+  float: left;
+  color: #63717f;
+  padding-left: 45px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  margin-top: 10px;
+  margin-bottom: 30px;
+}
+
+.icon {
+  position: absolute;
+  top: 10px;
+  margin-left: 17px;
+  margin-top: 17px;
+  z-index: 1;
+  color: #838aa6;
+}
+
+.logInDesktop {
+  background-color: #fa881a;
+  border: 1px solid #fa881a;
+  width: 200px;
+  height: 45px;
+  border-radius: 5px;
+  color: white;
+  font-family: "Oswald", sans-serif;
+  font-weight: 300;
+  text-transform: uppercase;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.signUpDesktop {
+  background-color: #50802c;
+  border: 1px solid white;
+  width: 200px;
+  height: 45px;
+  border-radius: 5px;
+  color: white;
+  font-family: "Oswald", sans-serif;
+  font-weight: 300;
+  text-transform: uppercase;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flexContainer,
+.flexContainer2 {
+  display: flex;
+  justify-content: space-around;
+}
+
+.leftPart {
+  width: 45%;
+}
+
+.rightPart {
+  width: 45%;
+}
+
+.rightPartImg {
+  width: 40%;
+  display: flex;
+  align-items: center;
+}
+
+.lastPart {
+  margin: 70px 0;
+}
+
+.aboutTrees {
+  align-items: center;
+  margin-top: 30px;
+}
+
+.fas {
+  color: #1d53aa;
+  margin: 20px 0;
+  display: inline-block;
+  font-style: normal;
+  font-variant: normal;
+  text-rendering: auto;
+  line-height: 1;
+  font-family: 'Font Awesome 5 Free';
+  font-weight: 900;
+  padding: 8px 10px;
+}
+
+.regularSmall {
+  font-family: "Recursive", sans-serif;
+  font-size: 16px;
+  font-weight: 200;
+}
+
+@media screen and (max-width: 769px) {
+  .desktopMap {
     display: none;
   }
 
-  .desktop {
-    display: block;
-  }
-
-  .flexSearchMap {
-    display: flex;
-    justify-content: space-around;
-    margin-top: 20px;
-    margin-bottom: 60px;
+  .searchBlock {
+    display: none;
   }
 
   .search {
-    width: 20%;
-  }
-
-  .desktopMap {
-    width: 70%;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .slogan {
-    font-size: 24px;
-  }
-
-  .green {
-    background-color: #50802c;
-  }
-
-  .searchBlock {
-    height: 30px;
-    margin-bottom: 10px;
-  }
-
-  .mapBlock {
-    height: 10px;
+    width: 100%;
   }
 
   .getStart {
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    padding: 0px 20px;
+    flex-direction: column;
   }
 
-  .regular {
-    font-family: "Recursive", sans-serif;
-    margin: 40px 0;
-    font-size: 20px;
-    font-weight: 400;
+  .inOrReg {
+    display: none;
   }
 
-  .bold {
-    font-weight: bold;
-    font-size: 26px;
-  }
-
-  .get-start-left {
-    width: 30%;
-  }
-
-  .getStartRight {
-    width: 500px;
-    display: flex;
-    justify-content: space-around;
-  }
-
-  .getStartRight button {
-    margin: 70px 0;
-  }
-
-  .containerSearch {
-    width: 100%;
-    vertical-align: middle;
-    white-space: nowrap;
-    position: relative;
-  }
-
-  .inputSearch {
-    font-family: "Recursive", sans-serif;
-    width: 100%;
-    height: 50px;
-    background: white;
-    border: none;
-    font-size: 16px;
-    float: left;
-    color: #63717f;
-    padding-left: 45px;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    border-radius: 5px;
-    margin-top: 10px;
-    margin-bottom: 30px;
-  }
-
-  .icon {
-    position: absolute;
-    top: 10px;
-    margin-left: 17px;
-    margin-top: 17px;
-    z-index: 1;
-    color: #838aa6;
-  }
-
-  .logInDesktop {
-    background-color: #fa881a;
-    border: 1px solid #fa881a;
-    width: 200px;
-    height: 45px;
-    border-radius: 5px;
-    color: white;
-    font-family: "Oswald", sans-serif;
-    font-weight: 300;
-    text-transform: uppercase;
-    font-size: 16px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .signUpDesktop {
-    background-color: #50802c;
-    border: 1px solid white;
-    width: 200px;
-    height: 45px;
-    border-radius: 5px;
-    color: white;
-    font-family: "Oswald", sans-serif;
-    font-weight: 300;
-    text-transform: uppercase;
-    font-size: 16px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  .flexContainer2{
+    flex-direction: column;
   }
 
   .flexContainer {
-    display: flex;
-    justify-content: space-around;
+    flex-direction: column-reverse;
   }
 
-  .leftPart {
-    width: 40%;
-  }
-
+  .leftPart,
   .rightPart {
-    width: 40%;
+    width: 100%;
+    margin: 10px 0;
   }
 
-  .rightPartImg {
-    width: 40%;
-    display: flex;
-    align-items: center;
+  .getStartRight {
+    margin-bottom: 40px;
+  }
+
+  .flexSearchMap {
+    padding: 0px 7px;
+  }
+
+  .slogan {
+    margin-top: 40px;
   }
 
   .lastPart {
-    margin: 70px 0;
+    margin: 0;
+    padding: 0 7px;
   }
 
-  .aboutTrees {
-    align-items: center;
-    margin-top: 30px;
+  .rightPartImg {
+    width: 100%;
+  }
+}
+
+
+@media screen and (max-width: 510px) {
+  .getStartRight {
+    margin-bottom: 40px;
+    flex-direction: column;
+    width: inherit;
   }
 
-  .fas {
-    color: #1d53aa;
-    margin: 20px 0;
-    display: inline-block;
-    font-style: normal;
-    font-variant: normal;
-    text-rendering: auto;
-    line-height: 1;
-    font-family: 'Font Awesome 5 Free';
-    font-weight: 900;
-    padding: 8px 10px;
-  }
-
-  .regularSmall {
-    font-family: "Recursive", sans-serif;
-    font-size: 16px;
-    font-weight: 200;
+  .signUpDesktop {
+    margin-top: 20px;
   }
 }

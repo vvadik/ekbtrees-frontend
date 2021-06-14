@@ -16,16 +16,20 @@ export default class App extends Component {
         cookieSet: false
     }
     componentDidMount(){
+        cookies.addChangeListener(this.onCookieChange); 
         this.handleState();
     }
-    handleCookie = () => {       
-        cookies.addChangeListener(this.onCookieChange);              
+    handleCookie = () => {                           
         // cookies.set(
         //     'AccessToken', 
         //     'eyJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJFS0JUcmVlcyBBdXRoIFNlcnZpY2UiLCJpYXQiOjE2MjMwNjYwOTMsImV4cCI6MTYyMzA2Nzg5MywiaWQiOjUsImZpcnN0TmFtZSI6IkFuemhlbGluYSIsImxhc3ROYW1lIjoiR2FmdXJvdmEiLCJyb2xlcyI6WyJ2b2x1bnRlZXIiXX0.n5Syvs0Wbv2EZYGXxMGV_MVhGjGy_cBUNaS8_YwsJEwyBt1N8MVBq-F7BMyFg_DzI5aQ1IufvoMcN4BfMz4oxA', 
         //     { path: '/' }
         //     );           
         this.handleState();               
+    }
+    onCookieChange = () => {
+        console.log("Noticed cookie change!");
+        this.handleState();
     }
     removeCookie = () => {
         console.log(cookies)
@@ -45,10 +49,7 @@ export default class App extends Component {
                 lastName: decodedCookie.lastName
             })  
         }        
-    }
-    onCookieChange() {
-        console.log("Noticed cookie change!")
-    }
+    }   
     render() {
         return (
         <div className="page">

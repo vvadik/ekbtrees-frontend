@@ -8,8 +8,8 @@ export default class Header extends Component {
         const {onCookieRemove} = this.props;
         return (
             <header className={styles.headerWrapper}>
-                <MobileHeader info = {this.props.info}/>
-                <DesktopHeader onCookieRemove={onCookieRemove} info = {this.props.info}/>
+                <MobileHeader user = {this.props.user}/>
+                <DesktopHeader onCookieRemove={onCookieRemove} user = {this.props.user}/>
             </header>
         )
     }

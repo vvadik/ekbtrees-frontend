@@ -4,7 +4,7 @@ import styles from  './Menu.module.css';
 
 export default class Menu extends Component {
     renderLinks () {
-        const {info} = this.props;
+        const {user} = this.props;
         const links = [{
             activeClassName: styles.active,
             exact: true,
@@ -19,7 +19,7 @@ export default class Menu extends Component {
             onClick: this.props.onClick,
             title: 'Список деревьев',
             to: '/trees',
-            className: info.role !== "admin" ? styles.invisibleMenuLink : styles.visibleMenuLink
+            className: user.role !== "admin" ? styles.invisibleMenuLink : styles.visibleMenuLink
         },
         {
             activeClassName: styles.active,
@@ -27,7 +27,7 @@ export default class Menu extends Component {
             onClick: this.props.onClick,
             title: 'Список пользователей',
             to: '/users',
-            className: info.role !== "admin" ? styles.invisibleMenuLink : styles.visibleMenuLink
+            className: user.role !== "admin" ? styles.invisibleMenuLink : styles.visibleMenuLink
         },
         {
             activeClassName: styles.active,

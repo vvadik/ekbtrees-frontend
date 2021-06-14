@@ -10,7 +10,7 @@ import facebookIcon from '../../img/facebook.png';
 export default class LoginForm extends Component {
     state = {
         touchStart: null,
-        logged: "not logged"
+        logged: true
     }
 
     handleTouch = (e) => {
@@ -66,7 +66,6 @@ export default class LoginForm extends Component {
         )
     }
     render() {
-        const {handleCookie} = this.props;
         return (
             <div>
                 <FormHeader />

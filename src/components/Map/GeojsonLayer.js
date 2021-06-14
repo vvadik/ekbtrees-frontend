@@ -11,9 +11,9 @@ import MapButton from '../MapButton';
 import styles from "./GeojsonLayer.module.css";
 import ClusterMarker from '../ClusterMarker/ClusterMarker';
 
-const GeojsonLayer = ({mapState, setMapState}) => {
+const GeojsonLayer = ({mapState, setMapState, user}) => {
     const map = useMap();
-    const disableClusteringAtZoom = 19; 
+    const disableClusteringAtZoom = 19;
 
     const [activeTreeId, setActiveTreeId] = useState(null);
     const [activeTreeData, setActiveTreeData] = useState(null);
@@ -26,9 +26,9 @@ const GeojsonLayer = ({mapState, setMapState}) => {
         const containerLatLng = getMapContainerLatLng();
         console.log(containerLatLng);
         const fethUrl = isCluster
-            ? getClusterMapInfoUrl(containerLatLng) 
+            ? getClusterMapInfoUrl(containerLatLng)
             : getTreeMapInfoUrl(containerLatLng);
-        
+
         fetchData(fethUrl)
             .then((jsonData) => {
                 setMapData({isClusterData: isCluster, json: jsonData});
@@ -85,18 +85,31 @@ const GeojsonLayer = ({mapState, setMapState}) => {
     })
 
     const stylesCN = cn({
-        [styles.treeFormContainer]: true,
-        [styles.active]: activeTreeId
+        [styles.treeFormContainer]: true
     });
+
+    const renderButton = () => {
+        return user ?
+            <MapButton mapState={ mapState } setMapState={ setMapState } />
+            : null;
+    }
+
+    const handleClickTreeFormWrapper = () => {
+        setActiveTreeId(null);
+    }
+
+    const handleClose = () => {
+        setActiveTreeData(null)
+    }
 
     return (
         <>
         { mapData && getMarkerClusterGroup(mapState, mapData, setActiveTreeId)}
         { newTreePosition && <NewTreeMarker position={newTreePosition} setPosition={setNewTreePosition}/>}
-        <div className={stylesCN} onClick={() => setActiveTreeId(null)}>
-            <TreeForm activeTree = {activeTreeData}/>
+        <div className={stylesCN} onClick={handleClickTreeFormWrapper}>
+            {activeTreeData ? <TreeForm activeTree = {activeTreeData} onClose={handleClose} /> : null}
         </div>
-        <MapButton mapState={ mapState } setMapState={ setMapState } />
+            {renderButton()}
         </>
     );
 }
@@ -133,7 +146,7 @@ function getMarkerClusterGroup(state, data, setActiveTree) {
             ))}
             </>
         );
-    }  
+    }
 }
 
 export default GeojsonLayer;

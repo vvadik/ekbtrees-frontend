@@ -1,37 +1,37 @@
-.addTreeForm {
+.form {
     margin: 20px 0;
 }
 
-.addTreeFormContainer {
+.formContainer {
     padding: 0 9px;
 }
 
-.addTreeFormTitle,
-.addTreeSubTitle,
-.addTreeFormBlockTitle {
+.title,
+.subTitle,
+.blockTitle {
     margin-top: 5px;
     text-align: center;
 }
 
-.addTreeFormBlockTitle {
+.blockTitle {
     margin-bottom: 5px;
 }
 
-.addTreeFormBlock {
-    background-color: #F3F6FA;
+.block {
+    background-color: #fff;
     border-radius: 10px;
     padding: 15px 15px 20px 15px;
     margin-bottom: 15px;
 }
 
-.addTreeFormBlockPrefix {
+.blockPrefix {
     display: block;
     font-size: 16px;
     width: 100%;
     margin: 5px 0;
 }
 
-.addTreeFormBlockValue {
+.blockValue {
     text-align: left;
     margin: 0;
     width: 100%;
@@ -41,7 +41,7 @@
     height: 35px;
 }
 
-.addTreeFormBlockSelect {
+.blockSelect {
     text-align-last: left;
     width: 100%;
     font-size: 16px;
@@ -50,19 +50,19 @@
     height: 35px;
 }
 
-.addTreeFormBlockSelectOption {
+.blockSelectOption {
     text-align: left;
 }
 
-.addTreeFormBlockFileItem {
+.blockFileItem {
     width: 100%;
     border: 0;
     margin: 0;
     padding: 0;
 }
 
-.addTreeFormAddButton,
-.addTreeFormCancelButton {
+.addButton,
+.cancelButton {
     color: white;
     cursor: pointer;
     font-size: 18px;
@@ -73,26 +73,26 @@
     height: 60px;
 }
 
-.addTreeFormAddButton {
+.addButton {
     background-color: #50802c;
     border-color: #50802c;
     margin-bottom: 15px;
 }
 
-.addTreeFormAddButton:hover,
-.addTreeFormAddButton:focus,
-.addTreeFormAddButton:active {
+.addButton:hover,
+.addButton:focus,
+.addButton:active {
     opacity: .6;
 }
 
-.addTreeFormCancelButton {
+.cancelButton {
     background-color: #757575;
     border-color: #757575;
 }
 
-.addTreeFormCancelButton:hover,
-.addTreeFormCancelButton:focus,
-.addTreeFormCancelButton:active {
+.cancelButton:hover,
+.cancelButton:focus,
+.cancelButton:active {
     opacity: .6;
 }
 
@@ -107,34 +107,34 @@
 }
 
 @media screen and (min-width: 550px) {
-    .addTreeFormBlockWrapper {
+    .blockWrapper {
         position: relative;
         margin-top: 20px;
     }
 
-    .addTreeFormBlockWrapper:first-child {
+    .blockWrapper:first-child {
         margin-top: 0;
     }
 
-    .addTreeFormWrapperFlex {
+    .wrapperFlex {
         margin-top: 20px;
     }
 
-    .addTreeFormBlockPrefix {
+    .blockPrefix {
         display: inline-block;
         width: 30%;
     }
 
-    .addTreeFormBlockValue,
-    .addTreeFormBlockSelect {
+    .blockValue,
+    .blockSelect {
         position: absolute;
         width: 68%;
         top: 0;
         right: 0;
     }
 
-    .addTreeFormAddButton,
-    .addTreeFormCancelButton {
+    .addButton,
+    .cancelButton {
         width: 70%;
     }
 
@@ -152,66 +152,66 @@
 }
 
 @media screen and (min-width: 768px) {
-    .addTreeFormTitle {
+    .title {
         font-size: 25px;
     }
 
-    .addTreeFormBlockTitle {
+    .blockTitle {
         font-size: 20px;
     }
 
-    .addTreeSubTitle {
+    .subTitle {
         color: #4b4b4b;
     }
 
-    .addTreeForm {
+    .form {
         max-width: 1150px;
         width: 100%;
         margin: 20px auto 20px auto;
     }
 
-    .addTreeFormWrapperFlex {
+    .wrapperFlex {
         margin-top: 0;
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
     }
 
-    .addTreeFormBlock {
-        background-color: #fff;
+    .block {
         padding: 25px 30px 30px 30px;
     }
 
-    .addTreeFormBlockPrefix {
+    .blockPrefix {
         color: #4b4b4b;
         max-width: 215px;
         width: 100%;
     }
 
-    .addTreeFormAddButton,
-    .addTreeFormCancelButton {
+    .addButton,
+    .cancelButton {
         width: 50%;
     }
 
-    .addTreeFormBlockWrapperDesktop {
+    .blockWrapperDesktop {
         width: 49%;
     }
 
-    .addTreeFormBlockWrapperDesktop:first-child {
+    .blockWrapperDesktop:first-child {
         margin-top: 20px;
     }
 
-    .addTreeFormBlockWrapperDesktop:nth-child(2n) {
+    .blockWrapperDesktop:nth-child(2n) {
         margin-left: 2%;
     }
 
-    .addTreeFormBlockSelect, .addTreeFormBlockValue {
+    .blockSelect,
+    .blockValue {
         position: static;
         width: 77.5%;
     }
 
-    .addTreeFormBlockWrapperDesktop .addTreeFormBlockValue,
-    .addTreeFormBlockWrapperDesktop .addTreeFormBlockSelect {
+    .blockWrapperDesktop .blockValue,
+    .blockWrapperDesktop .blockSelect {
         width: 54%;
     }
 
@@ -219,7 +219,7 @@
         position: static;
     }
 
-    .addTreeFormBlockWrapper {
+    .blockWrapper {
         display: flex;
     }
 }

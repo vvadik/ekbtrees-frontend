@@ -25,15 +25,14 @@ export class DesktopHeader extends Component {
 		);
 	}
 	renderUserInfo(){
-		if(this.props.info.cookieSet){
-			console.log(this.props.info)
+		if(this.props.user){
 			return(
-				<UserInfo onCookieRemove={this.props.onCookieRemove} info={this.props.info}/>
+				<UserInfo onCookieRemove={this.props.onCookieRemove} user={this.props.user}/>
 			)
 		}
 	}
 	renderLoginControllers(){
-		if(!this.props.info.cookieSet){
+		if(!this.props.user){
 			return(
 				<div className={styles.signLinks}>
 					<NavLink exact to='/login' activeClassName={styles.activeSignLinks}>Войти</NavLink>
@@ -43,7 +42,9 @@ export class DesktopHeader extends Component {
 		}
 	}
 	renderAdminControllers(){
-		if(this.props.info.role === "admin"){
+		const {user} = this.props;
+
+		if(user?.role === "admin") {
 			return(
 				<>
 					<NavLink exact to='/trees' activeClassName={styles.activeLink}>Список деревьев</NavLink>
@@ -51,6 +52,8 @@ export class DesktopHeader extends Component {
 				</>
 			)
 		}
+
+		return null
 	}
 	render () {
 		return this.renderContent();

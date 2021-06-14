@@ -10,22 +10,16 @@ import Main from '../Main';
 const cookies = new Cookies();
 export default class App extends Component {
     state = {
-        role: null,
-        firstName: null,
-        lastName: null,
-        cookieSet: false
+        user: null,
     }
+
     componentDidMount(){
-        cookies.addChangeListener(this.onCookieChange); 
+        cookies.addChangeListener(this.onCookieChange);
         this.handleState();
     }
-    handleCookie = () => {                           
-        // cookies.set(
-        //     'AccessToken', 
-        //     'eyJhbGciOiJIUzUxMiJ9.eyJpc3MiOiJFS0JUcmVlcyBBdXRoIFNlcnZpY2UiLCJpYXQiOjE2MjMwNjYwOTMsImV4cCI6MTYyMzA2Nzg5MywiaWQiOjUsImZpcnN0TmFtZSI6IkFuemhlbGluYSIsImxhc3ROYW1lIjoiR2FmdXJvdmEiLCJyb2xlcyI6WyJ2b2x1bnRlZXIiXX0.n5Syvs0Wbv2EZYGXxMGV_MVhGjGy_cBUNaS8_YwsJEwyBt1N8MVBq-F7BMyFg_DzI5aQ1IufvoMcN4BfMz4oxA', 
-        //     { path: '/' }
-        //     );           
-        this.handleState();               
+
+    handleCookie = () => {
+        this.handleState();
     }
     onCookieChange = () => {
         console.log("Noticed cookie change!");
@@ -35,26 +29,30 @@ export default class App extends Component {
         console.log(cookies)
         cookies.remove('AccessToken');
         this.setState({
-            cookieSet: false
-        }) 
+            user: null
+        })
     }
     handleState() {
-        const cookieAccess = cookies.get('AccessToken');       
+        const cookieAccess = cookies.get('AccessToken');
         if(cookieAccess){
             const decodedCookie = jwt_decode(cookieAccess);
+            const {id, email, firstName, lastName, roles} = decodedCookie;
             this.setState({
-                cookieSet: true,
-                role: decodedCookie.roles[0],
-                firstName: decodedCookie.firstName,
-                lastName: decodedCookie.lastName
-            })  
-        }        
-    }   
+                user: {
+                    id,
+                    email,
+                    firstName,
+                    lastName,
+                    role: roles[0]
+                }
+            })
+        }
+    }
     render() {
         return (
         <div className="page">
-            <Header onCookieRemove={this.removeCookie} info={this.state}/>
-            <Main onCookie={this.handleCookie} info={this.state}/>
+            <Header onCookieRemove={this.removeCookie} user={this.state.user}/>
+            <Main onCookie={this.handleCookie} user={this.state.user}/>
             </div>
         )
     }

@@ -1,6 +1,40 @@
 import React, { Component } from 'react';
+import {NavLink} from 'react-router-dom';
 import styles from './ListOfTrees.module.css';
 import cn from "classnames";
+import {formatDate} from '../../helpers/date';
+import {getTrees} from './actions';
+import Spinner from "../Spinner/Spinner";
+
+const mockData = [
+    {
+        "id": 20,
+        "geographicalPoint": {
+            "latitude": 90,
+            "longitude": 180
+        },
+        "species": {
+            "id": 0,
+            "title": "string"
+        },
+        "treeHeight": 0,
+        "numberOfTreeTrunks": 0,
+        "trunkGirth": 0,
+        "diameterOfCrown": 0,
+        "heightOfTheFirstBranch": 0,
+        "conditionAssessment": 0,
+        "age": 0,
+        "treePlantingType": "string",
+        "created": "2021-06-15T07:21:08.812Z",
+        "updated": "2021-06-15T07:21:08.812Z",
+        "authorId": 0,
+        "status": "string",
+        "fileIds": [
+            0
+        ],
+        "image": './img'
+    }
+]
 
 export default class ListOfTrees extends Component {
   constructor(props) {
@@ -9,7 +43,8 @@ export default class ListOfTrees extends Component {
     this.state = {
       currentPage: 1,
       todosPerPage: 9,
-      trees: []
+      trees: [],
+      loading: true
     };
 
     this.handleClick = this.handleClick.bind(this);
@@ -22,28 +57,25 @@ export default class ListOfTrees extends Component {
   }
 
   componentDidMount() {
-    const {getData} = this.props;
-
-    getData()
-      .then((data) => {
-        this.setState({trees: data})
-      });
-  }
-
-  openWindow = (e) => {
-    e.stopPropagation();
-    alert("Window here")
+      getTrees()
+          .then((data) => {
+              console.log(data);
+              this.setState({trees: mockData, loading: false})
+          })
+          .catch(error => {
+              console.error('Произошла ошибка при получении деревьев!', error);
+          })
   }
 
     getTree = (tree, index) => {
         return (
-            <div className={styles.treeTableItemWrapper} key={index} onClick={this.openWindow.bind(this)}>
+            <NavLink to={`/trees/tree=${tree.id}`} className={styles.treeTableItemWrapper} key={index}>
                 <div className={cn([styles.treeTableItem, styles.treeTableItemImg])}>
                     <img src={tree.image} alt='tree' className={styles.tableImg} />
                 </div>
                 <div className={styles.treeTableItem}>
                     <span className={styles.treeTablePrefix}>Порода: </span>
-                    <label htmlFor={index}>{tree.name}</label>
+                    <label htmlFor={index}>{tree.species.title}</label>
                 </div>
                 <div className={styles.treeTableItem}>
                     <span className={styles.treeTablePrefix}>Возраст: </span>
@@ -51,17 +83,13 @@ export default class ListOfTrees extends Component {
                 </div>
                 <div className={styles.treeTableItem}>
                     <span className={styles.treeTablePrefix}>Высота: </span>
-                    {tree.height} метров
+                    {tree.treeHeight} метров
                 </div>
                 <div className={styles.treeTableItem}>
                     <span className={styles.treeTablePrefix}>Дата добавления: </span>
-                    {tree.date}
+                     {formatDate(tree.created)}
                 </div>
-                <div className={cn([styles.treeTableItem, styles.treeTablePencil])}>
-                    <button className={styles.treTableEditButton}>Редактировать</button>
-                    <i className={cn([styles.faPencil, "fa", "fa-pencil"])} aria-hidden="true" />
-                </div>
-            </div>
+            </NavLink>
         )
     }
 
@@ -78,8 +106,10 @@ export default class ListOfTrees extends Component {
     const {trees, todosPerPage } = this.state;
     const pageNumbers = [];
 
-    for (let i = 1; i <= Math.ceil(trees.length / todosPerPage); i++) {
-      pageNumbers.push(i);
+    if (trees.length > todosPerPage) {
+        for (let i = 1; i <= Math.ceil(trees.length / todosPerPage); i++) {
+            pageNumbers.push(i);
+        }
     }
 
     return pageNumbers;
@@ -108,12 +138,12 @@ export default class ListOfTrees extends Component {
       return (
           <div className={styles.treeTable}>
               <div className={styles.treeTableHeader}>
-                  <p className={styles.treeTableHeaderItem}>Изображение</p>
+                   <p className={styles.treeTableHeaderItem}>Изображение</p>
                   <p className={styles.treeTableHeaderItem}>Порода</p>
                   <p className={styles.treeTableHeaderItem}>Возраст</p>
                   <p className={styles.treeTableHeaderItem}>Высота</p>
                   <p className={styles.treeTableHeaderItem}>Дата добавления</p>
-                  <p className={styles.treeTableHeaderItem}>Действия</p>
+                  {/* <p className={styles.treeTableHeaderItem}>Действия</p> */}
               </div>
               <div className={styles.treeTableBody}>
                   {this.renderTrees()}
@@ -122,19 +152,39 @@ export default class ListOfTrees extends Component {
       )
   }
 
+  renderHeader () {
+      return (
+          <div className={styles.treeHeader}>
+              <h3>Список деревьев</h3>
+              <p>Нажмите на нужное дерево в списке, чтобы увидеть форму редактирования</p>
+          </div>
+      )
+  }
+
+  renderBody () {
+      const {loading} = this.state;
+
+      if (loading) {
+          return <Spinner />
+      }
+
+      return (
+          <>
+              {this.renderTable()}
+              <div className={styles.treeNavigation}>
+                  <div role="group" aria-label="Basic example">
+                      {this.renderButtonsByNumbers()}
+                  </div>
+              </div>
+          </>
+      );
+  }
+
   render() {
     return (
       <>
-        <div className={styles.treeHeader}>
-          <h3>Список деревьев</h3>
-          <p>Нажмите, чтобы увидеть описание</p>
-        </div>
-          {this.renderTable()}
-        <div className={styles.treeNavigation}>
-          <div role="group" aria-label="Basic example">
-            {this.renderButtonsByNumbers()}
-          </div>
-        </div>
+          {this.renderHeader()}
+          {this.renderBody()}
       </>
     );
   }

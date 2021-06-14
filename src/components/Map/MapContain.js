@@ -4,11 +4,12 @@ import { useState } from "react";
 import GeojsonLayer from "./GeojsonLayer";
 import { MapSate } from "./MapState";
 import "./Map.css";
+import {TreeForm} from "../MarkerForm/TreeForm";
 
 const MapContain = (props) => {
   const defaultPosition = [56.8391040, 60.6082500]; // Yekaterinburg position
   const [mapState , setMapState] = useState(MapSate.default);
-  const { styleName } = props;
+  const { styleName, user } = props;
   return (
     <React.Fragment>
       <MapContainer className={styleName} center={defaultPosition} zoom={15} scrollWheelZoom={true}>
@@ -21,8 +22,11 @@ const MapContain = (props) => {
         zoomOffset={-1}
         maxZoom={21}
       />
-      <GeojsonLayer mapState={ mapState } setMapState={ setMapState }/>
+      <GeojsonLayer mapState={ mapState } setMapState={ setMapState } user={user} />
     </MapContainer>
+        {/*<div>*/}
+        {/*    <TreeForm activeTree = {null}/>*/}
+        {/*</div>*/}
     </React.Fragment>
   );
 };

@@ -21,7 +21,7 @@ export default class Home extends Component {
             <div className={cn([styles.green, styles.mapBlock])} />
               <div className={styles.mapContainer}>
                 <div className={styles.map}>
-                  <MapContain/>
+                  <MapContain user={this.props.user} />
                 </div>
             </div>
           </div>

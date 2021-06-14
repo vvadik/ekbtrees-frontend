@@ -42,8 +42,8 @@ export default class UserInfo extends Component {
                 <div className={styles.userContainer}>
                     <div className={styles.user}>
                         <div>
-                            <span className={styles.userName}>{this.props.info.firstName}</span>
-                            <span className={styles.userRole}>{this.props.info.role}</span>
+                            <span className={styles.userName}>{this.props.user.firstName}</span>
+                            <span className={styles.userRole}>{this.props.user.role}</span>
                         </div>
                         <img src={Man} className={styles.userIcon} alt="profile-icon" />
                         {this.renderToggleButton()}

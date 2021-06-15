@@ -1,8 +1,25 @@
 import styles from "./TreeForm.module.css";
-import React from "react";
+import React, { useState, useEffect } from 'react';
+import { fetchData } from '../ApiDataLoadHelper/DataLoadHelper';
 import cn from "classnames";
 
-export const TreeForm = ({activeTree }) => {
+export const TreeForm = ({ activeTree }) => {
+    const [treeImages, setTreeImages] = useState([]);
+
+    useEffect(() => {
+        activeTree &&
+        fetchData(`https://ekb-trees-help.ru/api/file/byTree/${activeTree.id}`)
+            .then((jsonData) => {
+                setTreeImages(jsonData);
+            })
+            .catch(err => {
+                alert("Возникла ошибка при загрузке фотографий дерева");
+                console.log(err);
+            })
+    }, [activeTree]);
+
+    let images = treeImages.map(e => <a target="_blank" href={`/image/${e.id}`}><img src={e.uri}/></a>)
+
     return (
         <>
         {activeTree &&
@@ -70,6 +87,12 @@ export const TreeForm = ({activeTree }) => {
                             </label>
                         </div>
                 </form>
+                <div>
+                    <span> Фотографии </span>
+                    <div className={styles.imagesBlock}>
+                        {images}
+                    </div>
+                </div>
             </figure>}
         </>)
 };

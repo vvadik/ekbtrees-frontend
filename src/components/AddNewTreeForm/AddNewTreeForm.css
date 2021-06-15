@@ -1,77 +1,57 @@
-.treeFormMain {
-    margin: 0 auto;
-    border-radius: 1.7%;
-    background-color: white;
-    padding: 2%;
-}
-
-.treeFormMain label {
+.add-tree-form-container span {
+    font-size: 100%;
     color: #4b4b4b;
-}
-
-.treeFormMain .imagesBlock {
-    max-height: 180px;
-}
-
-.treeFormMain img {
-    max-height: 180px;
-    margin-right: 10px;
-}
-
-.treeFormMain img:hover {
-    opacity: 0.8;
+    display: inline-block;
 }
 
 @media screen and (min-width: 1200px) {
-    .treeFormMain {
-        width: 60%;
+    .add-tree-form-container {
+        width: 80%;
         margin: 0 auto;
-        border-radius: 1.7%;
-        background-color: white;
-        padding: 2%;
     }
 
-    .treeFormMain input{
+    .add-tree-form-container input {
         text-align: right;
         width: 21%;
-        margin: 1% 0% 1% 1%;
+        margin: 1.7% 0% 1.7% 1.7%;
         font-size: 100%;
         padding: 1%;
         border: 1px solid rgba(0,0,0,0.5);
     }
 
-    .treeFormMain .metric {
+    .add-tree-form-container .metric {
         font-size: 100%;
     }
 
-    .treeFormMain .metric.margin {
+    .add-tree-form-container .metric.margin {
         margin-right: 2%;
     }
 
-    .treeFormMain .metric.margincm {
+    .add-tree-form-container .metric.margincm {
         margin-right: 1%;
     }
 
-    .treeFormMain input[type=text]{
+    .add-tree-form-container input[type=text]{
         width: 70.6%;
     }
 
-    .treeFormMain input[type=email]{
+    .add-tree-form-container input[type=email]{
         width: 70.6%;
     }
 
-    .treeFormMain span {
-        font-size: 100%;
+    .add-tree-form-container input[type=datetime-local]{
+        margin-right: 2%;
+    }
+
+    .add-tree-form-container span {
         width: 20%;
-        color: rgba(0,0,0,0.5);
-        display: inline-block;
     }
 
-    .treeFormMain input[type=number]::-webkit-inner-spin-button{
+    .add-tree-form-container input[type=number]::-webkit-inner-spin-button{
         -webkit-appearance: none;
     }
 
-    .treeFormMain select {
+    .add-tree-form-container select {
         font-size: 100%;
         width: 70.6%;
         padding: 1%;
@@ -80,14 +60,25 @@
         border: 1px solid rgba(0,0,0,0.5);
     }
 
-    .treeFormMain select.status {
+
+    .add-tree-form-container .main {
+        width:1150px;
+        border-radius: 1.7%;
+        background-color: white;
+        margin: 0 auto;
+        padding: 2%;
+        flex-wrap: wrap;
+    }
+
+
+    .add-tree-form-container select.status {
         width: 21%;
         margin: 1.7%;
         font-size: 100%;
         padding: 1%;
     }
 
-    .treeFormMain .identifier {
+    .add-tree-form-container .identifier {
         border: 1px solid #666;
         background-color: #d4d4d4;
         width: 21%;
@@ -97,34 +88,31 @@
         text-align:right;
     }
 
-    .treeFormMain .center.p {
+    .add-tree-form-container .center.p {
         margin:1%;
         color: rgba(0,0,0,0.5);
         font-size: 125%;
     }
 
-    .treeFormMain .center.h3 {
+    .add-tree-form-container .center.h3 {
         margin:1%;
         color: rgba(0,0,0,0.8);
         font-size: 175%;
     }
 
-    .treeFormMain .center.h4 {
+    .add-tree-form-container .center.h4 {
         margin:1%;
         font-size: 125%
     }
 }
 
-@media screen and (min-width: 992px) and (max-width : 1199px) {
-    .treeFormMain .treeFormMain {
-        width: 60%;
+@media screen and (min-width: 992px) and (max-width : 1199px) { 
+    .add-tree-form-container {
+        width: 75%;
         margin: 0 auto;
-        border-radius: 1.7%;
-        background-color: white;
-        padding: 2%;
     }
 
-    .treeFormMain input{
+    .add-tree-form-container input{
         text-align: right;
         width: 20%;
         margin: 1.7% 0% 1.7% 1.7%;
@@ -133,34 +121,35 @@
         border: 1px solid rgba(0,0,0,0.5);
     }
 
-    .treeFormMain .metric {
+    .add-tree-form-container .metric {
         font-size: 100%;
     }
 
-    .treeFormMain .metric.margin {
+    .add-tree-form-container .metric.margin {
         margin-right: 3%;
     }
 
-    .treeFormMain .metric.margincm {
+    .add-tree-form-container .metric.margincm {
         margin-right: 1.5%;
     }
 
-    .treeFormMain input[type=text]{
+    .add-tree-form-container input[type=text]{
         width: 70.6%;
     }
 
-    .treeFormMain input[type=email]{
+    .add-tree-form-container input[type=email]{
         width: 70.6%;
     }
 
-    .treeFormMain span {
-        font-size: 100%;
+    .add-tree-form-container input[type=datetime-local]{
+        margin-right: 3%;
+    }
+
+    .add-tree-form-container span {
         width: 21%;
-        color: rgba(0,0,0,0.5);
-        display: inline-block;
     }
 
-    .treeFormMain select {
+    .add-tree-form-container select {
         font-size: 100%;
         width: 70.6%;
         padding: 1%;
@@ -169,64 +158,56 @@
         border: 1px solid rgba(0,0,0,0.5);
     }
 
-    .treeFormMain input[type=number]::-webkit-inner-spin-button{
+    .add-tree-form-container input[type=number]::-webkit-inner-spin-button{
         -webkit-appearance: none;
     }
 
-    .treeFormMain .main {
+    .add-tree-form-container .main {
         width:850px;
         border-radius: 5.7px;
         background-color: white;
         margin: 0 auto;
-        padding-left: 4%;
+        padding: 0 4%;
         flex-wrap: wrap;
     }
 
-    .treeFormMain select.status {
+    .add-tree-form-container select.status {
         width: 21%;
         margin: 1.7%;
         font-size: 100%;
         padding: 1%;
     }
 
-    .treeFormMain .identifier {
+    .add-tree-form-container .identifier {
         border: 1px solid #666;
         background-color: #d4d4d4;
         width: 20%;
-        margin: 1.7%;
+        margin: 1.7% 3% 1.7% 1.7%;
         font-size: 100%;
         padding: 1%;
         text-align:right;
     }
 
-    .treeFormMain .center.p {
+    .add-tree-form-container .center.p {
         margin:1%;
         color: rgba(0,0,0,0.5);
         font-size: 125%;
     }
 
-    .treeFormMain .center.h3 {
+    .add-tree-form-container .center.h3 {
         margin:1%;
         color: rgba(0,0,0,0.8);
         font-size: 175%;
     }
 
-    .treeFormMain .center.h4 {
+    .add-tree-form-container .center.h4 {
         margin:1%;
         font-size: 125%
     }
 }
 
-@media screen and (min-width: 691px) and (max-width: 991px) {
-    .treeFormMain {
-        width: 60%;
-        margin: 0 auto;
-        border-radius: 1.7%;
-        background-color: white;
-        padding: 2%;
-    }
-
-    .treeFormMain input{
+@media screen and (min-width: 614px) and (max-width: 991px) {
+    .add-tree-form-container input{
         text-align: right;
         width: 17%;
         margin: 1.7% 0% 1.7% 1.7%;
@@ -235,40 +216,41 @@
         border: 1px solid rgba(0,0,0,0.5);
     }
 
-    .treeFormMain .metric {
+    .add-tree-form-container .metric {
         font-size: 100%;
     }
 
 
-    .treeFormMain .metric.margin {
+    .add-tree-form-container .metric.margin {
         margin-right: 4%;
     }
 
-    .treeFormMain .metric.margincm {
+    .add-tree-form-container .metric.margincm {
         margin-right: 2%;
     }
 
-    .treeFormMain input[type=number]::-webkit-inner-spin-button{
+    .add-tree-form-container input[type=number]::-webkit-inner-spin-button{
         -webkit-appearance: none;
     }
 
-    .treeFormMain input[type=text]{
+    .add-tree-form-container input[type=text]{
         width: 70.6%;
     }
 
-    .treeFormMain input[type=email]{
+    .add-tree-form-container input[type=email]{
         width: 70.6%;
     }
 
-    .treeFormMain span {
-        font-size: 100%;
+    .add-tree-form-container input[type=datetime-local]{
+        margin-right: 4%;
+    }
+
+    .add-tree-form-container span {
         width: 23%;
-        color: rgba(0,0,0,0.5);
-        display: inline-block;
         word-wrap: break-word;
     }
 
-    .treeFormMain select {
+    .add-tree-form-container select {
         font-size: 100%;
         width: 70.6%;
         padding: 1%;
@@ -277,7 +259,7 @@
         border: 1px solid rgba(0,0,0,0.5);
     }
 
-    .treeFormMain .main {
+    .add-tree-form-container .main {
         width: 700px;
         border-radius: 1.7%;
         background-color: white;
@@ -286,50 +268,43 @@
         flex-wrap: wrap;
     }
 
-    .treeFormMain select.status {
+    .add-tree-form-container select.status {
         width: 17%;
         margin: 1.7%;
         font-size: 100%;
         padding: 1%;
     }
 
-    .treeFormMain .identifier {
+    .add-tree-form-container .identifier {
         border: 1px solid #666;
         background-color: #d4d4d4;
         width: 17%;
-        margin: 1.7%;
+        margin: 1.7% 4% 1.7% 1.7%;
         font-size: 100%;
         padding: 1%;
         text-align:right;
     }
 
-    .treeFormMain .center.p {
+    .add-tree-form-container .center.p {
         margin:1%;
         color: rgba(0,0,0,0.5);
         font-size: 125%;
     }
 
-    .treeFormMain .center.h3 {
+    .add-tree-form-container .center.h3 {
         margin:1%;
         color: rgba(0,0,0,0.8);
         font-size: 175%;
     }
 
-    .treeFormMain .center.h4{
+    .add-tree-form-container .center.h4{
         margin:1%;
         font-size: 125%
     }
 }
 
-@media screen and (min-width: 481px) and (max-width: 690px) {
-    .treeFormMain {
-        width: 100%;
-        margin: 0 auto;
-        border-radius: 1.7%;
-        background-color: white;
-        padding: 2%;
-    }
-    .treeFormMain input{
+@media screen and (min-width: 481px) and (max-width: 613px) {
+    .add-tree-form-container input{
         text-align: right;
         width: 62%;
         margin: 1.7% 0% 1.7% 1.7%;
@@ -338,23 +313,20 @@
         border: 1px solid rgba(0,0,0,0.5);
     }
 
-    .treeFormMain .metric {
+    .add-tree-form-container .metric {
         font-size: 100%;
     }
 
-    .treeFormMain input[type=number]::-webkit-inner-spin-button{
+    .add-tree-form-container input[type=number]::-webkit-inner-spin-button{
         -webkit-appearance: none;
     }
 
-    .treeFormMain span {
-        font-size: 100%;
+    .add-tree-form-container span {
         width: 25%;
-        color: rgba(0,0,0,0.5);
-        display: inline-block;
         word-wrap: break-word;
     }
 
-    .treeFormMain select {
+    .add-tree-form-container select {
         font-size: 100%;
         width: 62%;
         padding: 1%;
@@ -363,7 +335,7 @@
         border: 1px solid rgba(0,0,0,0.5);
     }
 
-    .treeFormMain .main {
+    .add-tree-form-container .main {
         width: 430px;
         border-radius: 1.7%;
         background-color: #F3F6FA;
@@ -372,7 +344,7 @@
         flex-wrap: wrap;
     }
 
-    .treeFormMain .identifier {
+    .add-tree-form-container .identifier {
         border: 1px solid #666;
         background-color: #d4d4d4;
         width: 62%;
@@ -382,39 +354,30 @@
         text-align:right;
     }
 
-    .treeFormMain .center.p {
+    .add-tree-form-container .center.p {
         margin:1%;
         color: rgba(0,0,0,0.5);
         font-size: 125%;
     }
 
-    .treeFormMain .block {
+    .add-tree-form-container .block {
         display: block;
     }
 
-    .treeFormMain .center.h3 {
+    .add-tree-form-container .center.h3 {
         margin:1%;
         color: rgba(0,0,0,0.8);
         font-size: 175%;
     }
 
-    .treeFormMain .center.h4 {
+    .add-tree-form-container .center.h4 {
         margin:1%;
         font-size: 125%
     }
 }
 
 @media screen and (min-width: 321px) and (max-width: 480px) {
-    .treeFormMain {
-        width: 70%;
-        margin: 0 auto;
-        border-radius: 1.7%;
-        background-color: white;
-        padding: 2%;
-        flex-wrap: wrap;
-    }
-
-    .treeFormMain input{
+    .add-tree-form-container input{
         text-align: right;
         width: 55%;
         margin: 1.7% 0% 1.7% 1.7%;
@@ -423,23 +386,21 @@
         border: 1px solid rgba(0,0,0,0.5);
     }
 
-    .treeFormMain .metric {
+    .add-tree-form-container .metric {
         font-size: 50%;
     }
 
-    .treeFormMain input[type=number]::-webkit-inner-spin-button{
+    .add-tree-form-container input[type=number]::-webkit-inner-spin-button{
         -webkit-appearance: none;
     }
 
-    .treeFormMain span {
+    .add-tree-form-container span {
         font-size: 50%;
         width: 25%;
-        color: rgba(0,0,0,0.5);
-        display: inline-block;
         word-wrap: break-word;
     }
 
-    .treeFormMain select {
+    .add-tree-form-container select {
         text-align-last: right;
         width: 55%;
         margin: 1.7%;
@@ -448,7 +409,7 @@
         border: 1px solid rgba(0,0,0,0.5);
     }
 
-    .treeFormMain .main {
+    .add-tree-form-container .main {
         width:300px;
         border-radius: 1.7%;
         background-color: #F3F6FA;
@@ -457,7 +418,7 @@
         flex-wrap: wrap;
     }
 
-    .treeFormMain .identifier {
+    .add-tree-form-container .identifier {
         border: 1px solid #666;
         background-color: #d4d4d4;
         width: 55%;
@@ -467,55 +428,54 @@
         text-align:right;
     }
 
-    .treeFormMain .center.p {
+    .add-tree-form-container .center.p {
         margin:1%;
         color: rgba(0,0,0,0.5);
         font-size: 75%;
         word-wrap: normal;
     }
 
-    .treeFormMain .center.h3 {
+    .add-tree-form-container .center.h3 {
         margin:1%;
         color: rgba(0,0,0,0.8);
         font-size: 100%;
     }
 
-    .treeFormMain .center.h4 {
+    .add-tree-form-container .center.h4 {
         margin:1%;
         font-size: 75%
     }
 
-    .treeFormMain .block {
+    .add-tree-form-container .block {
         display: block;
     }
 }
 
 @media screen and  (max-width: 320px) {
-   .treeFormMain  input{
+    .add-tree-form-container input{
         text-align: right;
         width: 35%;
         margin: 1.7% 0% 1.7% 1.7%;
         font-size: 50%;
         padding: 1%;
         border: 1px solid rgba(0,0,0,0.5);
-    }
+   }
 
-    .treeFormMain .metric {
+    .add-tree-form-container .metric {
         font-size: 50%;
     }
 
-    .treeFormMain input[type=number]::-webkit-inner-spin-button{
+    .add-tree-form-container input[type=number]::-webkit-inner-spin-button{
     -webkit-appearance: none;
-    }
+   }
 
-    .treeFormMain span {
+
+    .add-tree-form-container span {
         font-size: 50%;
         width: 35%;
-        color: rgba(0,0,0,0.5);
-        display: inline-block;
     }
 
-    .treeFormMain select {
+    .add-tree-form-container select {
         text-align-last: right;
         width: 35%;
         margin: 1.7%;
@@ -524,7 +484,7 @@
         border: 1px solid rgba(0,0,0,0.5);
     }
 
-    .treeFormMain .main {
+    .add-tree-form-container .main {
         width:220px;
         border-radius: 1.7%;
         background-color: #F3F6FA;
@@ -533,7 +493,7 @@
         flex-wrap: wrap;
     }
 
-    .treeFormMain .identifier {
+    .add-tree-form-container .identifier {
         border: 1px solid #666;
         background-color: #d4d4d4;
         width: 35%;
@@ -543,84 +503,101 @@
         text-align:right;
     }
 
-    .treeFormMain .block {
+    .add-tree-form-container .block {
         display: block;
     }
 
-    .treeFormMain .center.p {
+    .add-tree-form-container .center.p {
         margin:1%;
         color: rgba(0,0,0,0.5);
         font-size: 75%;
     }
 
-    .treeFormMain .center.h3 {
+    .add-tree-form-container .center.h3 {
         margin:1%;
         color: rgba(0,0,0,0.8);
         font-size: 100%;
     }
 
-    .treeFormMain .center.h4 {
+    .add-tree-form-container .center.h4 {
         margin:1%;
         font-size: 75%
-    }
+    }   
 }
 
-.treeFormMain input[type=file] {
-    width: 20%;
-    margin: 0px;
-    padding: 0px;
-    color: #3388ff;
-    border:1px solid #3388ff;
+.add-tree-form-container input[type=file] {
+    margin: 10px 0;
+    padding: 10px;
     border-radius: 5.7px;
 }
 
-.treeFormMain input[type=submit]{
+.add-tree-form-container input[type=submit] {
+    background-color: #50802c;
+}
+
+.add-tree-form-container input[type=button] {
+    background-color: #757575;
+}
+
+.add-tree-form-container input[type=submit], .add-tree-form-container input[type=button] {
     color: white;
-    background-color: #4eb543;
-    border-color: #4eb543;
+    border: none;
     text-align: center;
     padding: 2%;
     width: 50%;
-    opacity: 0.6;
 }
 
-.treeFormMain input[type=submit]:hover{
-    opacity: 0.8;    ;
+.add-tree-form-container input[type=submit]:hover, .add-tree-form-container input[type=button]:hover {
+    opacity: 0.8;
 }
 
-.treeFormMain input[type=submit]:active{
+.add-tree-form-container input[type=submit]:disabled {
+    opacity: 0.5;
+}
+
+.add-tree-form-container input[type=submit]:active{
     opacity: 1;
 }
 
-.treeFormMain .center {
+.add-tree-form-container button {
+    color: white;
+    background-color: #50802c;
+    border: none;
+    text-align: center;
+    padding: 2%;
+    width: 50%;
+}
+
+.add-tree-form-container .center {
     text-align: center;
 }
 
-.treeFormMain .submit {
+.add-tree-form-container .submit, .add-tree-form-container .cencel-button {
     text-align: center;
-    padding: 0px 5% 5%;
 }
 
-.treeFormMain .input__file {
+.add-tree-form-container .submit:hover {
+    text-align: center;
+}
+
+.add-tree-form-container .input__file {
     width: 20%;
     visibility: hidden;
     position: absolute;
 }
 
-.treeFormMain .inputWrapper {
+.add-tree-form-container .input-wrapper {
     position:sticky;
 }
 
-.treeFormMain .fileform {
+.add-tree-form-container .fileform {
     cursor: pointer;
     position: relative;
-    height: 20vh;
     padding: 0.1%;
     text-align: left;
-    width: 20%;
 }
 
-.treeFormMain .fileform .selectbutton {
+.add-tree-form-container .fileform.selectbutton {
     color: #3388ff;
     border:1px solid #3388ff;
     border-radius: 2.8px;
@@ -632,14 +609,11 @@
     position: absolute;
 }
 
-.treeFormMain .fileform.upload{
-    position: absolute;
+.add-tree-form-container .fileform.upload{
     width: 100%;
-    filter: alpha(opacity=0);
-    opacity: 0;
 }
 
-.treeFormMain .fileform .fileformlabel {
+.add-tree-form-container .fileform.fileformlabel {
     float: left;
     border: 1px solid #000000;
     height: 2%;
@@ -647,5 +621,12 @@
     position: absolute;
     padding: 0.05% 0.15%;
     text-align: left;
-    width: 20%;
+    width: 50%;
 }
+
+
+
+
+
+
+

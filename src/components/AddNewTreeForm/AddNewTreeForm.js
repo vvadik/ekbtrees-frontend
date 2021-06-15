@@ -6,9 +6,10 @@ import styles from "./AddNewTreeForm.module.css";
 export default class AddNewTreeForm extends Component {
     constructor(props) {
         super(props);
-        this.state = {speciesValues: [], buttonEnable: true};
 
+        this.state = {speciesValues: [], buttonEnable: true, files: []};
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleChangeFilesInput = this.handleChangeFilesInput.bind(this);
     }
 
     componentDidMount() {
@@ -18,11 +19,16 @@ export default class AddNewTreeForm extends Component {
             });
     }
 
-    handleSubmit(event) {
+    handleChangeFilesInput(event) {
+        this.setState({ files: event.target.files });
+    }
+
+    async handleSubmit(event) {
         event.preventDefault();
         this.setState({buttonEnable: false});
-
-        const formDataExcludedFields = ["created", "updated", "user", "species"]
+        
+        const fileIds = await Promise.all(Array.from(this.state.files).map(async (file) => await this.uploadFile(file)));
+        const formDataExcludedFields = ["created", "updated", "user", "species", "file"]
         const formData = new FormData(event.target);
 
         let data = {};
@@ -40,7 +46,10 @@ export default class AddNewTreeForm extends Component {
             "longitude": this.props.match.params.lng
         };
 
+        data["fileIds"] = fileIds;
+
         const json = JSON.stringify(data);
+        
         fetch(getTreeAddUrl(), {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -57,6 +66,18 @@ export default class AddNewTreeForm extends Component {
                     this.setState({buttonEnable: true});
                 }
             });
+    }
+
+    async uploadFile(file) {
+        const formData = new FormData();
+        formData.append("file", file);
+
+        let response = await fetch("/api/file/upload", {
+            method: 'POST',
+            body: formData
+        });
+
+        return await response.json();
     }
 
     renderGEOPosition () {
@@ -81,7 +102,7 @@ export default class AddNewTreeForm extends Component {
                 if (first.title < second.title) return -1;
                 return 0;
             })
-            .map(item => <option className={styles.addTreeFormBlockSelectOption} value={item.id}>{item.title}</option>);
+            .map(item => <option className={styles.addTreeFormBlockSelectOption} value={item.id} key={item.id}>{item.title}</option>);
     }
 
     renderMainInformation () {
@@ -106,12 +127,12 @@ export default class AddNewTreeForm extends Component {
                     <div className={cn([styles.addTreeFormBlockWrapper, styles.addTreeFormBlockWrapperDesktop])}>
                         <span
                             className={styles.addTreeFormBlockPrefix}> Обхват <wbr/> самого толстого ствола (в сантиметрах)</span>
-                        <input name="trunkGirth" className={styles.addTreeFormBlockValue} required type="number" min="1" max="10"/>
+                        <input name="trunkGirth" className={styles.addTreeFormBlockValue} type="number" min="1" max="200"/>
                     </div>
                     <div className={cn([styles.addTreeFormBlockWrapper, styles.addTreeFormBlockWrapperDesktop])}>
                         <span className={styles.addTreeFormBlockPrefix}> Число стволов </span>
-                        <input name="numberOfTreeTrunks" className={styles.addTreeFormBlockValue} required type="number" min="1" max="5"
-                               placeholder="1"/>
+                        <input name="numberOfTreeTrunks" className={styles.addTreeFormBlockValue} required type="number" min="1" max="50"
+                               defaultValue="1"/>
                     </div>
                     <div className={cn([styles.addTreeFormBlockWrapper, styles.addTreeFormBlockWrapperDesktop])}>
                         <span className={styles.addTreeFormBlockPrefix}> Высота первой ветви от земли (в метрах)</span>
@@ -140,7 +161,7 @@ export default class AddNewTreeForm extends Component {
         return (
             <figure className={styles.addTreeFormBlock}>
                 <form>
-                    <input className={styles.addTreeFormBlockFileItem} type="file" multiple name="upload" />
+                    <input className={styles.addTreeFormBlockFileItem} type="file" multiple name="file" onChange={this.handleChangeFilesInput}/>
                 </form>
             </figure>
         )
@@ -159,7 +180,7 @@ export default class AddNewTreeForm extends Component {
                     <select dir="rtl" className={styles.addTreeFormBlockSelect}>
                         <option className={styles.addTreeFormBlockSelectOption}> Жив</option>
                         <option className={styles.addTreeFormBlockSelectOption}> Цел</option>
-                        <option className={styles.addTreeFormBlockSelectOption}> Орел</option>
+                        <option className={styles.addTreeFormBlockSelectOption}> Мертв</option>
                     </select>
                 </div>
                     <div className={cn([styles.addTreeFormBlockWrapper, styles.addTreeFormBlockWrapperDesktop])}>

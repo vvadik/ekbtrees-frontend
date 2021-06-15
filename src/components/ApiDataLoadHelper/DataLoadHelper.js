@@ -5,8 +5,11 @@ export const fetchData = (url, options) => {
 
 export const baseUrl = "https://ekb-trees-help.ru/api/";
 
-export const getTreeMapInfoUrl = (areaPosition) => 
-    baseUrl + `tree-map-info/get-in-region?x1=${areaPosition.latTop}&y1=${areaPosition.lngTop}&x2=${areaPosition.latBottom}&y2=${areaPosition.lngBottom}`;
+export const getTreeMapInfoUrl = (container) => 
+    baseUrl + `tree-map-info/get-in-region?x1=${container[0].lat}&y1=${container[0].lng}&x2=${container[1].lat}&y2=${container[1].lng}`;
+
+export const getClusterMapInfoUrl = (container) => 
+    baseUrl + `trees-cluster/get-in-region?x1=${container[0].lat}&y1=${container[0].lng}&x2=${container[1].lat}&y2=${container[1].lng}`;
 
 export const getTreeDataUrl = (treeId) => baseUrl + `tree/get/${treeId}`;
 

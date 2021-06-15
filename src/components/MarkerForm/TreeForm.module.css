@@ -9,6 +9,19 @@
     color: #4b4b4b;
 }
 
+.treeFormMain .imagesBlock {
+    max-height: 180px;
+}
+
+.treeFormMain img {
+    max-height: 180px;
+    margin-right: 10px;
+}
+
+.treeFormMain img:hover {
+    opacity: 0.8;
+}
+
 @media screen and (min-width: 1200px) {
     .treeFormMain {
         width: 60%;
@@ -21,7 +34,7 @@
     .treeFormMain input{
         text-align: right;
         width: 21%;
-        margin: 1.7% 0% 1.7% 1.7%;
+        margin: 1% 0% 1% 1%;
         font-size: 100%;
         padding: 1%;
         border: 1px solid rgba(0,0,0,0.5);

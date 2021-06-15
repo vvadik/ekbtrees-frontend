@@ -180,7 +180,7 @@ export default class AddNewTreeForm extends Component {
                     <select dir="rtl" className={styles.addTreeFormBlockSelect}>
                         <option className={styles.addTreeFormBlockSelectOption}> Жив</option>
                         <option className={styles.addTreeFormBlockSelectOption}> Цел</option>
-                        <option className={styles.addTreeFormBlockSelectOption}> Орел</option>
+                        <option className={styles.addTreeFormBlockSelectOption}> Мертв</option>
                     </select>
                 </div>
                     <div className={cn([styles.addTreeFormBlockWrapper, styles.addTreeFormBlockWrapperDesktop])}>

@@ -44,8 +44,8 @@ const GeojsonLayer = ({mapState, setMapState}) => {
         const upperLeftCorner = map.containerPointToLatLng([mapContainerCoordinats.y, mapContainerCoordinats.x]);
         const bottomRightCorner = map.containerPointToLatLng([mapContainerCoordinats.right, mapContainerCoordinats.bottom]);
         return [
-            {lat: upperLeftCorner.lat + 0.001, lng: upperLeftCorner.lng - 0.002},
-            {lat: bottomRightCorner.lat - 0.001, lng: bottomRightCorner.lng + 0.002}];
+            {lat: upperLeftCorner.lat + 0.02, lng: upperLeftCorner.lng - 0.02},
+            {lat: bottomRightCorner.lat - 0.02, lng: bottomRightCorner.lng + 0.02}];
     };
 
     useMapEvents({
@@ -66,6 +66,7 @@ const GeojsonLayer = ({mapState, setMapState}) => {
     }, [mapData])
 
     useEffect(() => {
+        setActiveTreeData(null);
         activeTreeId &&
         fetchData(getTreeDataUrl(activeTreeId))
             .then((jsonData) => {

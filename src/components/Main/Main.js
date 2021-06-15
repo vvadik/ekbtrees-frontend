@@ -9,7 +9,8 @@ import UserList from '../UserList';
 import ProfileSettings from '../ProfileSettings';
 import PassRecovery from '../PassRecovery';
 import AboutUs from '../AboutUs';
-import AddNewTreeForm from '../AddNewTreeForm'
+import AddNewTreeForm from '../AddNewTreeForm';
+import ImageView from '../ImageView';
 import styles from './Main.module.css';
 
 
@@ -28,6 +29,7 @@ export default class Main extends Component {
           /> */}
           <Route exact path='/map' component={MapPage} />
           <Route exact path='/addtree/:lat/:lng' component={AddNewTreeForm} />
+          <Route exact path='/image/:id' component={ImageView} />
           <Route exact path='/' component={Home} />
           <Route exact path='/trees' component={MyTrees} />
           <Route exact path='/users' component={UserList} />

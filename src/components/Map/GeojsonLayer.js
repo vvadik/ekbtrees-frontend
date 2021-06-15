@@ -15,8 +15,6 @@ const GeojsonLayer = ({mapState, setMapState}) => {
     const map = useMap();
     const disableClusteringAtZoom = 19; 
 
-    const treeMapInfoUrl = getTreeMapInfoUrl({latTop: 56, lngTop: 60, latBottom: 57, lngBottom: 61});
-    const clusterMapInfoUrl = getClusterMapInfoUrl({latTop: 56, lngTop: 60, latBottom: 57, lngBottom: 61});
     const [activeTreeId, setActiveTreeId] = useState(null);
     const [activeTreeData, setActiveTreeData] = useState(null);
     const [newTreePosition, setNewTreePosition] = useState(null);
@@ -25,7 +23,12 @@ const GeojsonLayer = ({mapState, setMapState}) => {
 
     const loadData = () => {
         const isCluster = map.getZoom() < disableClusteringAtZoom;
-        const fethUrl = isCluster ? clusterMapInfoUrl : treeMapInfoUrl;
+        const containerLatLng = getMapContainerLatLng();
+        console.log(containerLatLng);
+        const fethUrl = isCluster
+            ? getClusterMapInfoUrl(containerLatLng) 
+            : getTreeMapInfoUrl(containerLatLng);
+        
         fetchData(fethUrl)
             .then((jsonData) => {
                 setMapData({isClusterData: isCluster, json: jsonData});
@@ -36,6 +39,15 @@ const GeojsonLayer = ({mapState, setMapState}) => {
             });
     };
 
+    const getMapContainerLatLng = () => {
+        const mapContainerCoordinats = map.getContainer().getBoundingClientRect()
+        const upperLeftCorner = map.containerPointToLatLng([mapContainerCoordinats.y, mapContainerCoordinats.x]);
+        const bottomRightCorner = map.containerPointToLatLng([mapContainerCoordinats.right, mapContainerCoordinats.bottom]);
+        return [
+            {lat: upperLeftCorner.lat + 0.001, lng: upperLeftCorner.lng - 0.002},
+            {lat: bottomRightCorner.lat - 0.001, lng: bottomRightCorner.lng + 0.002}];
+    };
+
     useMapEvents({
         click: (e) => {
             mapState === MapSate.addTreeBegin &&
@@ -43,7 +55,10 @@ const GeojsonLayer = ({mapState, setMapState}) => {
         },
         zoomend: () => {
             loadData();
-        }
+        },
+        moveend: () => {
+            loadData();
+        },
     });
 
     useEffect(() => {

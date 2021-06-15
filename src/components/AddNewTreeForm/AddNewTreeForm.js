@@ -20,7 +20,7 @@ export default class AddNewTreeForm extends Component {
     }
 
     handleChangeFilesInput(event) {
-        this.setState({ files: event.target.files })
+        this.setState({ files: event.target.files });
     }
 
     async handleSubmit(event) {
@@ -127,12 +127,12 @@ export default class AddNewTreeForm extends Component {
                     <div className={cn([styles.addTreeFormBlockWrapper, styles.addTreeFormBlockWrapperDesktop])}>
                         <span
                             className={styles.addTreeFormBlockPrefix}> Обхват <wbr/> самого толстого ствола (в сантиметрах)</span>
-                        <input name="trunkGirth" className={styles.addTreeFormBlockValue} required type="number" min="1" max="10"/>
+                        <input name="trunkGirth" className={styles.addTreeFormBlockValue} type="number" min="1" max="200"/>
                     </div>
                     <div className={cn([styles.addTreeFormBlockWrapper, styles.addTreeFormBlockWrapperDesktop])}>
                         <span className={styles.addTreeFormBlockPrefix}> Число стволов </span>
-                        <input name="numberOfTreeTrunks" className={styles.addTreeFormBlockValue} required type="number" min="1" max="5"
-                               placeholder="1"/>
+                        <input name="numberOfTreeTrunks" className={styles.addTreeFormBlockValue} required type="number" min="1" max="50"
+                               defaultValue="1"/>
                     </div>
                     <div className={cn([styles.addTreeFormBlockWrapper, styles.addTreeFormBlockWrapperDesktop])}>
                         <span className={styles.addTreeFormBlockPrefix}> Высота первой ветви от земли (в метрах)</span>

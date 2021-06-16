@@ -61,8 +61,8 @@
   margin: 20px 0;
 }
 .fa-table, .fa-pen-nib, .fa-tablet-alt {
-  margin-left: 9px;
-  margin-top: 5px;
+  margin-left: 17px;
+  margin-top: 12px;
 }
 .work-info-h3 {
   font-size: 16px;
@@ -77,6 +77,49 @@
   margin-left: 5%;
 }
 
+@media screen and (min-width: 768px) {
+  .blue-info {
+    max-width: 1200px;
+    margin: 40px auto;
+  }
+  .flex-article-part {
+    width: 70%;
+  }
+  .flex-image-part {
+    width: 20%;
+  }
+  .about-us-h1 {
+    display: none;
+  }
+  .read-more {
+    float: right;
+    margin-right: 5%;
+  }
+  .flex-article-part {
+    padding: 40px 0;
+  }
+  .flex-article-part-h2 {
+    font-weight: 600;
+      font-size: 40px;
+  }
+  .flex-article {
+    margin: 20px 0;
+    font-size: 18px;
+  }
+  .work-info{
+    display: flex;
+    justify-content: space-between;
+    max-width: 1200px;
+    margin: 40px auto;
+  }
+  .work-info div {
+    max-width: 300px;
+  }
+  .contain {
+    max-width: 1300px;
+    margin: 40px auto;
+  }
+}
 
 
 /*Слайдер*/
@@ -100,6 +143,7 @@
   width: 250px;
   height: 250px;
   margin-right: 10px;
+  margin-left: 70px;
   font-size: 20px;
   cursor: pointer;
   transition: 450ms all;

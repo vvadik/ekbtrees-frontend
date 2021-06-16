@@ -22,30 +22,36 @@ export default class AboutUs extends Component {
   renderWorkInfo() {
     return (
       <section className='work-info'>
-        <div className='green box-info'>
-          <i className="fas fa-table"></i>
-        </div>
-        <h3 className='work-info-h3'>Веб и мобайл дизайн</h3>
-        <p className='work-info-p'>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit
+        <div className='work-info-1'>
+          <div className='green box-info'>
+            <i className="fas fa-table"></i>
+          </div>
+          <h3 className='work-info-h3'>Веб и мобайл дизайн</h3>
+          <p className='work-info-p'>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit
           </p>
-        <a className="read-more">— Читать больше</a>
-        <div className='orange box-info'>
-          <i className="fas fa-pen-nib"></i>
+          <a className="read-more">— Читать больше</a>
         </div>
-        <h3 className='work-info-h3'>Графический дизайн</h3>
-        <p className='work-info-p'>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit
+        <div className='work-info-2'>
+          <div className='orange box-info'>
+            <i className="fas fa-pen-nib"></i>
+          </div>
+          <h3 className='work-info-h3'>Графический дизайн</h3>
+          <p className='work-info-p'>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit
           </p>
-        <a className="read-more">— Читать больше</a>
-        <div className='blue box-info'>
-          <i className="fas fa-tablet-alt"></i>
+          <a className="read-more">— Читать больше</a>
         </div>
-        <h3 className='work-info-h3'>Мобильное приложение и веб разработка</h3>
-        <p className='work-info-p'>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit
+        <div className='work-info-3'>
+          <div className='blue box-info'>
+            <i className="fas fa-tablet-alt"></i>
+          </div>
+          <h3 className='work-info-h3'>Мобильное приложение и веб разработка</h3>
+          <p className='work-info-p'>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit
           </p>
-        <a className="read-more">— Читать больше</a>
+          <a className="read-more">— Читать больше</a>
+        </div>
       </section>
     )
   }
@@ -53,6 +59,65 @@ export default class AboutUs extends Component {
     return (
       <div className="contain">
         <h3 className='our-team'>Наша команда</h3>
+        <div className="row">
+          <div className="row__inner">
+            <div className="tile">
+              <img className="tile__img" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/70390/show-1.jpg" alt="" />
+              <div className="tile__details">
+                <div className="tile__title">
+                  Разработчик
+                    <p>Кузнецова Алиса</p>
+                </div>
+              </div>
+            </div>
+            <div className="tile">
+              <img className="tile__img" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/70390/show-2.jpg" alt="" />
+              <div className="tile__details">
+                <div className="tile__title">
+                  Дизайнер
+                    <p>Кузнецова Алиса</p>
+                </div>
+              </div>
+            </div>
+            <div className="tile">
+              <img className="tile__img" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/70390/show-3.jpg" alt="" />
+              <div className="tile__details">
+                <div className="tile__title">
+                  Разработчик
+                    <p>Кузнецова Алиса</p>
+                </div>
+              </div>
+            </div>
+            <div className="tile">
+              <img className="tile__img" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/70390/show-1.jpg" alt="" />
+              <div className="tile__details">
+                <div className="tile__title">
+                  Разработчик
+                    <p>Кузнецова Алиса</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="tile">
+              <img className="tile__img" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/70390/show-2.jpg" alt="" />
+              <div className="tile__details">
+                <div className="tile__title">
+                  Дизайнер
+                    <p>Кузнецова Алиса</p>
+                </div>
+              </div>
+            </div>
+            <div className="tile">
+              <img className="tile__img" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/70390/show-3.jpg" alt="" />
+              <div className="tile__details">
+                <div className="tile__title">
+                  Разработчик
+                    <p>Кузнецова Алиса</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
         <div className="row">
           <div className="row__inner">
             <div className="tile">

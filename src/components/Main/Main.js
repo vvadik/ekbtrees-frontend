@@ -22,8 +22,6 @@ export default class Main extends Component {
       return (
             <>
                 <Route exact path='/addtree/:lat/:lng' component={AddNewTreeForm} />
-                <Route exact path='/trees/tree=:id'
-                       render={(props) => <Tree {...props} user={user} />} />
                 <Route exact path='/trees/tree=:id/edit' component={EditTreeForm} />
                 <Route exact path='/trees' component={ListOfTrees} />
                 <Route exact path='/users' component={UserList} />
@@ -66,6 +64,8 @@ export default class Main extends Component {
         <Switch>
           <Route exact path='/' render={(props) => <Home {...props} user={user} />} />
           <Route exact path='/map' render={(props) => <MapContain {...props} styleName="shrinkMap" user={user} />} />
+            <Route exact path='/trees/tree=:id'
+                   render={(props) => <Tree {...props} user={user} />} />
           <Route exact path='/passRecovery' component={PassRecovery} />
           <Route exact path='/aboutUs' component={AboutUs} />
           <Route path='/vk' component={() => {

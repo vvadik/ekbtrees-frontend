@@ -37,6 +37,7 @@ export default class LoginForm extends Component {
     }
     async login(input){
         const {handleCookie} = this.props;
+
         try {
             const response = await fetch('/auth/login', {
                 method: "POST",
@@ -57,6 +58,7 @@ export default class LoginForm extends Component {
                 logged: true
             })
             handleCookie();
+            window.location.href = '/';
         }
     }
     renderMessage(){

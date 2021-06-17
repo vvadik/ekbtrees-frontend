@@ -1,42 +1,41 @@
 import React, { Component } from 'react';
-
-import Cookies from 'universal-cookie';
 import jwt_decode from "jwt-decode";
-
-import Header from '../Header';
-import Main from '../Main';
-//import './App.css';
+import Cookies from 'universal-cookie';
+import Main from "../Main";
+import Header from "../Header";
 
 const cookies = new Cookies();
+
 export default class App extends Component {
-    state = {
-        user: null,
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            user: null,
+        }
     }
 
     componentDidMount(){
-        cookies.addChangeListener(this.onCookieChange);
-        this.handleState();
+        cookies.addChangeListener(this.handleCookie);
+        this.handleCookie();
     }
 
-    handleCookie = () => {
-        this.handleState();
-    }
-    onCookieChange = () => {
-        console.log("Noticed cookie change!");
-        this.handleState();
-    }
+
     removeCookie = () => {
-        console.log(cookies)
         cookies.remove('AccessToken');
+
         this.setState({
             user: null
         })
     }
-    handleState() {
+
+    handleCookie = () => {
         const cookieAccess = cookies.get('AccessToken');
-        if(cookieAccess){
+
+        if(cookieAccess) {
             const decodedCookie = jwt_decode(cookieAccess);
             const {id, email, firstName, lastName, roles} = decodedCookie;
+
             this.setState({
                 user: {
                     id,
@@ -48,12 +47,15 @@ export default class App extends Component {
             })
         }
     }
+
     render() {
+        const {user} = this.state;
+
         return (
-        <div className="page">
-            <Header onCookieRemove={this.removeCookie} user={this.state.user}/>
-            <Main onCookie={this.handleCookie} user={this.state.user}/>
-            </div>
+            <>
+                <Header user={user} onCookieRemove={this.removeCookie} />
+                <Main user={user} onCookie={this.handleCookie} />
+            </>
         )
     }
 }

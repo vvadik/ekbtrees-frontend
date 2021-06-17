@@ -4,6 +4,11 @@ import styles from './DesktopHeader.module.css';
 import UserInfo from '../UserInfo';
 
 export class DesktopHeader extends Component {
+	static defaultProps = {
+		onCookieRemove: null,
+		user: null
+	}
+
 	renderContent () {
 		return (
 			<div className={styles.desktopHeader}>
@@ -24,8 +29,8 @@ export class DesktopHeader extends Component {
 			</div>
 		);
 	}
-	renderUserInfo(){
-		if(this.props.user){
+	renderUserInfo() {
+		if (this.props.user) {
 			return(
 				<UserInfo onCookieRemove={this.props.onCookieRemove} user={this.props.user}/>
 			)
@@ -41,7 +46,7 @@ export class DesktopHeader extends Component {
 			)
 		}
 	}
-	renderAdminControllers(){
+	renderAdminControllers () {
 		const {user} = this.props;
 
 		if(user?.role === "admin") {

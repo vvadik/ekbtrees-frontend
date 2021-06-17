@@ -4,6 +4,10 @@ import Menu from '../Menu';
 import styles from './MobileHeader.module.css';
 
 export class MobileHeader extends Component {
+	static defaultProps = {
+		user: null
+	}
+
 	ref = null;
 
 	state = {

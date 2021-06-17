@@ -7,6 +7,10 @@ import {getTree} from "../EditTreeForm/actions";
 import {formatDate} from '../../helpers/date';
 
 export class Tree extends Component {
+	static defaultProps = {
+		user: null
+	}
+
 	constructor(props) {
 		super(props);
 
@@ -156,9 +160,11 @@ export class Tree extends Component {
 	}
 
 	renderDetails () {
+		const {user} = this.props;
+
 		return (
 			<div className={styles.wrapper}>
-				{this.renderEditLink()}
+				{user ? this.renderEditLink() : null}
 				{this.renderTable()}
 			</div>
 		)

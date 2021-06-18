@@ -1,16 +1,30 @@
 export default class RequestService {
-	static async getData (url, headers = {}) {
-		return (await fetch(url, {
+	static getData (url, headers = {}) {
+		return fetch(url, {
 			method: 'GET',
 			headers
-		})).json();
+		})
+			.then(response => {
+				if (response.status !== 200) {
+					throw `${response.status} ${response.statusText}`;
+				}
+
+				return response.json();
+			});
 	}
 
-	static async postData (url, body, headers = {}) {
-		return (await fetch(url, {
+	static postData (url, body, headers = {}) {
+		return fetch(url, {
 			method: 'POST',
 			headers,
 			body
-		})).json()
+		})
+			.then(response => {
+			if (response.status !== 200 || response.status !== 201) {
+				throw `${response.status} ${response.statusText}`;
+			}
+
+			return response.json()
+		})
 	}
 }

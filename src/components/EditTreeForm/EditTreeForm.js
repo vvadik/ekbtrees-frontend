@@ -2,9 +2,18 @@ import cn from "classnames";
 import React, {Component} from 'react';
 import styles from './EditTreeForm.module.css';
 import {getUrlParamValueByKey} from '../../helpers/url';
-import {getFilesByTree, getTree, getFilesByIds, uploadFilesByTree} from "./actions";
+import {
+    editTree,
+    getFilesByTree,
+    getTree,
+    getFilesByIds,
+    getTypesOfTrees,
+    uploadFilesByTree
+} from "./actions";
 import Spinner from "../Spinner/Spinner";
 import FileUpload from "../FileUpload";
+import TextField from '../TextField';
+import Select from '../Select';
 
 export class EditTreeForm extends Component {
     constructor(props) {
@@ -15,25 +24,147 @@ export class EditTreeForm extends Component {
             loading: true,
             files: [],
             loadingFiles: true,
-            filesIds: [],
+            fileIds: [],
             uploadingFiles: false
         }
 
         this.treeUuid = getUrlParamValueByKey('tree');
     }
 
+    convertTree (tree) {
+        const {
+            age,
+            conditionAssessment,
+            diameterOfCrown,
+            heightOfTheFirstBranch,
+            fileIds,
+            geographicalPoint,
+            numberOfTreeTrunks,
+            treeHeight,
+            species,
+            status,
+            treePlantingType,
+            trunkGirth,
+            id
+        } = tree;
+
+        return {
+            age: {
+                title: 'Возраст (в годах)',
+                value: age,
+                type: 'number'
+            },
+            conditionAssessment: {
+                title: 'Визуальная оценка состония',
+                value: conditionAssessment,
+                values: [
+                    {
+                        id: 1,
+                        title: '1'
+                    },
+                    {
+                        id: 2,
+                        title: '2'
+                    },
+                    {
+                        id: 3,
+                        title: '3'
+                    },
+                    {
+                        id: 4,
+                        title: '4'
+                    },
+                    {
+                        id: 5,
+                        title: '5'
+                    },
+                ],
+                loading: false
+            },
+            diameterOfCrown: {
+                title: 'Диаметр кроны (в метрах)',
+                value: diameterOfCrown,
+                type: 'number'
+            },
+            heightOfTheFirstBranch: {
+                title: 'Высота первой ветви от земли (в метрах)',
+                value: heightOfTheFirstBranch,
+                type: 'number'
+            },
+            numberOfTreeTrunks: {
+                title: 'Число стволов',
+                value: numberOfTreeTrunks,
+                type: 'number'
+            },
+            treeHeight: {
+                title: 'Высота (в метрах)',
+                value: treeHeight,
+                type: 'number'
+            },
+            species: {
+                title: 'Порода',
+                values: [species],
+                value: species?.id,
+                loading: false
+            },
+            status: {
+                title: 'Статус дерева',
+                values: [
+                    {
+                        id: 1,
+                        title: 'Живое'
+                    },
+                    {
+                        id: 2,
+                        title: 'Не живое'
+                    }
+                ],
+                value: status,
+                loading: false
+            },
+            treePlantingType: {
+                title: 'Тип посадки дерева',
+                value: treePlantingType,
+                type: 'number'
+            },
+            trunkGirth: {
+                title: 'Обхват самого толстого ствола (в сантиметрах)',
+                value: trunkGirth,
+                type: 'number'
+            },
+            id,
+            fileIds: fileIds || [],
+            geographicalPoint
+        }
+    }
+
+    sortTypesOfTrees (types) {
+        return types
+            .sort((first, second) => {
+                if (first.title > second.title) return 1;
+                if (first.title < second.title) return -1;
+                return 0;
+            })
+    }
+
     componentDidMount() {
         if (this.treeUuid) {
             getTree(this.treeUuid)
                 .then(tree => {
+                    console.log(tree, 'tree');
                     this.setState({
-                        tree,
+                        tree: this.convertTree(tree),
                         loading: false
                     }, () => {
                         getFilesByTree([16, 18, 20])
                             .then(files => {
+                                console.log(files, 'files');
                                 this.setState({
                                     files,
+                                    tree: {
+                                        ...this.state.tree,
+                                        fileIds: [16, 18, 20]
+                                    },
                                     loadingFiles: false
                                 })
                             })
@@ -55,129 +186,135 @@ export class EditTreeForm extends Component {
     }
 
 
-    handleSubmit(event) {
-        // event.preventDefault();
-        // this.setState({buttonEnable: false});
-        //
-        // const formDataExcludedFields = ["created", "updated", "user", "species"]
-        // const formData = new FormData(event.target);
-        //
-        // let data = {};
-        // formData.forEach((value, key) => {
-        //     if (!formDataExcludedFields.includes(key)) {
-        //         data[key] = value
-        //     }
-        //     if (key === "species") {
-        //         data[key] = {"id": value}
-        //     }
-        // });
-        //
-        // data["geographicalPoint"] = {
-        //     "latitude": this.props.match.params.lat,
-        //     "longitude": this.props.match.params.lng
-        // };
-        //
-        // const json = JSON.stringify(data);
-        // fetch(getTreeAddUrl(), {
-        //     method: 'POST',
-        //     headers: { 'Content-Type': 'application/json' },
-        //     body: json,
-        // })
-        //     .then(response => {
-        //         if (response.status === 201) {
-        //             alert("Дерево успешно добавлено");
-        //             this.props.history.goBack();
-        //         } else {
-        //             alert("Возникла ошибка при попытке добавить дерево")
-        //             console.log(response.status);
-        //             console.log(json);
-        //             this.setState({buttonEnable: true});
-        //         }
-        //     });
+    handleEditTree = () => {
+        const {tree} = this.state;
+        const data = {};
+
+        Object.keys(tree).forEach(key => {
+            if (Object.prototype.hasOwnProperty.call(tree[key], 'value')) {
+                if (key === 'species') {
+                    data[key] = {id: tree[key].value}
+                } else {
+                    data[key] = tree[key].value;
+                }
+            } else {
+                data[key] = tree[key];
+            }
+        })
+
+        editTree(data)
+            .then(_ => {
+                alert('Дерево успешно изменено!');
+                this.props.history.goBack();
+            })
+            .catch(error => {
+                alert('Ошибка при изменении дерева');
+                console.error('Ошибка при изменении дерева', error);
+            });
     }
 
-    renderGEOPosition () {
+    handleChange = (fieldName) => (event) => {
+        const {tree} = this.state;
+        tree[fieldName].value = event.target.value;
+
+        this.setState({tree})
+    }
+
+    handleOpenSelect = (type) => () => {
         const {tree} = this.state;
 
-        if (tree && tree.geographicalPoint) {
-            const {latitude, longitude} = tree.geographicalPoint;
+        if (type === 'species') {
+            this.setState({
+                tree: {
+                    ...tree,
+                    species: {
+                        ...tree.species,
+                        loading: true
+                    }
+                }
+            }, () => {
+                getTypesOfTrees()
+                    .then(types => {
+                        this.setState({
+                            tree: {
+                                ...tree,
+                                species: {
+                                    ...tree.species,
+                                    values: this.sortTypesOfTrees(types),
+                                    loading: false
+                                }
+                            }
+                        })
+                    })
+                    .catch(error => {
+                        this.setState({
+                            tree: {
+                                ...tree,
+                                species: {
+                                    ...tree.species,
+                                    loading: false
+                                }
+                            }
+                        })
 
-            return (
-                <div className={styles.blockWrapper}>
-                    <span className={styles.blockPrefix}> Геопозиция </span>
-                    <div className={styles.geopositionWrapper}>
-                        <span className={styles.geopositionItem}>{latitude}</span>
-                        <span className={styles.geopositionItem}>{longitude}</span>
-                    </div>
-                </div>
-            )
+                        console.error('Возникла ошибка при получении типов', error);
+                    })
+            })
         }
+    }
 
-        return null;
+    renderItems () {
+        const {tree} = this.state;
+
+        const result = [];
+        Object.keys(tree).forEach(key => {
+            if (tree[key]) {
+                if (Object.prototype.hasOwnProperty.call(tree[key], 'values')) {
+                    console.log(tree[key], 'values');
+                    result.push(
+                        <div className={cn([styles.blockWrapper, styles.blockWrapperDesktop])}>
+                            <Select
+                                onChange={this.handleChange(key)}
+                                onOpen={this.handleOpenSelect(key)}
+                                item={tree[key]} id={key}
+                            />
+                        </div>
+                    )
+                } else if (tree[key].title) {
+                    result.push(
+                        <div className={cn([styles.blockWrapper, styles.blockWrapperDesktop])}>
+                            <TextField
+                                item={tree[key]}
+                                id={key}
+                                onChange={this.handleChange(key)}
+                            />
+                        </div>
+                    )
+                }
+            }
+        })
+
+        return result;
     }
 
     renderMainInformation () {
-        const {age, conditionAssessment, diameterOfCrown, heightOfTheFirstBranch, treeHeight} = this.state.tree;
         return (
-            <figure className={styles.block}>
+            <div className={styles.block}>
                 <div className={styles.wrapperFlex}>
-                    <div className={cn([styles.blockWrapper, styles.blockWrapperDesktop])}>
-                        <span className={styles.blockPrefix}> Высота (в метрах)</span>
-                        <input name="treeHeight" defaultValue={treeHeight} className={styles.blockValue} type="number" min="1" max="50"/>
-                    </div>
-                    <div className={cn([styles.blockWrapper, styles.blockWrapperDesktop])}>
-                        <span className={styles.blockPrefix}>Диаметр кроны (в метрах)</span>
-                        <input defaultValue={diameterOfCrown} name="diameterOfCrown" className={styles.blockValue} type="number" min="1" max="50"/>
-                    </div>
-                    <div className={cn([styles.blockWrapper, styles.blockWrapperDesktop])}>
-                        <span
-                            className={styles.blockPrefix}> Обхват <wbr/> самого толстого ствола (в сантиметрах)</span>
-                        <input name="trunkGirth" className={styles.blockValue} required type="number" min="1" max="10"/>
-                    </div>
-                    <div className={cn([styles.blockWrapper, styles.blockWrapperDesktop])}>
-                        <span className={styles.blockPrefix}> Число стволов </span>
-                        <input name="numberOfTreeTrunks" className={styles.blockValue} required type="number" min="1" max="5"
-                               placeholder="1"/>
-                    </div>
-                    <div className={cn([styles.blockWrapper, styles.blockWrapperDesktop])}>
-                        <span className={styles.blockPrefix}> Высота первой ветви от земли (в метрах)</span>
-                        <input name="heightOfTheFirstBranch" defaultValue={heightOfTheFirstBranch} className={styles.blockValue} type="number" min="1" max="50"/>
-                    </div>
-                    <div className={cn([styles.blockWrapper, styles.blockWrapperDesktop])}>
-                        <span className={styles.blockPrefix}> Возраст (в годах)</span>
-                        <input name="age" defaultValue={age} className={styles.blockValue} type="number" min="0"/>
-                    </div>
-                    <div className={cn([styles.blockWrapper, styles.blockWrapperDesktop])}>
-                        <span className={styles.blockPrefix}>Визуальная  оценка состояния</span>
-                        <select defaultValue={conditionAssessment} name="conditionAssessment" className={styles.blockSelect} dir="rtl">
-                            <option value="1" className={styles.blockSelectOption}>1/5</option>
-                            <option value="2" className={styles.blockSelectOption}>2/5</option>
-                            <option value="3" className={styles.blockSelectOption}>3/5</option>
-                            <option value="4" className={styles.blockSelectOption}>4/5</option>
-                            <option value="5" className={styles.blockSelectOption}>5/5</option>
-                        </select>
-                    </div>
-                    <div className={cn([styles.blockWrapper, styles.blockWrapperDesktop])}>
-                        <span className={styles.blockPrefix}> Статус дерева </span>
-                        <select dir="rtl" className={styles.blockSelect}>
-                            <option className={styles.blockSelectOption}> Жив</option>
-                            <option className={styles.blockSelectOption}> Цел</option>
-                            <option className={styles.blockSelectOption}> Орел</option>
-                        </select>
-                    </div>
+                    {this.renderItems()}
                 </div>
-            </figure>
+            </div>
         )
     }
 
     uploadFiles (files) {
         uploadFilesByTree(this.treeUuid)(files)
-            .then(filesIds => {
-                getFilesByIds(filesIds)
+            .then(fileIds => {
+                getFilesByIds(fileIds)
                     .then(files => {
                         this.setState({
                             files: this.state.files.concat(files),
-                            filesIds: this.state.filesIds.concat(filesIds),
+                            fileIds: this.state.fileIds.concat(fileIds),
                             uploadingFiles: false
                         })
                     })
@@ -208,15 +345,15 @@ export class EditTreeForm extends Component {
         return files.filter(file => file.id !== id);
     }
 
-    getFilesIdsAfterDelete (id) {
-        const {filesIds} = this.state;
-        return filesIds.filter(fileId => fileId !== id);
+    getFileIdsAfterDelete (id) {
+        const {fileIds} = this.state;
+        return fileIds.filter(fileId => fileId !== id);
     }
 
     handleDeleteFile = (id) => {
         this.setState({
             files: this.getFilesAfterDelete(id),
-            filesIds: this.getFilesIdsAfterDelete(id)
+            fileIds: this.getFileIdsAfterDelete(id)
         });
     }
 
@@ -237,7 +374,7 @@ export class EditTreeForm extends Component {
         )
     }
 
-    renderForm () {
+    renderContent () {
         const {loading} = this.state;
 
         if (loading) {
@@ -245,18 +382,18 @@ export class EditTreeForm extends Component {
         }
 
         return (
-            <form className={styles.form} onSubmit={this.handleSubmit}>
+            <div className={styles.form}>
                 {this.renderMainInformation()}
                 {this.renderFiles()}
                 {this.renderButtons()}
-            </form>
+            </div>
         )
     }
 
     renderButtons () {
         return (
             <div className={styles.buttons}>
-                <button disabled={!this.state.buttonEnable} className={styles.addButton} type="submit">Редактировать</button>
+                <button disabled={this.state.uploadingFiles} className={styles.addButton} onClick={this.handleEditTree}>Редактировать</button>
                 <button onClick={this.props.history.goBack} className={styles.cancelButton}>Отмена</button>
             </div>
         )
@@ -266,7 +403,7 @@ export class EditTreeForm extends Component {
     render() {
         return (
             <div className={styles.formContainer}>
-                {this.renderForm()}
+                {this.renderContent()}
             </div>
         );
     }

@@ -6,6 +6,10 @@
     padding: 0 9px;
 }
 
+.blockWrapper {
+    margin-top: 20px;
+}
+
 .title,
 .subTitle,
 .blockTitle {
@@ -111,7 +115,6 @@
 @media screen and (min-width: 550px) {
     .blockWrapper {
         position: relative;
-        margin-top: 20px;
     }
 
     .blockWrapper:first-child {

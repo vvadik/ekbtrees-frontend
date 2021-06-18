@@ -2,8 +2,9 @@ import cn from "classnames";
 import React, {Component} from 'react';
 import styles from './EditTreeForm.module.css';
 import {getUrlParamValueByKey} from '../../helpers/url';
-import {getTree} from "./actions";
+import {getFilesByTree, getTree, getFilesByIds, uploadFilesByTree} from "./actions";
 import Spinner from "../Spinner/Spinner";
+import FileUpload from "../FileUpload";
 
 export class EditTreeForm extends Component {
     constructor(props) {
@@ -11,23 +12,44 @@ export class EditTreeForm extends Component {
 
         this.state = {
             tree: null,
-            loading: true
+            loading: true,
+            files: [],
+            loadingFiles: true,
+            filesIds: [],
+            uploadingFiles: false
         }
+
+        this.treeUuid = getUrlParamValueByKey('tree');
     }
 
     componentDidMount() {
-        const id = getUrlParamValueByKey('tree');
-
-        if (id) {
-            getTree(id)
+        if (this.treeUuid) {
+            getTree(this.treeUuid)
                 .then(tree => {
                     this.setState({
                         tree,
                         loading: false
+                    }, () => {
+                        getFilesByTree([16, 18, 20])
+                            .then(files => {
+                                this.setState({
+                                    files,
+                                    loadingFiles: false
+                                })
+                            })
+                            .catch(error => {
+                                console.error(error, 'Ошибка при загрузке файлов!');
+                                this.setState({
+                                    loadingFiles: false
+                                })
+                            })
                     })
                 })
                 .catch(error => {
                     console.error(error, 'Ошибка!')
+                    this.setState({
+                        loading: false
+                    })
                 })
         }
     }
@@ -148,16 +170,70 @@ export class EditTreeForm extends Component {
         )
     }
 
+    uploadFiles (files) {
+        uploadFilesByTree(this.treeUuid)(files)
+            .then(filesIds => {
+                getFilesByIds(filesIds)
+                    .then(files => {
+                        this.setState({
+                            files: this.state.files.concat(files),
+                            filesIds: this.state.filesIds.concat(filesIds),
+                            uploadingFiles: false
+                        })
+                    })
+                    .catch(error => {
+                        this.setState({
+                            uploadingFiles: false
+                        })
+
+                        throw `Произошла ошибка при получении загруженных файлов ${error}`;
+                    })
+            })
+            .catch(error => {
+                this.setState({
+                    uploadingFiles: false
+                })
+                console.error('Ошибка при загрузке файлов', error)
+            })
+    }
+
+    handleUploadFiles = (files) => {
+        this.setState({
+            uploadingFiles: true
+        }, () => this.uploadFiles(files));
+    }
+
+    getFilesAfterDelete (id) {
+        const {files} = this.state;
+        return files.filter(file => file.id !== id);
+    }
+
+    getFilesIdsAfterDelete (id) {
+        const {filesIds} = this.state;
+        return filesIds.filter(fileId => fileId !== id);
+    }
+
+    handleDeleteFile = (id) => {
+        this.setState({
+            files: this.getFilesAfterDelete(id),
+            filesIds: this.getFilesIdsAfterDelete(id)
+        });
+    }
+
     renderFiles () {
+        const {files, loadingFiles, uploadingFiles} = this.state;
+
+        if (loadingFiles) {
+            return <Spinner />;
+        }
+
         return (
-            <>
-                <h4 className={styles.blockTitle}>Фотографии и файлы </h4>
-                <figure className={styles.block}>
-                    <form>
-                        <input className={styles.blockFileItem} type="file" multiple name="upload"/>
-                    </form>
-                </figure>
-            </>
+            <FileUpload
+                files={files}
+                onDelete={this.handleDeleteFile}
+                onUpload={this.handleUploadFiles}
+                uploading={uploadingFiles}
+            />
         )
     }
 

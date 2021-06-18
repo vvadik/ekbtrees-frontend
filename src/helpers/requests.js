@@ -10,7 +10,7 @@ export default class RequestService {
 		return (await fetch(url, {
 			method: 'POST',
 			headers,
-			body: JSON.stringify(body)
+			body
 		})).json()
 	}
 }

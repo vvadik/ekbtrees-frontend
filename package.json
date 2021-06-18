@@ -20,11 +20,13 @@
   },
   "devDependencies": {
     "@material-ui/core": "^4.11.4",
+    "@material-ui/icons": "^4.11.2",
     "@testing-library/jest-dom": "^5.11.10",
     "@testing-library/react": "^11.2.5",
     "@testing-library/user-event": "^12.8.3",
     "classnames": "^2.3.1",
     "dayjs": "^1.10.5",
+    "material-ui-dropzone": "^3.5.0",
     "mini-create-react-context": "^0.4.1"
   },
   "scripts": {

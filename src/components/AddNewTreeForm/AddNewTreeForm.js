@@ -47,7 +47,6 @@ export default class AddNewTreeForm extends Component {
         };
 
         data["fileIds"] = fileIds;
-        data["title"] = 'title';
 
         const json = JSON.stringify(data);
 

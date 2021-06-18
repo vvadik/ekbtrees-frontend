@@ -3,8 +3,9 @@ import styles from './Tree.module.css'
 import {NavLink} from "react-router-dom";
 import Spinner from "../Spinner";
 import {getUrlParamValueByKey} from "../../helpers/url";
-import {getTree} from "../EditTreeForm/actions";
+import {getTree, getFilesByTree} from "../EditTreeForm/actions";
 import {formatDate} from '../../helpers/date';
+import FileUpload from "../FileUpload";
 
 export class Tree extends Component {
 	static defaultProps = {
@@ -16,7 +17,9 @@ export class Tree extends Component {
 
 		this.state = {
 			tree: null,
-			loading: true
+			loading: true,
+			files: [],
+			loadingFiles: true,
 		}
 	}
 
@@ -35,7 +38,7 @@ export class Tree extends Component {
 			trunkGirth,
 			updated,
 			geographicalPoint,
-			id,
+			id
 		} = tree;
 
 		return {
@@ -108,10 +111,27 @@ export class Tree extends Component {
 					this.setState({
 						tree: this.convertTree(tree),
 						loading: false
+					}, () => {
+						getFilesByTree([16, 18])
+							.then(files => {
+								this.setState({
+									files,
+									loadingFiles: false
+								})
+							})
+							.catch(error => {
+								console.error(error, 'Ошибка при загрузке файлов!');
+								this.setState({
+									loadingFiles: false
+								})
+							})
 					})
 				})
 				.catch(error => {
 					console.error(error, 'Ошибка!')
+					this.setState({
+						loading: false
+					})
 				})
 		}
 	}
@@ -171,14 +191,17 @@ export class Tree extends Component {
 	}
 
 	renderFiles () {
-		return (
-			<>
-				<h3 className={styles.title}> Файлы </h3>
-				<div className={styles.wrapper}>
-					Тут разместить файлы
-				</div>
-			</>
-		)
+		const {files, loadingFiles} = this.state;
+
+		if (loadingFiles) {
+			return <Spinner />;
+		}
+
+		if (files.length) {
+			return <FileUpload mode="read" files={files} />;
+		}
+
+		return null;
 	}
 
 	renderContent () {

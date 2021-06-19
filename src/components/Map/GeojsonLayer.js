@@ -36,7 +36,7 @@ const GeojsonLayer = ({mapState, setMapState, user}) => {
               })
             .catch(err => {
                 alert("Возникла ошибка при загрузке деревьев");
-                console.log(err);
+                console.error(err);
             });
     };
 
@@ -75,7 +75,7 @@ const GeojsonLayer = ({mapState, setMapState, user}) => {
             })
             .catch(err => {
                 alert("Возникла ошибка при загрузке информации о дереве");
-                console.log(err);
+                console.error(err);
             })
     }, [activeTreeId]);
 

@@ -12,6 +12,11 @@
     align-items: center;
     justify-content: center;
 }
+
+.userMenuWrapper {
+
+}
+
 .user-heading{
     font-size: 18px;
 }

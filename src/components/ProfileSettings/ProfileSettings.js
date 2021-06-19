@@ -28,7 +28,7 @@ export default class ProfileSettings extends Component {
 
     render () {
         const {user} = this.props;
-        console.log(user)
+
         return (
         <Fragment>
             <h4 className={styles.profileHeading}>Редактирование профиля</h4>

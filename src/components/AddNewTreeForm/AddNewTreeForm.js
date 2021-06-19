@@ -215,7 +215,6 @@ export default class AddNewTreeForm extends Component {
         Object.keys(tree).forEach(key => {
             if (tree[key]) {
                 if (Object.prototype.hasOwnProperty.call(tree[key], 'values')) {
-                    console.log(tree[key], 'values');
                     result.push(
                         <div className={cn([styles.blockWrapper, styles.blockWrapperDesktop])}>
                             <Select

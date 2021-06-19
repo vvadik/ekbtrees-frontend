@@ -59,7 +59,6 @@ export default class ListOfTrees extends Component {
   componentDidMount() {
       getTrees()
           .then((data) => {
-              console.log(data);
               this.setState({trees: mockData, loading: false})
           })
           .catch(error => {

@@ -12,12 +12,13 @@ export default class ClusterMarker extends Component {
         const markerIcon = divIcon({
             html: '<div><span>' + this.props.count + '</span></div>',
             className: "circle-div-icon",
-            iconSize: [40, 40]
+            iconSize: [40, 40],
+            count: this.props.count
         });
 
         return (<Marker
             position={this.props.position}
-            icon={ markerIcon } 
+            icon={ markerIcon }
         />);
     }
 }

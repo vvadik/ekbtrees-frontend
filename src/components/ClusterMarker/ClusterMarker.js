@@ -17,7 +17,7 @@ export default class ClusterMarker extends Component {
 
         return (<Marker
             position={this.props.position}
-            icon={ markerIcon } 
+            icon={ markerIcon }
         />);
     }
 }

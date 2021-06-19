@@ -10,6 +10,7 @@ import { getTreeMapInfoUrl, getTreeDataUrl, getClusterMapInfoUrl, fetchData } fr
 import MapButton from '../MapButton';
 import styles from "./GeojsonLayer.module.css";
 import ClusterMarker from '../ClusterMarker/ClusterMarker';
+import MarkerClusterGroup from "react-leaflet-markercluster/src/react-leaflet-markercluster";
 
 const GeojsonLayer = ({mapState, setMapState, user}) => {
     const map = useMap();
@@ -22,14 +23,14 @@ const GeojsonLayer = ({mapState, setMapState, user}) => {
     const history = useHistory();
 
     const loadData = () => {
-        const isCluster = map.getZoom() < disableClusteringAtZoom;
+        // const isCluster = map.getZoom() < disableClusteringAtZoom;
         const containerLatLng = getMapContainerLatLng();
-        console.log(containerLatLng);
-        const fethUrl = isCluster
-            ? getClusterMapInfoUrl(containerLatLng)
-            : getTreeMapInfoUrl(containerLatLng);
+        // const fethUrl = isCluster
+        //     ? getClusterMapInfoUrl(containerLatLng)
+        //     : getTreeMapInfoUrl(containerLatLng);
+        const isCluster = false;
 
-        fetchData(fethUrl)
+        fetchData(getTreeMapInfoUrl(containerLatLng))
             .then((jsonData) => {
                 setMapData({isClusterData: isCluster, json: jsonData});
               })
@@ -115,9 +116,15 @@ const GeojsonLayer = ({mapState, setMapState, user}) => {
 }
 
 function getMarkerClusterGroup(state, data, setActiveTree) {
+    /* FixMe - Этот кусок кода игнорируется, т.к isClusterData зашит на false.
+        Как я понял, MarkerClusterGroup должен принимать столько точек, сколько реально должно отрисоваться.
+        Т.е. если нам пришло 8 точек, то в MarkerClusterGroup должно быть 8 объектов, тогда кластеризация происходит корректно.
+        На данный момент в MarkerClusterGroup приходит 1 объект, в котором число доступных деревьев равно 8.
+        На экране отрисовывается точка с числом 8, а после слияния с другой точкой отображается число 2, т.к. отрисовано всего 2 объекта.
+    */
     if (data.isClusterData) {
         return (
-            <>
+            <MarkerClusterGroup disableClusteringAtZoom = {19}>
             {data.json
                 .map((f, idx) => (
                     <ClusterMarker
@@ -127,11 +134,11 @@ function getMarkerClusterGroup(state, data, setActiveTree) {
                         weight={1}>
                     </ClusterMarker>
             ))}
-            </>);
+            </MarkerClusterGroup>);
     }
     else {
         return (
-            <>
+            <MarkerClusterGroup disableClusteringAtZoom = {19}>
             {data.json
                 .map((f, idx) => (
                     <Circle
@@ -139,12 +146,12 @@ function getMarkerClusterGroup(state, data, setActiveTree) {
                         key={idx}
                         center={[f.geographicalPoint.latitude, f.geographicalPoint.longitude]}
                         pathOptions={getCircleOptions(f.species.title)}
-                        radius={getCircleRadius(f.diameterOfCrown ?? 0)}
+                        radius={getCircleRadius(f.diameterOfCrown ?? 10)}
                         weight={1}
                         title ={1}>
                     </Circle>
             ))}
-            </>
+            </MarkerClusterGroup>
         );
     }
 }

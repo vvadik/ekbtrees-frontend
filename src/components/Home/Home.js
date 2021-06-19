@@ -78,7 +78,7 @@ export default class Home extends Component {
     return (
       <>
         {this.renderDesktopSection()}
-        {this.renderGetStartSection()}
+        {this.props.user ? null : this.renderGetStartSection()}
         {this.renderLastPartSection()}
       </>
     )

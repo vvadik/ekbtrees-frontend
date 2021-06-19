@@ -1,209 +1,330 @@
 import cn from 'classnames';
 import React, { Component } from 'react';
-import { getTreeAddUrl, fetchData } from '../ApiDataLoadHelper/DataLoadHelper';
+import {addTree, uploadFiles} from "./actions";
+import FileUpload from "../FileUpload";
+import TextField from '../TextField';
+import Select from '../Select';
 import styles from "./AddNewTreeForm.module.css";
+import {getFilesByIds, getTypesOfTrees} from "../EditTreeForm/actions";
 
 export default class AddNewTreeForm extends Component {
     constructor(props) {
         super(props);
 
-        this.state = {speciesValues: [], buttonEnable: true, files: []};
-        this.handleSubmit = this.handleSubmit.bind(this);
-        this.handleChangeFilesInput = this.handleChangeFilesInput.bind(this);
-    }
-
-    componentDidMount() {
-        fetchData("/api/species/get-all")
-            .then((jsonData) => {
-                this.setState({speciesValues: jsonData});
-            });
-    }
-
-    handleChangeFilesInput(event) {
-        this.setState({ files: event.target.files });
-    }
-
-    async handleSubmit(event) {
-        event.preventDefault();
-        this.setState({buttonEnable: false});
-
-        const fileIds = await Promise.all(Array.from(this.state.files).map(async (file) => await this.uploadFile(file)));
-        const formDataExcludedFields = ["created", "updated", "user", "species", "file"]
-        const formData = new FormData(event.target);
-
-        let data = {};
-        formData.forEach((value, key) => {
-            if (!formDataExcludedFields.includes(key)) {
-                data[key] = value
-            }
-            if (key === "species") {
-                data[key] = {"id": value}
-            }
-        });
-
-        data["geographicalPoint"] = {
-            "latitude": this.props.match.params.lat,
-            "longitude": this.props.match.params.lng
+        this.state = {
+            tree: {
+                latitude: {
+                    disabled: true,
+                    title: 'Широта',
+                    value: this.props.match.params.lat,
+                    type: 'string'
+                },
+                longitude: {
+                    disabled: true,
+                    title: 'Долгота',
+                    value: this.props.match.params.lng,
+                    type: 'string'
+                },
+                age: {
+                    title: 'Возраст (в годах)',
+                    value: '',
+                    type: 'number'
+                },
+                conditionAssessment: {
+                    title: 'Визуальная оценка состония',
+                    value: '',
+                    values: [
+                        {
+                            id: 1,
+                            title: '1'
+                        },
+                        {
+                            id: 2,
+                            title: '2'
+                        },
+                        {
+                            id: 3,
+                            title: '3'
+                        },
+                        {
+                            id: 4,
+                            title: '4'
+                        },
+                        {
+                            id: 5,
+                            title: '5'
+                        },
+                    ],
+                    loading: false
+                },
+                diameterOfCrown: {
+                    title: 'Диаметр кроны (в метрах)',
+                    value: '',
+                    type: 'number'
+                },
+                heightOfTheFirstBranch: {
+                    title: 'Высота первой ветви от земли (в метрах)',
+                    value: '',
+                    type: 'number'
+                },
+                numberOfTreeTrunks: {
+                    title: 'Число стволов',
+                    value: '',
+                    type: 'number'
+                },
+                treeHeight: {
+                    title: 'Высота (в метрах)',
+                    value: '',
+                    type: 'number'
+                },
+                species: {
+                    title: 'Порода',
+                    values: [],
+                    value: '',
+                    loading: false
+                },
+                status: {
+                    title: 'Статус дерева',
+                    values: [
+                        {
+                            id: 1,
+                            title: 'Живое'
+                        },
+                        {
+                            id: 2,
+                            title: 'Не живое'
+                        }
+                    ],
+                    value: '',
+                    loading: false
+                },
+                treePlantingType: {
+                    title: 'Тип посадки дерева',
+                    value: '',
+                    type: 'number'
+                },
+                trunkGirth: {
+                    title: 'Обхват самого толстого ствола (в сантиметрах)',
+                    value: '',
+                    type: 'number'
+                },
+                fileIds: [],
+            },
+            files: [],
+            uploadingFiles: false
         };
-
-        data["fileIds"] = fileIds;
-
-        const json = JSON.stringify(data);
-
-        fetch(getTreeAddUrl(), {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: json,
-        })
-            .then(response => {
-                if (response.status === 201) {
-                    alert("Дерево успешно добавлено");
-                    this.props.history.goBack();
-                } else {
-                    alert("Возникла ошибка при попытке добавить дерево")
-                    console.log(response.status);
-                    console.log(json);
-                    this.setState({buttonEnable: true});
-                }
-            });
     }
 
-    async uploadFile(file) {
-        const formData = new FormData();
-        formData.append("file", file);
-
-        let response = await fetch("/api/file/upload", {
-            method: 'POST',
-            body: formData
-        });
-
-        return await response.json();
-    }
-
-    renderGEOPosition () {
-        const lat = this.props.match.params.lat;
-        const lng = this.props.match.params.lng;
-
-        return (
-            <div className={styles.blockWrapper}>
-                <span className={styles.blockPrefix}> Геопозиция </span>
-                <div className={styles.geopositionWrapper}>
-                    <span className={styles.geopositionItem}>{lat}</span>
-                    <span className={styles.geopositionItem}>{lng}</span>
-                </div>
-            </div>
-        )
-    }
-
-    renderTypesOfTrees () {
-        return this.state.speciesValues
+    sortTypesOfTrees (types) {
+        return types
             .sort((first, second) => {
                 if (first.title > second.title) return 1;
                 if (first.title < second.title) return -1;
                 return 0;
             })
-            .map(item => <option className={styles.blockSelectOption} value={item.id}>{item.title}</option>);
+    }
+
+    handleAddTree = () => {
+        const {tree} = this.state;
+        const data = {
+            geographicalPoint: {
+                latitude: null,
+                longitude: null
+            }
+        };
+
+        Object.keys(tree).forEach(key => {
+            if (Object.prototype.hasOwnProperty.call(tree[key], 'value')) {
+                if (key === 'species') {
+                    data[key] = {id: tree[key].value}
+                } else if (key === 'latitude' || key === 'longitude') {
+                    data.geographicalPoint[key] = tree[key].value;
+                } else {
+                    data[key] = tree[key].value;
+                }
+            } else {
+                data[key] = tree[key];
+            }
+        })
+
+        addTree(data)
+            .then(_ => {
+                alert('Дерево успешно добавлено!');
+                this.props.history.goBack();
+            })
+            .catch(error => {
+                alert('Ошибка при добавлении дерева');
+                console.error('Ошибка при добавлении дерева', error);
+            });
+    }
+
+    handleChange = (fieldName) => (event) => {
+        const {tree} = this.state;
+        tree[fieldName].value = event.target.value;
+
+        this.setState({tree})
+    }
+
+    handleOpenSelect = (type) => () => {
+        const {tree} = this.state;
+
+        if (type === 'species') {
+            this.setState({
+                tree: {
+                    ...tree,
+                    species: {
+                        ...tree.species,
+                        loading: true
+                    }
+                }
+            }, () => {
+                getTypesOfTrees()
+                    .then(types => {
+                        this.setState({
+                            tree: {
+                                ...tree,
+                                species: {
+                                    ...tree.species,
+                                    values: this.sortTypesOfTrees(types),
+                                    loading: false
+                                }
+                            }
+                        })
+                    })
+                    .catch(error => {
+                        this.setState({
+                            tree: {
+                                ...tree,
+                                species: {
+                                    ...tree.species,
+                                    loading: false
+                                }
+                            }
+                        })
+
+                        console.error('Возникла ошибка при получении типов', error);
+                    })
+            })
+        }
+    }
+
+    renderItems () {
+        const {tree} = this.state;
+
+        const result = [];
+        Object.keys(tree).forEach(key => {
+            if (tree[key]) {
+                if (Object.prototype.hasOwnProperty.call(tree[key], 'values')) {
+                    console.log(tree[key], 'values');
+                    result.push(
+                        <div className={cn([styles.blockWrapper, styles.blockWrapperDesktop])}>
+                            <Select
+                                onChange={this.handleChange(key)}
+                                onOpen={this.handleOpenSelect(key)}
+                                item={tree[key]} id={key}
+                            />
+                        </div>
+                    )
+                } else if (tree[key].title) {
+                    result.push(
+                        <div className={cn([styles.blockWrapper, styles.blockWrapperDesktop])}>
+                            <TextField
+                                item={tree[key]}
+                                id={key}
+                                onChange={this.handleChange(key)}
+                            />
+                        </div>
+                    )
+                }
+            }
+        })
+
+        return result;
     }
 
     renderMainInformation () {
         return (
-            <figure className={styles.block}>
-                {this.renderGEOPosition()}
-                <div className={styles.blockWrapper}>
-                    <span className={styles.blockPrefix}> Порода </span>
-                    <select name="species" className={styles.blockSelect} dir="rtl">
-                        {this.renderTypesOfTrees()}
-                    </select>
-                </div>
+            <div className={styles.block}>
                 <div className={styles.wrapperFlex}>
-                    <div className={cn([styles.blockWrapper, styles.blockWrapperDesktop])}>
-                        <span className={styles.blockPrefix}> Высота (в метрах)</span>
-                        <input name="treeHeight" className={styles.blockValue} type="number" min="1" max="50"/>
-                    </div>
-                    <div className={cn([styles.blockWrapper, styles.blockWrapperDesktop])}>
-                        <span className={styles.blockPrefix}>Диаметр кроны (в метрах)</span>
-                        <input name="diameterOfCrown" className={styles.blockValue} type="number" min="1" max="50"/>
-                    </div>
-                    <div className={cn([styles.blockWrapper, styles.blockWrapperDesktop])}>
-                        <span
-                            className={styles.blockPrefix}> Обхват <wbr/> самого толстого ствола (в сантиметрах)</span>
-                        <input name="trunkGirth" className={styles.blockValue} required type="number" min="1" max="200"/>
-                    </div>
-                    <div className={cn([styles.blockWrapper, styles.blockWrapperDesktop])}>
-                        <span className={styles.blockPrefix}> Число стволов </span>
-                        <input name="numberOfTreeTrunks" className={styles.blockValue} required type="number" min="1" max="50"
-                               placeholder="1"/>
-                    </div>
-                    <div className={cn([styles.blockWrapper, styles.blockWrapperDesktop])}>
-                        <span className={styles.blockPrefix}> Высота первой ветви от земли (в метрах)</span>
-                        <input name="heightOfTheFirstBranch" className={styles.blockValue} type="number" min="1" max="50"/>
-                    </div>
-                    <div className={cn([styles.blockWrapper, styles.blockWrapperDesktop])}>
-                        <span className={styles.blockPrefix}> Возраст (в годах)</span>
-                        <input name="age" className={styles.blockValue} type="number" min="0"/>
-                    </div>
+                    {this.renderItems()}
                 </div>
-                <div className={styles.blockWrapper}>
-                    <span className={styles.blockPrefix}>Визуальная  оценка состояния</span>
-                    <select name="conditionAssessment" className={styles.blockSelect} dir="rtl">
-                        <option value="1" className={styles.blockSelectOption}>1/5</option>
-                        <option value="2" className={styles.blockSelectOption}>2/5</option>
-                        <option value="3" className={styles.blockSelectOption}>3/5</option>
-                        <option value="4" className={styles.blockSelectOption}>4/5</option>
-                        <option value="5" className={styles.blockSelectOption}>5/5</option>
-                    </select>
-                </div>
-            </figure>
+            </div>
         )
+    }
+
+    uploadFiles (files) {
+        uploadFiles(files)
+            .then(fileIds => {
+                getFilesByIds(fileIds)
+                    .then(files => {
+                        this.setState({
+                            files: this.state.files.concat(files),
+                            tree: {
+                                ...this.state.tree,
+                                fileIds: this.state.tree.fileIds.concat(fileIds)
+                            },
+                            uploadingFiles: false
+                        })
+                    })
+                    .catch(error => {
+                        this.setState({
+                            uploadingFiles: false
+                        })
+
+                        throw `Произошла ошибка при получении загруженных файлов ${error}`;
+                    })
+            })
+            .catch(error => {
+                this.setState({
+                    uploadingFiles: false
+                })
+                console.error('Ошибка при загрузке файлов', error)
+            })
+    }
+
+    handleUploadFiles = (files) => {
+        this.setState({
+            uploadingFiles: true
+        }, () => this.uploadFiles(files));
+    }
+
+    getFilesAfterDelete (id) {
+        const {files} = this.state;
+        return files.filter(file => file.id !== id);
+    }
+
+    getFileIdsAfterDelete (id) {
+        const {tree} = this.state;
+        return tree.fileIds.filter(fileId => fileId !== id);
+    }
+
+    handleDeleteFile = (id) => {
+        this.setState({
+            files: this.getFilesAfterDelete(id),
+            tree: {
+                ...this.state.tree,
+                fileIds: this.getFileIdsAfterDelete(id)
+            }
+        });
     }
 
     renderFiles () {
-        return (
-            <figure className={styles.block}>
-                <form>
-                    <input className={styles.blockFileItem} type="file" multiple name="file" onChange={this.handleChangeFilesInput}/>
-                </form>
-            </figure>
-        )
-    }
+        const {files, uploadingFiles} = this.state;
 
-    renderAdditionalInformation () {
         return (
-            <figure className={styles.block}>
-                <div className={styles.wrapperFlex}>
-                <div className={cn([styles.blockWrapper, styles.blockWrapperDesktop])}>
-                    <span className={styles.blockPrefix}> Автоназначаемый  идентификатор </span>
-                    <input className={styles.blockValue} type="text" disabled value="10321"/>
-                </div>
-                <div className={cn([styles.blockWrapper, styles.blockWrapperDesktop])}>
-                    <span className={styles.blockPrefix}> Статус дерева </span>
-                    <select dir="rtl" className={styles.blockSelect}>
-                        <option className={styles.blockSelectOption}> Жив</option>
-                        <option className={styles.blockSelectOption}> Цел</option>
-                        <option className={styles.blockSelectOption}> Мертв</option>
-                    </select>
-                </div>
-                    <div className={cn([styles.blockWrapper, styles.blockWrapperDesktop])}>
-                        <span className={styles.blockPrefix}> Дата и время  добавления  записи  </span>
-                        <input name="created" className={styles.blockValue} type="datetime-local"/>
-                    </div>
-                    <div className={cn([styles.blockWrapper, styles.blockWrapperDesktop])}>
-                        <span className={styles.blockPrefix}> Дата и время  последнего  редактирования  </span>
-                        <input name="updated" className={styles.blockValue} type="datetime-local"/>
-                    </div>
-                </div>
-                <div className={styles.blockWrapper}>
-                    <span className={styles.blockPrefix}> Ссылка на  автора </span>
-                    <input name="user" className={styles.blockValue} type="email" autoCorrect="off" maxLength="60"/>
-                </div>
-            </figure>
+            <FileUpload
+                files={files}
+                onDelete={this.handleDeleteFile}
+                onUpload={this.handleUploadFiles}
+                uploading={uploadingFiles}
+            />
         )
     }
 
     renderButtons () {
         return (
-            <div>
-                <button disabled={!this.state.buttonEnable} className={styles.addButton} type="submit">Отправить</button>
+            <div className={styles.buttons}>
+                <button onClick={this.handleAddTree} disabled={this.state.uploadingFiles} className={styles.addButton}>Добавить</button>
                 <button onClick={this.props.history.goBack} className={styles.cancelButton}>Отмена</button>
             </div>
         )
@@ -213,15 +334,11 @@ export default class AddNewTreeForm extends Component {
     render() {
         return (
             <div className={styles.formContainer}>
-                <h3 className={styles.title}> Карточка дерева </h3>
-                <div className={styles.subTitle}> пожалуйста, добавьте  всю информацию о дереве  </div>
-                <h4 className={styles.blockTitle}> Основная информация</h4>
-                <form className={styles.form} onSubmit={this.handleSubmit}>
+                <div className={styles.form}>
                     {this.renderMainInformation()}
-                    <h4 className={styles.blockTitle}>Фотографии и файлы </h4>
                     {this.renderFiles()}
                     {this.renderButtons()}
-                </form>
+                </div>
             </div>
         );
     }

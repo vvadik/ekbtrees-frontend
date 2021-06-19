@@ -1,6 +1,5 @@
 import React, {Component} from "react";
 import {DropzoneDialog} from 'material-ui-dropzone'
-import Button from '@material-ui/core/Button';
 import styles from './FileUpload.module.css';
 import classNames from "classnames";
 import LinearProgress from "../LinearProgress/LinearProgress";

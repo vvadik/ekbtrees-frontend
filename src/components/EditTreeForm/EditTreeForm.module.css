@@ -76,7 +76,6 @@
     margin: 0 auto;
     height: 60px;
     border: 0;
-    outline: none;
 }
 
 .addButton {
@@ -117,6 +116,11 @@
         position: relative;
     }
 
+    .buttons {
+        margin-top: 10px;
+        display: flex;
+    }
+
     .blockWrapper:first-child {
         margin-top: 0;
     }
@@ -136,11 +140,6 @@
         width: 68%;
         top: 0;
         right: 0;
-    }
-
-    .addButton,
-    .cancelButton {
-        width: 70%;
     }
 
     .geopositionWrapper {
@@ -169,6 +168,10 @@
         color: #4b4b4b;
     }
 
+    .addButton {
+        border-right: 1px solid black;
+    }
+
     .form {
         max-width: 1150px;
         width: 100%;
@@ -187,19 +190,10 @@
         padding: 25px 30px 30px 30px;
     }
 
-    .buttons {
-        margin-top: 10px;
-        display: flex;
-    }
-
     .blockPrefix {
         color: #4b4b4b;
         max-width: 215px;
         width: 100%;
-    }
-
-    .addButton {
-        border-right: 1px solid black;
     }
 
     .blockWrapperDesktop {

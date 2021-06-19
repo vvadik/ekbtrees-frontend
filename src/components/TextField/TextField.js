@@ -18,6 +18,7 @@ export const TextField = (props) => {
 	return (
 		<div className={styles.root}>
 			<UITextField
+				disabled={item.disabled ?? false}
 				type={item.type}
 				onChange={onChange}
 				variant="outlined"

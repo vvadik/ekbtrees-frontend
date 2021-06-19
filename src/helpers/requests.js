@@ -20,11 +20,13 @@ export default class RequestService {
 			body
 		})
 			.then(response => {
-			if (response.status !== 200 || response.status !== 201) {
-				throw `${response.status} ${response.statusText}`;
-			}
+				const passingStatuses = [200, 201];
 
-			return response.json()
+				if (!passingStatuses.includes(response.status)) {
+					throw `${response.status} ${response.statusText}`;
+				}
+
+				return response.json()
 		})
 	}
 }

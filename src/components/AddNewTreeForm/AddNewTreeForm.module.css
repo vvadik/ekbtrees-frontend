@@ -10,7 +10,10 @@
 .subTitle,
 .blockTitle {
     margin-top: 5px;
-    text-align: center;
+}
+
+.blockWrapper {
+    margin-top: 20px;
 }
 
 .blockTitle {
@@ -18,8 +21,8 @@
 }
 
 .block {
-    background-color: #fff;
-    border-radius: 10px;
+    background-color: #F3F6FA;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.1);
     padding: 15px 15px 20px 15px;
     margin-bottom: 15px;
 }
@@ -71,6 +74,7 @@
     width: 100%;
     margin: 0 auto;
     height: 60px;
+    border: 0;
 }
 
 .addButton {
@@ -109,7 +113,15 @@
 @media screen and (min-width: 550px) {
     .blockWrapper {
         position: relative;
-        margin-top: 20px;
+    }
+
+    .addButton {
+        border-right: 1px solid black;
+    }
+
+    .buttons {
+        margin-top: 10px;
+        display: flex;
     }
 
     .blockWrapper:first-child {
@@ -158,6 +170,10 @@
 
     .blockTitle {
         font-size: 20px;
+    }
+
+    .block {
+        background-color: #fff;
     }
 
     .subTitle {

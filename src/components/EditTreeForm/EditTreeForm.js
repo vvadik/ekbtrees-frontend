@@ -24,7 +24,6 @@ export class EditTreeForm extends Component {
             loading: true,
             files: [],
             loadingFiles: true,
-            fileIds: [],
             uploadingFiles: false
         }
 
@@ -151,7 +150,6 @@ export class EditTreeForm extends Component {
         if (this.treeUuid) {
             getTree(this.treeUuid)
                 .then(tree => {
-                    console.log(tree, 'tree');
                     this.setState({
                         tree: this.convertTree(tree),
                         loading: false
@@ -314,7 +312,10 @@ export class EditTreeForm extends Component {
                     .then(files => {
                         this.setState({
                             files: this.state.files.concat(files),
-                            fileIds: this.state.fileIds.concat(fileIds),
+                            tree: {
+                                ...this.state.tree,
+                                fileIds: this.state.tree.fileIds.concat(fileIds),
+                            },
                             uploadingFiles: false
                         })
                     })
@@ -346,14 +347,17 @@ export class EditTreeForm extends Component {
     }
 
     getFileIdsAfterDelete (id) {
-        const {fileIds} = this.state;
-        return fileIds.filter(fileId => fileId !== id);
+        const {tree} = this.state;
+        return tree.fileIds.filter(fileId => fileId !== id);
     }
 
     handleDeleteFile = (id) => {
         this.setState({
             files: this.getFilesAfterDelete(id),
-            fileIds: this.getFileIdsAfterDelete(id)
+            tree: {
+                ...this.state.tree,
+                fileIds: this.getFileIdsAfterDelete(id)
+            }
         });
     }
 

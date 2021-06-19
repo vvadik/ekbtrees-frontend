@@ -14,22 +14,10 @@
 
 .close {
     cursor: pointer;
-    padding: 10px 15px;
-    width: 100%;
-    background-color: #FF3900;
-    color: white !important;
-    font-size: 16px;
-    text-align: center;
-    margin-top: 15px;
+    background: none;
+    font-size: 18px;
     border: 0;
     outline: none;
-    height: 44px;
-}
-
-.close:hover,
-.close:focus,
-.close:active {
-    background-color: #FF7D01;
 }
 
 .blockTitle {
@@ -102,6 +90,11 @@
     border: 0;
     margin: 0;
     padding: 0;
+}
+
+.closeWrapper {
+    width: 100%;
+    text-align: right;
 }
 
 .addButton,
@@ -218,10 +211,6 @@
     }
 
     .blockWrapper:first-child {
-        margin-top: 20px;
-    }
-
-    .close {
         margin-top: 20px;
     }
 

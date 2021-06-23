@@ -73,6 +73,14 @@
 }
 
 @media screen and (max-width: 769px) {
+    .container {
+        margin: 75px auto;
+    }
+
+    .wrapper {
+        background-color: #F3F6FA;
+    }
+
     .row {
         display: block;
     }

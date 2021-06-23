@@ -6,7 +6,6 @@ import TextField from '../TextField';
 import Select from '../Select';
 import styles from "./AddNewTreeForm.module.css";
 import {getFilesByIds, getTypesOfTrees} from "../EditTreeForm/actions";
-import Spinner from "../Spinner/Spinner";
 
 export default class AddNewTreeForm extends Component {
     constructor(props) {

@@ -9,7 +9,8 @@ import facebookIcon from '../../img/facebook.png';
 export default class RegistrationForm extends Component {
     state = {
         touchStart: null,
-        error: false
+        error: false,
+        alreadyRegistered: false
     }
     handleTouch = (e) => {
         this.setState({
@@ -26,6 +27,10 @@ export default class RegistrationForm extends Component {
         this.props.history.push('/');
     }
     checkPasswords = (e) =>{
+        this.setState({
+            error: false,
+            alreadyRegistered: false
+        })
         e.preventDefault();
         if(e.target.psw.value === e.target.psw2.value){
             const input = {
@@ -44,8 +49,13 @@ export default class RegistrationForm extends Component {
     }
     renderError(){
         if(this.state.error){
-            return(
-                <p>Пароль не соответствует</p>
+            return (
+                <p className={styles.redError}>Пароли не совпадают</p>
+            )
+        }
+        else if(this.state.alreadyRegistered){
+            return (
+                <p className={styles.redError}>Пользователь с такой почтой уже зарегистрирован</p>
             )
         }
     }
@@ -57,6 +67,11 @@ export default class RegistrationForm extends Component {
             }),
             body: JSON.stringify(input)
         })
+        if(response.status === 500){
+            this.setState({
+                alreadyRegistered: true
+            })
+        }
         if(response.ok){
             alert("Пользователь зарегистрирован")
         }

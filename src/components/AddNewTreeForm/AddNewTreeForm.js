@@ -102,7 +102,16 @@ export default class AddNewTreeForm extends Component {
                 treePlantingType: {
                     title: 'Тип посадки дерева',
                     value: '',
-                    type: 'number'
+                    values: [
+                        {
+                            id: 1,
+                            title: 'Культурная посадка'
+                        },
+                        {
+                            id: 2,
+                            title: 'Самосев'
+                        }
+                    ]
                 },
                 trunkGirth: {
                     title: 'Обхват самого толстого ствола (в сантиметрах)',
@@ -138,7 +147,9 @@ export default class AddNewTreeForm extends Component {
 
         Object.keys(tree).forEach(key => {
             if (Object.prototype.hasOwnProperty.call(tree[key], 'value')) {
-                if (key === 'species') {
+                const selects = ['species', 'treePlantingType', 'conditionAssessment']
+
+                if (selects.includes(key)) {
                     data[key] = {id: tree[key].value}
                 } else if (key === 'latitude' || key === 'longitude') {
                     data.geographicalPoint[key] = tree[key].value;

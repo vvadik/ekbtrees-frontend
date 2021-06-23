@@ -126,7 +126,16 @@ export class EditTreeForm extends Component {
             treePlantingType: {
                 title: 'Тип посадки дерева',
                 value: treePlantingType,
-                type: 'number'
+                values: [
+                    {
+                        id: 1,
+                        title: 'Культурная посадка'
+                    },
+                    {
+                        id: 2,
+                        title: 'Самосев'
+                    }
+                ]
             },
             trunkGirth: {
                 title: 'Обхват самого толстого ствола (в сантиметрах)',
@@ -195,7 +204,9 @@ export class EditTreeForm extends Component {
 
         Object.keys(tree).forEach(key => {
             if (Object.prototype.hasOwnProperty.call(tree[key], 'value')) {
-                if (key === 'species') {
+                const selects = ['species', 'treePlantingType', 'conditionAssessment']
+
+                if (selects.includes(key)) {
                     data[key] = {id: tree[key].value}
                 } else {
                     data[key] = tree[key].value;
@@ -211,7 +222,7 @@ export class EditTreeForm extends Component {
                 this.props.history.goBack();
             })
             .catch(error => {
-                alert('Дерево успешно изменено');
+                alert('Ошибка при изменении дерева');
                 console.error('Ошибка при изменении дерева', error);
             });
     }

@@ -22,8 +22,8 @@ export const TreeForm = ({activeTree, onClose}) => {
                     <input className={styles.blockValue} type="text" disabled value = {activeTree?.treeHeight} />
                 </div>
                 <div className={cn([styles.blockWrapper, styles.blockWrapperDesktop])}>
-                    <span className={styles.blockPrefix}>Диаметр кроны (в метрах)</span>
-                    <input className={styles.blockValue} type="text" disabled value = {activeTree?.diameterOfCrown} />
+                    <span className={styles.blockPrefix}>Обхват самого толстого ствола (в сантиметрах)</span>
+                    <input className={styles.blockValue} type="text" disabled value = {activeTree?.trunkGirth} />
                 </div>
             </div>
             <div className={styles.navigation}>

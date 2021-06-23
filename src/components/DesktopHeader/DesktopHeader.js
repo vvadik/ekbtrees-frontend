@@ -9,6 +9,16 @@ export class DesktopHeader extends Component {
 		user: null
 	}
 
+	renderUserLinks () {
+		const {user} = this.props;
+
+		if (user) {
+			return (
+				<NavLink exact to='/trees' activeClassName={styles.activeLink}>Список деревьев</NavLink>
+			)
+		}
+	}
+
 	renderContent () {
 		return (
 			<div className={styles.desktopHeader}>
@@ -19,10 +29,11 @@ export class DesktopHeader extends Component {
 				</NavLink>
 				<div className={styles.menu}>
 					<NavLink exact to='/map' activeClassName={styles.activeLink}>Карта</NavLink>
+					{this.renderUserLinks()}
 					{this.renderAdminControllers()}
-					<NavLink exact to='/aboutUs' activeClassName={styles.activeLink}>О нас</NavLink>
-					<a href="#!">Контакты</a>
-					<a href="#!">Помощь</a>
+					{/*<NavLink exact to='/aboutUs' activeClassName={styles.activeLink}>О нас</NavLink>*/}
+					{/*<a href="#!">Контакты</a>*/}
+					{/*<a href="#!">Помощь</a>*/}
 				</div>
 				{this.renderUserInfo()}
 				{this.renderLoginControllers()}
@@ -52,13 +63,12 @@ export class DesktopHeader extends Component {
 		if(user?.role === "admin") {
 			return(
 				<>
-					<NavLink exact to='/trees' activeClassName={styles.activeLink}>Список деревьев</NavLink>
 					<NavLink exact to='/users' activeClassName={styles.activeLink}>Список пользователей</NavLink>
 				</>
 			)
 		}
 
-		return null
+		return null;
 	}
 	render () {
 		return this.renderContent();

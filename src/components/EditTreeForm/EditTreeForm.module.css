@@ -10,11 +10,14 @@
     margin-top: 20px;
 }
 
-.title,
 .subTitle,
 .blockTitle {
     margin-top: 5px;
     text-align: center;
+}
+
+.title {
+    font-size: 24px;
 }
 
 .blockTitle {
@@ -156,10 +159,6 @@
 }
 
 @media screen and (min-width: 768px) {
-    .title {
-        font-size: 25px;
-    }
-
     .blockTitle {
         font-size: 20px;
     }

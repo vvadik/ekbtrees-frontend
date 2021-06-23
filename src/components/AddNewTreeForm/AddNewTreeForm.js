@@ -6,6 +6,7 @@ import TextField from '../TextField';
 import Select from '../Select';
 import styles from "./AddNewTreeForm.module.css";
 import {getFilesByIds, getTypesOfTrees} from "../EditTreeForm/actions";
+import Spinner from "../Spinner/Spinner";
 
 export default class AddNewTreeForm extends Component {
     constructor(props) {
@@ -111,7 +112,9 @@ export default class AddNewTreeForm extends Component {
                 fileIds: [],
             },
             files: [],
-            uploadingFiles: false
+            images: [],
+            uploadingFiles: false,
+            uploadingImages: false
         };
     }
 
@@ -251,40 +254,44 @@ export default class AddNewTreeForm extends Component {
         )
     }
 
-    uploadFiles (files) {
+    uploadFiles (files, key) {
+        const camelCaseKey = key.charAt(0).toUpperCase() + key.slice(1);
+
         uploadFiles(files)
             .then(fileIds => {
                 getFilesByIds(fileIds)
                     .then(files => {
                         this.setState({
-                            files: this.state.files.concat(files),
+                            [key]: this.state[key].concat(files),
                             tree: {
                                 ...this.state.tree,
                                 fileIds: this.state.tree.fileIds.concat(fileIds)
                             },
-                            uploadingFiles: false
+                            [`uploading${camelCaseKey}`]: false
                         })
                     })
                     .catch(error => {
                         this.setState({
-                            uploadingFiles: false
+                            [`uploading${camelCaseKey}`]: false
                         })
 
-                        throw `Произошла ошибка при получении загруженных файлов ${error}`;
+                        throw `Произошла ошибка при получении загруженных файлов/картинок ${error}`;
                     })
             })
             .catch(error => {
                 this.setState({
-                    uploadingFiles: false
+                    [`uploading${camelCaseKey}`]: false
                 })
-                console.error('Ошибка при загрузке файлов', error)
+                console.error('Ошибка при загрузке файлов/картинок', error)
             })
     }
 
-    handleUploadFiles = (files) => {
+    handleUploadFiles = (key) => (files) => {
+        const camelCaseKey = key.charAt(0).toUpperCase() + key.slice(1);
+
         this.setState({
-            uploadingFiles: true
-        }, () => this.uploadFiles(files));
+            [`uploading${camelCaseKey}`]: true
+        }, () => this.uploadFiles(files, key));
     }
 
     getFilesAfterDelete (id) {
@@ -297,9 +304,9 @@ export default class AddNewTreeForm extends Component {
         return tree.fileIds.filter(fileId => fileId !== id);
     }
 
-    handleDeleteFile = (id) => {
+    handleDeleteFile = (key) => (id) => {
         this.setState({
-            files: this.getFilesAfterDelete(id),
+            [key]: this.getFilesAfterDelete(id, key),
             tree: {
                 ...this.state.tree,
                 fileIds: this.getFileIdsAfterDelete(id)
@@ -311,12 +318,32 @@ export default class AddNewTreeForm extends Component {
         const {files, uploadingFiles} = this.state;
 
         return (
-            <FileUpload
-                files={files}
-                onDelete={this.handleDeleteFile}
-                onUpload={this.handleUploadFiles}
-                uploading={uploadingFiles}
-            />
+            <>
+                <h3 className={styles.title}> Файлы </h3>
+                <FileUpload
+                    files={files}
+                    onDelete={this.handleDeleteFile('files')}
+                    onUpload={this.handleUploadFiles('files')}
+                    uploading={uploadingFiles}
+                />
+            </>
+        )
+    }
+
+    renderImages () {
+        const {images, uploadingImages} = this.state;
+
+        return (
+            <>
+                <h3 className={styles.title}> Картинки </h3>
+                <FileUpload
+                    files={images}
+                    onDelete={this.handleDeleteFile('images')}
+                    onUpload={this.handleUploadFiles('images')}
+                    type="image"
+                    uploading={uploadingImages}
+                />
+            </>
         )
     }
 
@@ -335,6 +362,7 @@ export default class AddNewTreeForm extends Component {
             <div className={styles.formContainer}>
                 <div className={styles.form}>
                     {this.renderMainInformation()}
+                    {this.renderImages()}
                     {this.renderFiles()}
                     {this.renderButtons()}
                 </div>

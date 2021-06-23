@@ -159,7 +159,7 @@
   height: 100%;
 }
 
-h2 {
+.title {
   display: none;
   color: #fb8f07;
   font-size: 20px;
@@ -181,7 +181,7 @@ h2 {
   clip-path: polygon(0 0, 100% 0, 90% 100%, 0% 100%);
 }
 
-.loginAside h2 {
+.loginAside .title {
   color: white;
   font-size: 25px;
 }
@@ -226,7 +226,7 @@ h2 {
     height: 550px;
   }
 
-  h2 {
+  .title {
     display: inline;
   }
 

@@ -19,6 +19,7 @@ export class Tree extends Component {
 			tree: null,
 			loading: true,
 			files: [],
+			images: [],
 			loadingFiles: true,
 		}
 	}
@@ -112,10 +113,14 @@ export class Tree extends Component {
 						tree: this.convertTree(tree),
 						loading: false
 					}, () => {
-						getFilesByTree([16, 18])
+						getFilesByTree([16, 18, 62, 62, 62])
 							.then(files => {
+								const images = files.filter(file => file.mimeType.startsWith('image'));
+								const filesWithoutImages = files.filter(file => !file.mimeType.startsWith('image'));
+
 								this.setState({
-									files,
+									files: filesWithoutImages,
+									images,
 									loadingFiles: false
 								})
 							})
@@ -198,7 +203,35 @@ export class Tree extends Component {
 		}
 
 		if (files.length) {
-			return <FileUpload mode="read" files={files} />;
+			return (
+				<>
+					<h3 className={styles.title}> Файлы </h3>
+					<FileUpload mode="read" files={files} />
+				</>
+			)
+		}
+
+		return null;
+	}
+
+	renderImages () {
+		const {images, loadingFiles} = this.state;
+
+		if (loadingFiles) {
+			return <Spinner />;
+		}
+
+		if (images.length) {
+			return (
+				<>
+					<h3 className={styles.title}>Картинки</h3>
+					<FileUpload
+						mode="read"
+						type="image"
+						files={images}
+					/>
+				</>
+			)
 		}
 
 		return null;
@@ -215,6 +248,7 @@ export class Tree extends Component {
 			<div className={styles.container}>
 				<h3 className={styles.title}> Карточка дерева </h3>
 				{this.renderDetails()}
+				{this.renderImages()}
 				{this.renderFiles()}
 			</div>
 		)

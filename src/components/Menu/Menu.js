@@ -6,38 +6,62 @@ export default class Menu extends Component {
     renderLinks () {
         const {user} = this.props;
 
-        const links = [{
+        let links = [{
             activeClassName: styles.active,
             exact: true,
             onClick: this.props.onClick,
             title: 'Карта',
             to: '/map',
             className: styles.visibleMenuLink
-        },
-        {
-            activeClassName: styles.active,
-            exact: true,
-            onClick: this.props.onClick,
-            title: 'Список деревьев',
-            to: '/trees',
-            className: user?.role !== "admin" ? styles.invisibleMenuLink : styles.visibleMenuLink
-        },
-        {
-            activeClassName: styles.active,
-            exact: true,
-            onClick: this.props.onClick,
-            title: 'Список пользователей',
-            to: '/users',
-            className: user?.role !== "admin" ? styles.invisibleMenuLink : styles.visibleMenuLink
-        },
-        {
-            activeClassName: styles.active,
-            exact: true,
-            onClick: this.props.onClick,
-            title: 'О нас',
-            to: '/aboutUs',
-            className: styles.visibleMenuLink
         }]
+        // {
+        //     activeClassName: styles.active,
+        //     exact: true,
+        //     onClick: this.props.onClick,
+        //     title: 'Список пользователей',
+        //     to: '/users',
+        //     className: user?.role !== "admin" ? styles.invisibleMenuLink : styles.visibleMenuLink
+        // },
+        // {
+        //     activeClassName: styles.active,
+        //     exact: true,
+        //     onClick: this.props.onClick,
+        //     title: 'О нас',
+        //     to: '/aboutUs',
+        //     className: styles.visibleMenuLink
+        // }]
+
+        const authLinks = [];
+
+        if (user) {
+            authLinks.push({
+                activeClassName: styles.active,
+                exact: true,
+                onClick: this.props.onClick,
+                title: 'Список деревьев',
+                to: '/trees',
+                className: styles.visibleMenuLink
+            })
+        } else {
+            authLinks.push({
+                    activeClassName: styles.active,
+                    exact: true,
+                    onClick: this.props.onClick,
+                    title: 'Войти',
+                    to: '/login',
+                    className: styles.visibleMenuLink
+                },
+                {
+                    activeClassName: styles.active,
+                    exact: true,
+                    onClick: this.props.onClick,
+                    title: 'Регистрация',
+                    to: '/registration',
+                    className: styles.visibleMenuLink
+                })
+        }
+
+        links = links.concat(authLinks);
 
         return links.map(link => {
             return (
@@ -59,8 +83,8 @@ export default class Menu extends Component {
         return (
             <div id="navBar" className={styles.navBar}>
                 {this.renderLinks()}
-                <a href="#!" className={styles.visibleMenuLink}>Контакты</a>
-                <a href="#!" className={styles.visibleMenuLink} >Помощь</a>
+                {/*<a href="#!" className={styles.visibleMenuLink}>Контакты</a>*/}
+                {/*<a href="#!" className={styles.visibleMenuLink} >Помощь</a>*/}
             </div>
         )
     }

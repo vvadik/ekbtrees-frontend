@@ -8,14 +8,35 @@
     text-decoration: underline;
 }
 
+.image {
+    max-height: 180px;
+    max-width: 100%;
+    display: inline-block;
+    margin-bottom: 15px;
+}
+
+.file .image {
+    max-height: 120px;
+    margin-bottom: 0;
+}
+
 .title {
     font-size: 24px;
 }
 
-.item {
+.item,
+.itemImage {
     width: 100%;
     margin-top: 15px;
     position: relative;
+}
+
+.itemImage {
+    max-width: 280px;
+}
+
+.itemImage:not(:last-child) {
+    padding-right: 15px;
 }
 
 .item:last-child:nth-child(odd) {
@@ -44,7 +65,8 @@
 }
 
 .wrapper,
-.linksWrapper {
+.linksWrapper,
+.linksWrapperImage {
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.1);
     margin: 15px 0;
     word-break: break-word;
@@ -54,11 +76,19 @@
 .wrapper {
     background: #F3F6FA;
     padding: 20px 25px;
+    display: flex;
+    flex-wrap: wrap;
 }
 
-.linksWrapper {
+.linksWrapper,
+.linksWrapperImage {
     background: #fff;
     padding: 15px 25px;
+}
+
+.linksWrapperImage {
+    display: flex;
+    flex-wrap: wrap;
 }
 
 .addingFilesWrapper {
@@ -98,7 +128,13 @@
 
     .item {
         display: inline-block;
-        width: 50%;
+        max-width: 50%;
+        width: 100%;
+    }
+
+    .itemImage {
+        display: inline-block;
+        width: 100%;
     }
 
     .item:nth-child(1n) {

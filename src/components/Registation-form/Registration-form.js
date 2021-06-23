@@ -9,7 +9,8 @@ import facebookIcon from '../../img/facebook.png';
 export default class RegistrationForm extends Component {
     state = {
         touchStart: null,
-        error: false
+        error: false,
+        errorMail: false
     }
     handleTouch = (e) => {
         this.setState({
@@ -45,7 +46,13 @@ export default class RegistrationForm extends Component {
     renderError(){
         if(this.state.error){
             return(
-                <p>Пароль не соответствует</p>
+                <p className={styles.regError}>Пароли не соответствуют</p>
+            )
+        }
+
+        if(this.state.errorMail) {
+            return (
+                <p className={styles.regError}>Пользователь под такой почтой уже зарегистрирован</p>
             )
         }
     }
@@ -58,16 +65,20 @@ export default class RegistrationForm extends Component {
             body: JSON.stringify(input)
         })
         if(response.ok){
-            alert("Пользователь зарегистрирован")
+            this.setState({errorMail: false})
+            alert("Пользователь зарегистрирован");
+        } else {
+            this.setState({errorMail: true})
         }
     }
+
     render() {
         return (
             <div>
                 <FormHeader />
                 <section className={styles.registrationContainer} onTouchStart={this.handleTouch} onTouchEnd={this.handleTouchEnd}>
                     <form name="registration" method="post" className={styles.registrationForm} onSubmit={this.checkPasswords}>
-                        <h2>Регистрация</h2>
+                        <h2 className={styles.title}>Регистрация</h2>
                         <input type="text" placeholder="Имя" name="firstName" id="userFirstName" required />
                         <input type="text" placeholder="Фамилия" name="lastName" id="userLastName" required />
                         <input type="email" placeholder="Введите почту" name="email" id="userEmail" required />
@@ -77,7 +88,7 @@ export default class RegistrationForm extends Component {
                         <div className={styles.loginMessage}>
                             {this.renderError()}
                         </div>
-                        <button type="submit">Продолжить</button>
+                        <button type="submit">Регистрация</button>
 
                         <p className={styles.loginMessage}>или зарегистрируйтесь с</p>
                         <div className={styles.flexSocial}>
@@ -91,7 +102,7 @@ export default class RegistrationForm extends Component {
                         <p className={styles.privacyTerms}>© 2020 — 2021 Privacy-Terms</p>
                     </form>
                     <aside className={styles.registrationAside}>
-                        <h2>Добро пожаловать!</h2>
+                        <h2 className={styles.title}>Добро пожаловать!</h2>
                         <p>Введите данные, чтобы продолжить</p>
                         <NavLink className={styles.linkLogin} exact to='/login' activeclassname="active">Авторизоваться</NavLink>
                     </aside>

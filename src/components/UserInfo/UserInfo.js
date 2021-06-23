@@ -93,10 +93,10 @@ export default class UserInfo extends Component {
                             <span className={styles.userRole}>{this.props.user.role}</span>
                         </div>
                         <img src={Man} className={styles.userIcon} alt="profile-icon" />
-                        {this.renderToggleButton()}
+                        {/*{this.renderToggleButton()}*/}
                     </div>
                     <div className={styles.userControls}>
-                        <i className={cn([styles.faBell, "fa"])} aria-hidden="true" />
+                        {/*<i className={cn([styles.faBell, "fa"])} aria-hidden="true" />*/}
                         <i className={cn([styles.faSignOut, "fa"])} aria-hidden="true" onClick={this.props.onCookieRemove} />
                     </div>
                 </div>

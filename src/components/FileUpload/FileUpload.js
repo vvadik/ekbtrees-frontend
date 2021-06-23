@@ -46,7 +46,21 @@ export class FileUpload extends Component {
 
 		return files.map(file => {
 			return (
-				<a className={styles.editLink} href={file.uri}>{file.title}</a>
+				<a className={styles.editLink} href={file.uri}>
+					{file.title}
+				</a>
+			)
+		});
+	}
+
+	renderImageLinks () {
+		const {files} = this.props;
+
+		return files.map(file => {
+			return (
+				<a className={styles.editLink} href={file.uri}>
+					<img className={styles.image} src={file.uri} alt={file.title} />
+				</a>
 			)
 		});
 	}
@@ -68,6 +82,23 @@ export class FileUpload extends Component {
 		});
 	}
 
+	renderEditImageLinks () {
+		const {files} = this.props;
+
+		return files.map(file => {
+			return (
+				<div className={styles.itemImage}>
+					<div className={styles.file}>
+						<button onClick={this.handleDelete(file.id)} className={styles.deleteFile}>
+							<i className={classNames(["fa", "fa-times"])} />
+						</button>
+						<img className={styles.image} src={file.uri} alt={file.title} />
+					</div>
+				</div>
+			)
+		});
+	}
+
 	renderProgress () {
 		const {uploading} = this.props;
 
@@ -82,7 +113,38 @@ export class FileUpload extends Component {
 
 	getFileRemovedMessage = (fileName) => `Файл ${fileName} удален`;
 
-	getFileLimitExceedMessage = (fileLimit) => `Превышено количество загружаемых файлов. Максимальное количество ${fileLimit}`
+	getFileLimitExceedMessage = (fileLimit) => `Превышено количество загружаемых файлов. Максимальное количество ${fileLimit}`;
+
+	renderUploaderImage () {
+		return (
+			<>
+				{this.renderEditImageLinks()}
+				{this.renderProgress()}
+				<DropzoneDialog
+					acceptedFiles={['image/*']}
+					open={this.state.open}
+					onSave={this.handleSave.bind(this)}
+					showPreviews={true}
+					maxFileSize={5000000}
+					filesLimit={10}
+					dropzoneText="Перенесите сюда загружаемые картинки или кликникте в облась загрузки"
+					dialogTitle="Загрузить картинки"
+					cancelButtonText="Отмена"
+					submitButtonText="Загрузить"
+					getFileAddedMessage={this.getFileAddedMessage}
+					getFileRemovedMessage={this.getFileRemovedMessage}
+					getFileLimitExceedMessage={this.getFileLimitExceedMessage}
+					previewText="Предварительный просмотр"
+					onClose={this.handleClose.bind(this)}
+				/>
+				<div className={styles.addingFilesWrapper}>
+					<button className={styles.addBtn} onClick={this.handleOpen.bind(this)}>
+						Добавить картинки
+					</button>
+				</div>
+			</>
+		)
+	}
 
 	renderUploader () {
 		return (
@@ -115,14 +177,30 @@ export class FileUpload extends Component {
 	}
 
 	renderContent () {
-		const {mode} = this.props;
+		const {mode, type} = this.props;
 
 		if (mode === 'read') {
+			if (type === 'image') {
+				return (
+					<div className={styles.linksWrapperImage}>
+						{this.renderImageLinks()}
+					</div>
+				);
+			}
+
 			return (
 				<div className={styles.linksWrapper}>
 					{this.renderViewLinks()}
 				</div>
 			);
+		}
+
+		if (type === 'image') {
+			return (
+				<div className={styles.wrapper}>
+					{this.renderUploaderImage()}
+				</div>
+			)
 		}
 
 		return (
@@ -136,7 +214,6 @@ export class FileUpload extends Component {
 	render() {
 		return (
 			<>
-				<h3 className={styles.title}> Файлы </h3>
 				{this.renderContent()}
 			</>
 		)

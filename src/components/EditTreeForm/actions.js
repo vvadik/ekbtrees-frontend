@@ -11,7 +11,7 @@ export const getFilesByTree = (files) => {
 	}));
 }
 
-export const uploadFilesByTree = (id) => (files) => {
+export const uploadFilesByTree = (id, files) => {
 	return Promise.all(files.map(file => {
 		const formData = new FormData();
 		formData.append("file", file);

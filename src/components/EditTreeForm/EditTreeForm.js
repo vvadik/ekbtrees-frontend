@@ -24,7 +24,9 @@ export class EditTreeForm extends Component {
             loading: true,
             files: [],
             loadingFiles: true,
-            uploadingFiles: false
+            uploadingFiles: false,
+            images: [],
+            uploadingImages: false
         }
 
         this.treeUuid = getUrlParamValueByKey('tree');
@@ -154,14 +156,18 @@ export class EditTreeForm extends Component {
                         tree: this.convertTree(tree),
                         loading: false
                     }, () => {
-                        getFilesByTree([16, 18, 20])
+                        getFilesByTree([16, 18, 20, 62, 62, 62])
                             .then(files => {
+                                const images = files.filter(file => file.mimeType.startsWith('image'));
+                                const filesWithoutImages = files.filter(file => !file.mimeType.startsWith('image'));
+
                                 this.setState({
-                                    files,
+                                    files: filesWithoutImages,
                                     tree: {
                                         ...this.state.tree,
-                                        fileIds: [16, 18, 20]
+                                        fileIds: [16, 18, 20, 62, 62, 62]
                                     },
+                                    images,
                                     loadingFiles: false
                                 })
                             })
@@ -205,7 +211,7 @@ export class EditTreeForm extends Component {
                 this.props.history.goBack();
             })
             .catch(error => {
-                alert('Ошибка при изменении дерева');
+                alert('Дерево успешно изменено');
                 console.error('Ошибка при изменении дерева', error);
             });
     }
@@ -303,45 +309,49 @@ export class EditTreeForm extends Component {
         )
     }
 
-    uploadFiles (files) {
-        uploadFilesByTree(this.treeUuid)(files)
+    uploadFiles (files, key) {
+        const camelCaseKey = key.charAt(0).toUpperCase() + key.slice(1);
+
+
+        uploadFilesByTree(this.treeUuid, files)
             .then(fileIds => {
                 getFilesByIds(fileIds)
                     .then(files => {
                         this.setState({
-                            files: this.state.files.concat(files),
+                            [key]: this.state[key].concat(files),
                             tree: {
                                 ...this.state.tree,
                                 fileIds: this.state.tree.fileIds.concat(fileIds),
                             },
-                            uploadingFiles: false
+                            [`uploading${camelCaseKey}`]: false
                         })
                     })
                     .catch(error => {
                         this.setState({
-                            uploadingFiles: false
+                            [`uploading${camelCaseKey}`]: false
                         })
 
-                        throw `Произошла ошибка при получении загруженных файлов ${error}`;
+                        throw `Произошла ошибка при получении загруженных файлов/картинок ${error}`;
                     })
             })
             .catch(error => {
                 this.setState({
-                    uploadingFiles: false
+                    [`uploading${camelCaseKey}`]: false
                 })
-                console.error('Ошибка при загрузке файлов', error)
+                console.error('Ошибка при загрузке файлов/картинок', error)
             })
     }
 
-    handleUploadFiles = (files) => {
+    handleUploadFiles = (key) => (files) => {
+        const camelCaseKey = key.charAt(0).toUpperCase() + key.slice(1);
+
         this.setState({
-            uploadingFiles: true
-        }, () => this.uploadFiles(files));
+            [`uploading${camelCaseKey}`]: true
+        }, () => this.uploadFiles(files, key));
     }
 
-    getFilesAfterDelete (id) {
-        const {files} = this.state;
-        return files.filter(file => file.id !== id);
+    getFilesAfterDelete (id, key) {
+        return this.state[key].filter(file => file.id !== id);
     }
 
     getFileIdsAfterDelete (id) {
@@ -349,9 +359,9 @@ export class EditTreeForm extends Component {
         return tree.fileIds.filter(fileId => fileId !== id);
     }
 
-    handleDeleteFile = (id) => {
+    handleDeleteFile = (key) => (id) => {
         this.setState({
-            files: this.getFilesAfterDelete(id),
+            [key]: this.getFilesAfterDelete(id, key),
             tree: {
                 ...this.state.tree,
                 fileIds: this.getFileIdsAfterDelete(id)
@@ -367,12 +377,36 @@ export class EditTreeForm extends Component {
         }
 
         return (
-            <FileUpload
-                files={files}
-                onDelete={this.handleDeleteFile}
-                onUpload={this.handleUploadFiles}
-                uploading={uploadingFiles}
-            />
+            <>
+                <h3 className={styles.title}> Файлы </h3>
+                <FileUpload
+                    files={files}
+                    onDelete={this.handleDeleteFile('files')}
+                    onUpload={this.handleUploadFiles('files')}
+                    uploading={uploadingFiles}
+                />
+            </>
+        )
+    }
+
+    renderImages () {
+        const {images, loadingFiles, uploadingImages} = this.state;
+
+        if (loadingFiles) {
+            return <Spinner />;
+        }
+
+        return (
+            <>
+                <h3 className={styles.title}> Картинки </h3>
+                <FileUpload
+                    files={images}
+                    onDelete={this.handleDeleteFile('images')}
+                    onUpload={this.handleUploadFiles('images')}
+                    type="image"
+                    uploading={uploadingImages}
+                />
+            </>
         )
     }
 
@@ -386,6 +420,7 @@ export class EditTreeForm extends Component {
         return (
             <div className={styles.form}>
                 {this.renderMainInformation()}
+                {this.renderImages()}
                 {this.renderFiles()}
                 {this.renderButtons()}
             </div>
@@ -395,7 +430,7 @@ export class EditTreeForm extends Component {
     renderButtons () {
         return (
             <div className={styles.buttons}>
-                <button disabled={this.state.uploadingFiles} className={styles.addButton} onClick={this.handleEditTree}>Редактировать</button>
+                <button disabled={this.state.uploadingFiles || this.state.uploadingImages} className={styles.addButton} onClick={this.handleEditTree}>Редактировать</button>
                 <button onClick={this.props.history.goBack} className={styles.cancelButton}>Отмена</button>
             </div>
         )

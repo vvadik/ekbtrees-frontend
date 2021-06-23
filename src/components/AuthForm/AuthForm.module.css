@@ -26,7 +26,7 @@ a {
   padding-top: 20px;
 }
 
-.welcome h2 {
+.welcome .title {
   font-family: "Open Sans", sans-serif;
   font-weight: 600;
   color: white;

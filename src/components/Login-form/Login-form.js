@@ -64,7 +64,7 @@ export default class LoginForm extends Component {
     renderMessage(){
         if(!this.state.logged)
         return(
-            <p>Пользователь с данным логином и паролем не найден.</p>
+            <p>Пользователь с данной почтой и паролем не найден.</p>
         )
     }
     render() {
@@ -73,21 +73,21 @@ export default class LoginForm extends Component {
                 <FormHeader />
                 <section className={styles.loginContainer} onTouchStart={this.handleTouch} onTouchEnd={this.handleTouchEnd}>
                     <aside className={styles.loginAside}>
-                        <h2>С возвращением!</h2>
+                        <h2 className={styles.title}>С возвращением!</h2>
                         <p>Войдите в аккаунт, чтобы продолжить</p>
                         <NavLink className={styles.linkRegister} exact to='/registration' activeclassname="active">Зарегистрироваться</NavLink>
                     </aside>
                     <form name="authorization" action="" className={styles.loginForm} onSubmit={this.checkLogin}>
-                        <h2>Вход в аккаунт</h2>
-                        <input type="text" placeholder="Логин" name="login" id="userLogin" required />
+                        <h2 className={styles.title}>Вход в аккаунт</h2>
+                        <input type="text" placeholder="Почта" name="login" id="userLogin" required />
                         <input type="password" placeholder="Пароль" name="password" id="userPassword" required />
                         <div className={styles.loginMessage}>
                             {this.renderMessage()}
                         </div>
                         <button type="submit">Войти</button>
-                        <p className={styles.loginHelp}>
-                            <NavLink className={styles.restore} exact to='/passRecovery'>Забыли пароль?</NavLink>
-                        </p>
+                        {/*<p className={styles.loginHelp}>*/}
+                        {/*    <NavLink className={styles.restore} exact to='/passRecovery'>Забыли пароль?</NavLink>*/}
+                        {/*</p>*/}
                         <p className={styles.loginMessage}>или войдите с</p>
                         <div className={styles.flexSocial}>
                             <div className={styles.social}>

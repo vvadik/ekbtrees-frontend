@@ -105,7 +105,7 @@ const GeojsonLayer = ({mapState, setMapState, user}) => {
 
     return (
         <>
-        { mapData && getMarkerClusterGroup(mapState, mapData, setActiveTreeId)}
+        { mapData && getMarkerClusterGroup(mapState, mapData, setActiveTreeId, map)}
         { newTreePosition && <NewTreeMarker position={newTreePosition} setPosition={setNewTreePosition}/>}
         <div className={stylesCN} onClick={handleClickTreeFormWrapper}>
             {activeTreeData ? <TreeForm activeTree = {activeTreeData} onClose={handleClose} /> : null}
@@ -115,7 +115,7 @@ const GeojsonLayer = ({mapState, setMapState, user}) => {
     );
 }
 
-function getMarkerClusterGroup(state, data, setActiveTree) {
+function getMarkerClusterGroup(state, data, setActiveTree, map) {
     /* FixMe - Этот кусок кода игнорируется, т.к isClusterData зашит на false.
         Как я понял, MarkerClusterGroup должен принимать столько точек, сколько реально должно отрисоваться.
         Т.е. если нам пришло 8 точек, то в MarkerClusterGroup должно быть 8 объектов, тогда кластеризация происходит корректно.
@@ -137,6 +137,8 @@ function getMarkerClusterGroup(state, data, setActiveTree) {
             </MarkerClusterGroup>);
     }
     else {
+        const isCluster = map.getZoom() < 19;
+        console.log(map.getZoom(), 'zoom');
         return (
             <MarkerClusterGroup disableClusteringAtZoom = {19}>
             {data.json

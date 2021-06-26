@@ -10,7 +10,7 @@ import PassRecovery from '../PassRecovery';
 import ProfileSettings from '../ProfileSettings';
 import React, { Component } from 'react';
 import RegistrationForm from '../Registation-form';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 import styles from './Main.module.css';
 import Tree from "../pages/Tree";
 import UserList from '../UserList';
@@ -20,14 +20,15 @@ export default class Main extends Component {
       const {user} = this.props;
 
       return (
-            <>
+            <Switch>
                 <Route exact path='/addtree/:lat/:lng' component={AddNewTreeForm} />
                 <Route exact path='/trees/tree=:id/edit' component={EditTreeForm} />
                 <Route exact path='/trees' component={ListOfTrees} />
                 <Route exact path='/users' component={UserList} />
                 <Route exact path='/profileSettings'
                        render={(props) => <ProfileSettings {...props} user={user} />} />
-            </>
+                <Redirect to="/" />
+            </Switch>
         );
   }
 
@@ -76,6 +77,7 @@ export default class Main extends Component {
           }}/>
             <Route exact path='/image/:id' component={ImageView} />
             {this.renderRoutes()}
+            <Redirect to="/" />
         </Switch>
       </main>
     )

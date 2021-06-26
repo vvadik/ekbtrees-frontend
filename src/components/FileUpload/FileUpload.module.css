@@ -13,6 +13,8 @@
     max-width: 100%;
     display: inline-block;
     margin-bottom: 15px;
+    cursor: pointer;
+    margin-right: 15px;
 }
 
 .file .image {

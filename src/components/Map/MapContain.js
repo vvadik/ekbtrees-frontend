@@ -4,7 +4,6 @@ import { useState } from "react";
 import GeojsonLayer from "./GeojsonLayer";
 import { MapSate } from "./MapState";
 import "./Map.css";
-import {TreeForm} from "../MarkerForm/TreeForm";
 
 const MapContain = (props) => {
   const defaultPosition = [56.8391040, 60.6082500]; // Yekaterinburg position

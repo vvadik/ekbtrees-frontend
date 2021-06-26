@@ -342,7 +342,7 @@ export class EditTreeForm extends Component {
                             [`uploading${camelCaseKey}`]: false
                         })
 
-                        throw `Произошла ошибка при получении загруженных файлов/картинок ${error}`;
+                        throw new Error (`Произошла ошибка при получении загруженных файлов/картинок ${error}`);
                     })
             })
             .catch(error => {

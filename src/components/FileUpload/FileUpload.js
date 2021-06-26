@@ -3,6 +3,7 @@ import {DropzoneDialog} from 'material-ui-dropzone'
 import styles from './FileUpload.module.css';
 import classNames from "classnames";
 import LinearProgress from "../LinearProgress/LinearProgress";
+import ModalImg from '../ModalImg';
 
 export class FileUpload extends Component {
 	constructor(props) {
@@ -10,6 +11,7 @@ export class FileUpload extends Component {
 
 		this.state = {
 			open: false,
+			modalOpen: false
 		};
 	}
 
@@ -56,15 +58,33 @@ export class FileUpload extends Component {
 	renderImageLinks () {
 		const {files} = this.props;
 
-		return files.map(file => {
-			return (
-				<a className={styles.editLink} href={file.uri}>
-					<img className={styles.image} src={file.uri} alt={file.title} />
-				</a>
-			)
-		});
-	}
+		// return files.map(file => {
+		// 	return (
+		// 		<a className={styles.editLink} href={file.uri}>
+		// 			<img className={styles.image} src={file.uri} alt={file.title} />
+		// 		</a>
+		// 	)
+		// });
 
+		return files.map(file => {
+			return (							
+				<img className={styles.image} src={file.uri} alt={file.title} onClick={this.ShowModal}/>										
+			)			
+		});		
+	}
+	ShowModal = (e) => {
+		this.setState({
+			modalOpen: true,
+			modalData: e.target.src
+		}
+		)
+	}
+    CloseModal = () => {
+        this.setState({
+            modalOpen: false,
+			modalData: null
+        })
+    }	
 	renderEditLinks () {
 		const {files} = this.props;
 
@@ -215,6 +235,7 @@ export class FileUpload extends Component {
 		return (
 			<>
 				{this.renderContent()}
+				<ModalImg modalOpen={this.state.modalOpen} handleClose={this.CloseModal} modalData={this.state.modalData}/>
 			</>
 		)
 	}

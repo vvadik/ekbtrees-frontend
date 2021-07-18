@@ -28,7 +28,7 @@ export default class RegistrationForm extends Component {
     }
     checkPasswords = (e) =>{
         e.preventDefault();
-        if(e.target.psw.value === e.target.psw2.value){
+        if(e.target.psw.value === e.target.psw2.value) {
             const input = {
                 firstName: e.target.firstName.value,
                 lastName: e.target.lastName.value,
@@ -65,10 +65,11 @@ export default class RegistrationForm extends Component {
             body: JSON.stringify(input)
         })
         if(response.ok){
-            this.setState({errorMail: false})
+            this.setState({errorMail: false, error: false});
             alert("Пользователь зарегистрирован");
+            window.location.href = '/login';
         } else {
-            this.setState({errorMail: true})
+            this.setState({errorMail: true, error: false});
         }
     }
 

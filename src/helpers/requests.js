@@ -13,7 +13,7 @@ export default class RequestService {
 			});
 	}
 
-	static postData (url, body, headers = {}) {
+	static postData (url, body, headers = {}, toJson = true) {
 		return fetch(url, {
 			method: 'POST',
 			headers,
@@ -26,7 +26,11 @@ export default class RequestService {
 					throw `${response.status} ${response.statusText}`;
 				}
 
-				return response.json()
-		})
+				if (toJson) {
+					return response.json();
+				}
+
+				return response;
+		});
 	}
 }

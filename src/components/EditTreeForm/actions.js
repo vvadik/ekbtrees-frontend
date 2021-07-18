@@ -34,5 +34,5 @@ export const getTypesOfTrees = () => {
 export const editTree = (body) => {
 	return RequestService.postData(`${baseUrl}tree/save`, JSON.stringify(body), {
 		'Content-Type': 'application/json'
-	})
+	}, false)
 }

@@ -165,17 +165,13 @@ export class EditTreeForm extends Component {
                         tree: this.convertTree(tree),
                         loading: false
                     }, () => {
-                        getFilesByTree([16, 18, 20, 62, 62, 62])
+                        getFilesByTree(tree.fileIds || [92, 93])
                             .then(files => {
                                 const images = files.filter(file => file.mimeType.startsWith('image'));
                                 const filesWithoutImages = files.filter(file => !file.mimeType.startsWith('image'));
 
                                 this.setState({
                                     files: filesWithoutImages,
-                                    tree: {
-                                        ...this.state.tree,
-                                        fileIds: [16, 18, 20, 62, 62, 62]
-                                    },
                                     images,
                                     loadingFiles: false
                                 })
@@ -204,7 +200,7 @@ export class EditTreeForm extends Component {
 
         Object.keys(tree).forEach(key => {
             if (Object.prototype.hasOwnProperty.call(tree[key], 'value')) {
-                const selects = ['species', 'treePlantingType', 'conditionAssessment']
+                const selects = ['species']
 
                 if (selects.includes(key)) {
                     data[key] = {id: tree[key].value}

@@ -39,6 +39,7 @@ export class Tree extends Component {
 			trunkGirth,
 			updated,
 			geographicalPoint,
+			fileIds,
 			id
 		} = tree;
 
@@ -97,9 +98,10 @@ export class Tree extends Component {
 			},
 			updated: {
 				title: 'Дата и время последнего редактирования',
-				value: updated
+				value: updated ? formatDate(updated) : null
 			},
-			id
+			id,
+			fileIds: fileIds || []
 		}
 	}
 
@@ -113,7 +115,7 @@ export class Tree extends Component {
 						tree: this.convertTree(tree),
 						loading: false
 					}, () => {
-						getFilesByTree([16, 18, 62, 62, 62])
+						getFilesByTree(tree.fileIds || [92, 93])
 							.then(files => {
 								const images = files.filter(file => file.mimeType.startsWith('image'));
 								const filesWithoutImages = files.filter(file => !file.mimeType.startsWith('image'));
@@ -157,7 +159,7 @@ export class Tree extends Component {
 		const result = [];
 
 		Object.keys(tree).forEach((key, index) => {
-			if (tree[key].value) {
+			if (tree && tree[key]?.value) {
 				result.push(
 					<div className={styles.row}>
 						<div className={styles.col}>

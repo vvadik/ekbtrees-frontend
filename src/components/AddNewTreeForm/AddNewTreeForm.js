@@ -146,7 +146,7 @@ export default class AddNewTreeForm extends Component {
 
         Object.keys(tree).forEach(key => {
             if (Object.prototype.hasOwnProperty.call(tree[key], 'value')) {
-                const selects = ['species', 'treePlantingType', 'conditionAssessment']
+                const selects = ['species']
 
                 if (selects.includes(key)) {
                     data[key] = {id: tree[key].value}
@@ -160,15 +160,18 @@ export default class AddNewTreeForm extends Component {
             }
         })
 
+        //         alert('Дерево успешно добавлено!');
+       // localStorage.setItem('newAddedTree', JSON.stringify(data));
+
         addTree(data)
-            .then(_ => {
-                alert('Дерево успешно добавлено!');
-                this.props.history.goBack();
-            })
-            .catch(error => {
-                alert('Ошибка при добавлении дерева');
-                console.error('Ошибка при добавлении дерева', error);
-            });
+             .then(_ => {
+                 alert('Дерево успешно добавлено!');
+                 this.props.history.goBack();
+             })
+             .catch(error => {
+                 alert('Ошибка при добавлении дерева');
+                 console.error('Ошибка при добавлении дерева', error);
+             });
     }
 
     handleChange = (fieldName) => (event) => {

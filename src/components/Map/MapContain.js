@@ -8,7 +8,7 @@ import "./Map.css";
 const MapContain = (props) => {
   const defaultPosition = [56.8391040, 60.6082500]; // Yekaterinburg position
   const [mapState , setMapState] = useState(MapSate.default);
-  const { styleName, user } = props;
+  const { styleName} = props;
   return (
     <React.Fragment>
       <MapContainer className={styleName} center={defaultPosition} zoom={15} scrollWheelZoom={true}>

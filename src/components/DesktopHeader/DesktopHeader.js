@@ -2,19 +2,19 @@ import React, {Component} from 'react';
 import {NavLink} from "react-router-dom";
 import styles from './DesktopHeader.module.css';
 import UserInfo from '../UserInfo';
+import {UserContext} from "../../context/contexts";
 
 export class DesktopHeader extends Component {
 	static defaultProps = {
 		onCookieRemove: null,
-		user: null
 	}
 
 	renderUserLinks () {
-		const {user} = this.props;
+		const user = this.context;
 
 		if (user) {
 			return (
-				<NavLink exact to='/trees' activeClassName={styles.activeLink}>Список деревьев</NavLink>
+				<a exact to='/trees' activeClassName={styles.activeLink}>Список деревьев</a>
 			)
 		}
 	}
@@ -22,13 +22,13 @@ export class DesktopHeader extends Component {
 	renderContent () {
 		return (
 			<div className={styles.desktopHeader}>
-				<NavLink exact to='/' className={styles.logo}>
+				<a exact to='/' className={styles.logo}>
 					<h1 className={styles.bigHeader}>Ekb
 						<span className={styles.smallHeader}>Trees</span>
 					</h1>
-				</NavLink>
+				</a>
 				<div className={styles.menu}>
-					<NavLink exact to='/map' activeClassName={styles.activeLink}>Карта</NavLink>
+					<a exact to='/map' activeClassName={styles.activeLink}>Карта</a>
 					{this.renderUserLinks()}
 					{this.renderAdminControllers()}
 					{/*<NavLink exact to='/aboutUs' activeClassName={styles.activeLink}>О нас</NavLink>*/}
@@ -41,29 +41,29 @@ export class DesktopHeader extends Component {
 		);
 	}
 	renderUserInfo() {
-		if (this.props.user) {
+		if (this.context) {
 			return(
-				<UserInfo onCookieRemove={this.props.onCookieRemove} user={this.props.user}/>
+				<UserInfo onCookieRemove={this.props.onCookieRemove} />
 			)
 		}
 	}
 	renderLoginControllers(){
-		if(!this.props.user){
+		if(!this.context){
 			return(
 				<div className={styles.signLinks}>
-					<NavLink exact to='/login' activeClassName={styles.activeSignLinks}>Войти</NavLink>
-					<NavLink exact to='/registration' activeClassName={styles.activeSignLinks}>Зарегистрироваться</NavLink>
+					<a exact to='/login' activeClassName={styles.activeSignLinks}>Войти</a>
+					<a exact to='/registration' activeClassName={styles.activeSignLinks}>Зарегистрироваться</a>
 				</div>
 			)
 		}
 	}
 	renderAdminControllers () {
-		const {user} = this.props;
+		const user = this.context;
 
 		if(user?.role === "admin") {
 			return(
 				<>
-					<NavLink exact to='/users' activeClassName={styles.activeLink}>Список пользователей</NavLink>
+					<a exact to='/users' activeClassName={styles.activeLink}>Список пользователей</a>
 				</>
 			)
 		}
@@ -76,3 +76,5 @@ export class DesktopHeader extends Component {
 }
 
 export default DesktopHeader;
+
+DesktopHeader.contextType = UserContext;

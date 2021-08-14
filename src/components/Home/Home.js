@@ -4,6 +4,7 @@ import { NavLink } from 'react-router-dom';
 import MapContain from '../Map/MapContain';
 import styles from './Home.module.css';
 import './Map.css';
+import {UserContext} from "../../context/contexts";
 
 export default class Home extends Component {
   renderDesktopSection() {
@@ -21,7 +22,7 @@ export default class Home extends Component {
             <div className={cn([styles.green, styles.mapBlock])} />
               <div className={styles.mapContainer}>
                 <div className={styles.map}>
-                  <MapContain user={this.props.user} />
+                  <MapContain />
                 </div>
             </div>
           </div>
@@ -78,9 +79,11 @@ export default class Home extends Component {
     return (
       <>
         {this.renderDesktopSection()}
-        {this.props.user ? null : this.renderGetStartSection()}
+        {this.context ? null : this.renderGetStartSection()}
         {this.renderLastPartSection()}
       </>
     )
   }
 }
+
+Home.contextType = UserContext;

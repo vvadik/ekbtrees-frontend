@@ -4,10 +4,6 @@ import Menu from '../Menu';
 import styles from './MobileHeader.module.css';
 
 export class MobileHeader extends Component {
-	static defaultProps = {
-		user: null
-	}
-
 	ref = null;
 
 	state = {
@@ -28,7 +24,7 @@ export class MobileHeader extends Component {
 		const {open} = this.state;
 		return open
 			? <div ref={this.handleRef}>
-				<Menu onClick={this.handleClick} user={this.props.user} />
+				<Menu onClick={this.handleClick} />
 			</div>
 			: null;
 	}

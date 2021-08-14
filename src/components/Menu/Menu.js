@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import styles from  './Menu.module.css';
+import {UserContext} from "../../context/contexts";
 
 export default class Menu extends Component {
     renderLinks () {
-        const {user} = this.props;
+        const user = this.context;
 
         let links = [{
             activeClassName: styles.active,
@@ -89,3 +90,5 @@ export default class Menu extends Component {
         )
     }
 }
+
+Menu.contextType = UserContext;

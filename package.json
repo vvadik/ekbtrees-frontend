@@ -6,6 +6,7 @@
   "dependencies": {
     "base-64": "^1.0.0",
     "bootstrap": "^4.6.0",
+    "cross-env": "^7.0.3",
     "jwt-decode": "^3.1.2",
     "leaflet": "^1.7.1",
     "react": "^17.0.2",
@@ -21,24 +22,46 @@
     "web-vitals": "^1.1.1"
   },
   "devDependencies": {
+    "@babel/plugin-proposal-class-properties": "^7.14.5",
+    "@babel/plugin-proposal-nullish-coalescing-operator": "^7.14.5",
+    "@babel/plugin-proposal-object-rest-spread": "^7.14.7",
+    "@babel/plugin-proposal-optional-chaining": "^7.14.5",
+    "@babel/plugin-transform-flow-strip-types": "^7.14.5",
+    "@babel/plugin-transform-runtime": "^7.15.0",
+    "@babel/preset-env": "^7.15.0",
+    "@babel/preset-flow": "^7.14.5",
+    "@babel/preset-react": "^7.14.5",
     "@material-ui/core": "^4.11.4",
     "@material-ui/icons": "^4.11.2",
     "@testing-library/jest-dom": "^5.11.10",
     "@testing-library/react": "^11.2.5",
     "@testing-library/user-event": "^12.8.3",
+    "autoprefixer": "^9.6.0",
+    "babel-loader": "^8.2.2",
+    "babel-polyfill": "^6.26.0",
     "classnames": "^2.3.1",
+    "copy-webpack-plugin": "^9.0.1",
+    "css-loader": "^3.0.0",
     "dayjs": "^1.10.5",
+    "file-loader": "^6.2.0",
+    "html-webpack-plugin": "^3.2.0",
+    "less": "^3.9.0",
+    "less-loader": "^5.0.0",
     "material-ui-dropzone": "^3.5.0",
-    "mini-create-react-context": "^0.4.1"
+    "mini-create-react-context": "^0.4.1",
+    "mini-css-extract-plugin": "^0.7.0",
+    "my-local-ip": "^1.0.0",
+    "postcss-loader": "^3.0.0",
+    "postcss-modules": "^1.4.1",
+    "svg-fill-loader": "0.0.8",
+    "uglifyjs-webpack-plugin": "^2.2.0",
+    "webpack": "^4.35.0",
+    "webpack-cli": "^3.3.5",
+    "webpack-dev-server": "^3.11.2"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "stop": "taskkill -F -IM node.exe",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "dev": "cross-env NODE_ENV=development webpack-dev-server --open --config ./webpack/config.js --watch",
+    "build": "NODE_ENV=production webpack --config ./webpack/config.js"
   },
   "eslintConfig": {
     "extends": [

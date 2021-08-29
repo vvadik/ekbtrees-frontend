@@ -3,7 +3,7 @@
   font-family: "Recursive", sans-serif;
 }
 
-.loginForm {
+.wrapper {
   display: flex;
   flex-direction: column;
   width: 80%;
@@ -17,7 +17,7 @@
   background-color: white;
 }
 
-.loginForm input {
+.wrapper input {
   box-sizing: border-box;
   font-weight: 500;
   font-size: 14px;
@@ -28,12 +28,12 @@
   padding: 0px 24px;
 }
 
-.loginForm input:focus {
+.wrapper input:focus {
   outline: none;
   border: 2px solid rgb(104, 103, 103);
 }
 
-.loginForm button {
+.wrapper button {
   box-sizing: border-box;
   font-weight: 500;
   font-size: 14px;
@@ -47,19 +47,19 @@
   margin: 15px 0px;
 }
 
-.loginForm button:hover,
-.loginForm button:active {
+.wrapper button:hover,
+.wrapper button:active {
   background-color: #4c7929;
 }
 
-.loginForm .loginMessage {
+.wrapper .loginMessage {
   color: lightgray;
   text-align: center;
   margin: 0;
   font-size: 14px;
 }
 
-.loginForm .flex {
+.wrapper .flex {
   display: flex;
   justify-content: space-between;
   width: 70%;
@@ -234,7 +234,7 @@
     display: flex;
   }
 
-  .loginForm {
+  .wrapper {
     flex-basis: 50%;
     padding: 0px 40px;
   }

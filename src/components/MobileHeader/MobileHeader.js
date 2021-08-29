@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { NavLink} from 'react-router-dom';
 import Menu from '../Menu';
 import styles from './MobileHeader.module.css';
+import {Logo} from "../Logo/Logo";
 
 export class MobileHeader extends Component {
 	static defaultProps = {
@@ -49,20 +50,11 @@ export class MobileHeader extends Component {
 		this.ref = ref;
 	}
 
-	renderLogo(){
-		return (
-			<NavLink exact to='/' activeclassname={styles.active} className={styles.ekbTrees}>
-				<span className={styles.bigHeaderMobile}>Ekb</span>
-				<span className={styles.smallHeader}>Trees</span>
-			</NavLink>
-		)
-	}
-
 	renderContent () {
 		return (
 			<div className={styles.mobileHeader}>
 				<div className={styles.topNav}>
-					{this.renderLogo()}
+					<Logo className={styles.logo}/>
 					<button className={styles.burgerBtn} onClick={this.handleClick}>
 						<i className="fa fa-bars" />
 					</button>

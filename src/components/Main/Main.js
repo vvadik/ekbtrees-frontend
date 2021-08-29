@@ -1,7 +1,7 @@
 import AboutUs from '../AboutUs';
 import AddNewTreeForm from '../AddNewTreeForm'
 import EditTreeForm from '../EditTreeForm';
-import ListOfTrees from '../ListOfTrees';
+import TreeLists from '../TreeLists';
 import LoginForm from '../Login-form';
 import Home from '../Home';
 import ImageView from '../ImageView';
@@ -24,7 +24,7 @@ export default class Main extends Component {
             <Switch>
                 <Route exact path='/addtree/:lat/:lng' component={AddNewTreeForm} />
                 <Route exact path='/trees/tree=:id/edit' component={EditTreeForm} />
-                <Route exact path='/trees' component={ListOfTrees} />
+                <Route exact path='/trees' component={TreeLists} />
                 <Route exact path='/users' component={UserList} />
                 <Route exact path='/profileSettings'
                        render={(props) => <ProfileSettings {...props} user={user} />} />

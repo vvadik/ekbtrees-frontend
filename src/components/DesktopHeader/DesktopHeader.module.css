@@ -1,7 +1,7 @@
 .logo h1 {
     color: #50802c;
     font-weight: 400;
-    padding: 10px 0px;
+    padding: 10px 0;
 }
 
 .activeLink {
@@ -13,20 +13,11 @@
     display: none;
     justify-content: space-between;
     align-items: center;
-    padding: 0px 20px;
+    padding: 0 20px;
 }
 
-.logo .smallHeader {
-    font-family: "Merriweather", serif;
-    font-size: 20px;
-    display: block;
-    text-align: center;
-}
-
-.logo .bigHeader {
-    font-family: "Merriweather", serif;
-    font-size: 40px;
-    line-height: 30px;
+.logo {
+    color: #50802c;
 }
 
 .menu {
@@ -38,7 +29,7 @@
     letter-spacing: 0.05vw;
     font-weight: bold;
     color: rgb(0, 92, 92);
-    margin: 0px 10px;
+    margin: 0 10px;
     font-size: 12px;
     text-align: center;
 }

@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {NavLink} from "react-router-dom";
 import styles from './DesktopHeader.module.css';
 import UserInfo from '../UserInfo';
+import {Logo} from "../Logo/Logo";
 
 export class DesktopHeader extends Component {
 	static defaultProps = {
@@ -22,18 +23,10 @@ export class DesktopHeader extends Component {
 	renderContent () {
 		return (
 			<div className={styles.desktopHeader}>
-				<NavLink exact to='/' className={styles.logo}>
-					<h1 className={styles.bigHeader}>Ekb
-						<span className={styles.smallHeader}>Trees</span>
-					</h1>
-				</NavLink>
+				<Logo className={styles.logo}/>
 				<div className={styles.menu}>
 					<NavLink exact to='/map' activeClassName={styles.activeLink}>Карта</NavLink>
 					{this.renderUserLinks()}
-					{this.renderAdminControllers()}
-					{/*<NavLink exact to='/aboutUs' activeClassName={styles.activeLink}>О нас</NavLink>*/}
-					{/*<a href="#!">Контакты</a>*/}
-					{/*<a href="#!">Помощь</a>*/}
 				</div>
 				{this.renderUserInfo()}
 				{this.renderLoginControllers()}
@@ -47,6 +40,7 @@ export class DesktopHeader extends Component {
 			)
 		}
 	}
+
 	renderLoginControllers(){
 		if(!this.props.user){
 			return(
@@ -57,19 +51,7 @@ export class DesktopHeader extends Component {
 			)
 		}
 	}
-	renderAdminControllers () {
-		const {user} = this.props;
 
-		if(user?.role === "admin") {
-			return(
-				<>
-					<NavLink exact to='/users' activeClassName={styles.activeLink}>Список пользователей</NavLink>
-				</>
-			)
-		}
-
-		return null;
-	}
 	render () {
 		return this.renderContent();
 	}

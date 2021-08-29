@@ -4,10 +4,8 @@
   padding: 0;
 }
 
-@media screen and (min-width: 768px) {
-  body {
+body {
     background-color: #F3F6FA;
-  }
 }
 
 @font-face {

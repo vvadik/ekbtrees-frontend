@@ -21,7 +21,7 @@ export const TextField = (props) => {
 				disabled={item.disabled ?? false}
 				type={item.type}
 				onChange={onChange}
-				variant="outlined"
+				variant="filled"
 				id={id}
 				label={item.title}
 				value={item.value}

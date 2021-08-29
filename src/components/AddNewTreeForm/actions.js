@@ -2,7 +2,7 @@ import RequestService from "../../helpers/requests";
 import {baseUrl} from "../ApiDataLoadHelper/DataLoadHelper";
 
 export const addTree = (body) => {
-	return RequestService.postData(`${baseUrl}tree/save`, JSON.stringify(body), {
+	return RequestService.postData(`${baseUrl}tree`, JSON.stringify(body), {
 		'Content-Type': 'application/json'
 	})
 }

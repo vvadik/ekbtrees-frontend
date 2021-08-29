@@ -166,14 +166,16 @@
     }
 }
 
+.block {
+     background-color: #fff;
+ }
+
 @media screen and (min-width: 768px) {
     .blockTitle {
         font-size: 20px;
     }
 
-    .block {
-        background-color: #fff;
-    }
+
 
     .subTitle {
         color: #4b4b4b;

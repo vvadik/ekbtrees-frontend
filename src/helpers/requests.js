@@ -1,8 +1,17 @@
+import Cookies from 'universal-cookie';
+
+const cookies = new Cookies();
+
 export default class RequestService {
 	static getData (url, headers = {}) {
+		const token = cookies.get('AccessToken');
+
 		return fetch(url, {
 			method: 'GET',
-			headers
+			headers: {
+				...headers,
+				'Authorization': `Bearer ${token}`
+			},
 		})
 			.then(response => {
 				if (response.status !== 200) {
@@ -14,9 +23,14 @@ export default class RequestService {
 	}
 
 	static postData (url, body, headers = {}) {
+		const token = cookies.get('AccessToken');
+
 		return fetch(url, {
 			method: 'POST',
-			headers,
+			headers: {
+				...headers,
+				'Authorization': `Bearer ${token}`
+			},
 			body
 		})
 			.then(response => {

@@ -156,7 +156,7 @@ export class Tree extends Component {
 
 		const result = [];
 
-		Object.keys(tree).forEach((key, index) => {
+		Object.keys(tree).forEach((key) => {
 			if (tree[key].value) {
 				result.push(
 					<div className={styles.row}>

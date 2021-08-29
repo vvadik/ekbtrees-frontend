@@ -10,6 +10,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    padding: 0 20px;
 }
 
 .burgerBtn {
@@ -36,20 +37,8 @@
     padding-left: 7px;
 }
 
-.active {
-    border-bottom: 3px solid #fb8f07;
-    color: #fb8f07;
-}
-
-.ekbTrees .smallHeader {
-    font-size: 20px;
-    padding-left: 2px;
-}
-
-.ekbTrees .bigHeaderMobile {
-    font-family: "Merriweather", serif;
-    font-size: 40px;
-    line-height: 30px;
+.logo {
+    color: #ffffff;
 }
 
 @media screen and (min-width: 768px) {

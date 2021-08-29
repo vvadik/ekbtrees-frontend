@@ -28,7 +28,8 @@ export default class AddNewTreeForm extends Component {
                 age: {
                     title: 'Возраст (в годах)',
                     value: '',
-                    type: 'number'
+                    type: 'number',
+                    parse: value => parseInt(value, 10)
                 },
                 conditionAssessment: {
                     title: 'Визуальная оценка состония',
@@ -60,24 +61,28 @@ export default class AddNewTreeForm extends Component {
                 diameterOfCrown: {
                     title: 'Диаметр кроны (в метрах)',
                     value: '',
-                    type: 'number'
+                    type: 'number',
+                    parse: value => parseFloat(value)
                 },
                 heightOfTheFirstBranch: {
                     title: 'Высота первой ветви от земли (в метрах)',
                     value: '',
-                    type: 'number'
+                    type: 'number',
+                    parse: value => parseFloat(value)
                 },
                 numberOfTreeTrunks: {
                     title: 'Число стволов',
                     value: '',
-                    type: 'number'
+                    type: 'number',
+                    parse: value => parseInt(value, 10)
                 },
                 treeHeight: {
                     title: 'Высота (в метрах)',
                     value: '',
-                    type: 'number'
+                    type: 'number',
+                    parse: value => parseFloat(value)
                 },
-                species: {
+                speciesId: {
                     title: 'Порода',
                     values: [],
                     value: '',
@@ -96,7 +101,8 @@ export default class AddNewTreeForm extends Component {
                         }
                     ],
                     value: '',
-                    loading: false
+                    loading: false,
+                    parse: this.toStr
                 },
                 treePlantingType: {
                     title: 'Тип посадки дерева',
@@ -110,12 +116,14 @@ export default class AddNewTreeForm extends Component {
                             id: 2,
                             title: 'Самосев'
                         }
-                    ]
+                    ],
+                    parse: this.toStr
                 },
                 trunkGirth: {
                     title: 'Обхват самого толстого ствола (в сантиметрах)',
                     value: '',
-                    type: 'number'
+                    type: 'number',
+                    parse: value => parseFloat(value)
                 },
                 fileIds: [],
             },
@@ -135,6 +143,11 @@ export default class AddNewTreeForm extends Component {
             })
     }
 
+    toStr = (value, values) => {
+        const item = values.find(item => item.id === value);
+        return `${item ? item.title: ''}`;
+    }
+
     handleAddTree = () => {
         const {tree} = this.state;
         const data = {
@@ -146,14 +159,14 @@ export default class AddNewTreeForm extends Component {
 
         Object.keys(tree).forEach(key => {
             if (Object.prototype.hasOwnProperty.call(tree[key], 'value')) {
-                const selects = ['species', 'treePlantingType', 'conditionAssessment']
+                const {parse, value, values} = tree[key];
 
-                if (selects.includes(key)) {
-                    data[key] = {id: tree[key].value}
+                if (parse) {
+                    data[key] = parse(value, values);
                 } else if (key === 'latitude' || key === 'longitude') {
-                    data.geographicalPoint[key] = tree[key].value;
+                    data.geographicalPoint[key] = parseFloat(value);
                 } else {
-                    data[key] = tree[key].value;
+                    data[key] = value;
                 }
             } else {
                 data[key] = tree[key];
@@ -178,15 +191,15 @@ export default class AddNewTreeForm extends Component {
         this.setState({tree})
     }
 
-    handleOpenSelect = (type) => () => {
+    handleOpenSelect = (fieldId) => () => {
         const {tree} = this.state;
 
-        if (type === 'species') {
+        if (fieldId === 'speciesId') {
             this.setState({
                 tree: {
                     ...tree,
-                    species: {
-                        ...tree.species,
+                    speciesId: {
+                        ...tree.speciesId,
                         loading: true
                     }
                 }
@@ -196,8 +209,8 @@ export default class AddNewTreeForm extends Component {
                         this.setState({
                             tree: {
                                 ...tree,
-                                species: {
-                                    ...tree.species,
+                                speciesId: {
+                                    ...tree.speciesId,
                                     values: this.sortTypesOfTrees(types),
                                     loading: false
                                 }
@@ -208,8 +221,8 @@ export default class AddNewTreeForm extends Component {
                         this.setState({
                             tree: {
                                 ...tree,
-                                species: {
-                                    ...tree.species,
+                                speciesId: {
+                                    ...tree.speciesId,
                                     loading: false
                                 }
                             }
@@ -229,17 +242,18 @@ export default class AddNewTreeForm extends Component {
             if (tree[key]) {
                 if (Object.prototype.hasOwnProperty.call(tree[key], 'values')) {
                     result.push(
-                        <div className={cn([styles.blockWrapper, styles.blockWrapperDesktop])}>
+                        <div className={cn([styles.blockWrapper, styles.blockWrapperDesktop])} key={key}>
                             <Select
                                 onChange={this.handleChange(key)}
                                 onOpen={this.handleOpenSelect(key)}
-                                item={tree[key]} id={key}
+                                item={tree[key]}
+                                id={key}
                             />
                         </div>
                     )
                 } else if (tree[key].title) {
                     result.push(
-                        <div className={cn([styles.blockWrapper, styles.blockWrapperDesktop])}>
+                        <div className={cn([styles.blockWrapper, styles.blockWrapperDesktop])} key={key}>
                             <TextField
                                 item={tree[key]}
                                 id={key}
@@ -360,8 +374,18 @@ export default class AddNewTreeForm extends Component {
     renderButtons () {
         return (
             <div className={styles.buttons}>
-                <button onClick={this.handleAddTree} disabled={this.state.uploadingFiles} className={styles.addButton}>Добавить</button>
-                <button onClick={this.props.history.goBack} className={styles.cancelButton}>Отмена</button>
+                <button onClick={this.handleAddTree}
+                        disabled={this.state.uploadingFiles}
+                        className={styles.addButton}
+                >
+                    Добавить
+                </button>
+                <button
+                    onClick={this.props.history.goBack}
+                    className={styles.cancelButton}
+                >
+                    Отмена
+                </button>
             </div>
         )
     }

@@ -1,2 +1,2 @@
-import DesktopHeader from "./DesktopHeader";
+import DesktopHeader from './DesktopHeader';
 export default DesktopHeader;

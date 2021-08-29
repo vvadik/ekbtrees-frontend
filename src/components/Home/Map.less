@@ -1,0 +1,29 @@
+@import 'https://unpkg.com/leaflet@1.7.1/dist/leaflet.css';
+@import 'https://unpkg.com/leaflet@1.7.1/dist/leaflet.css';
+@import 'https://unpkg.com/react-leaflet-markercluster/dist/styles.min.css';
+@import "../../../css/leaflet.css";
+@import "../../../css/react-leaflet.min.css";
+
+
+.leaflet-container {
+    .leaflet-control-attribution,
+    .leaflet-control-scal {
+        display: none;
+    }
+}
+
+.leaflet-container {
+    height: calc(100vh - 60px);
+}
+
+@media screen and (min-width: 768px) {
+    .leaflet-container {
+        height: 100%;
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    .leaflet-container {
+        height: 500px;
+    }
+}

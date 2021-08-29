@@ -9,7 +9,8 @@ const isTest = environment === 'test';
 
 const pages = [
 	'index',
-	'menu'
+	'login',
+	'registration'
 ];
 
 module.exports = {

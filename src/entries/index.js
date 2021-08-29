@@ -1,5 +1,4 @@
-import App from '../components/App';
-import Home from "../components/Home";
+import Home from '../components/Home/Home';
 import PageLayout from "../components/PageLayout";
 
 import React from 'react';
@@ -9,7 +8,9 @@ const root = document.getElementById('root');
 
 if (root) {
     ReactDOM.render(
-        <PageLayout />,
+        <PageLayout>
+            <Home />
+        </PageLayout>,
         root
     );
 }

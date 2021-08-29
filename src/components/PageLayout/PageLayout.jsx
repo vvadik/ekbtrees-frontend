@@ -49,6 +49,7 @@ class PageLayout extends Component {
 		return (
 			<UserContext.Provider value={this.state.user}>
 				<Header onCookieRemove={this.removeCookie} />
+				{this.props.children}
 			</UserContext.Provider>
 		)
 	}

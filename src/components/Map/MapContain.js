@@ -4,6 +4,7 @@ import { useState } from "react";
 import GeojsonLayer from "./GeojsonLayer";
 import { MapSate } from "./MapState";
 import "./Map.css";
+import {UserContext} from "context/contexts";
 
 const MapContain = (props) => {
   const defaultPosition = [56.8391040, 60.6082500]; // Yekaterinburg position
@@ -21,7 +22,9 @@ const MapContain = (props) => {
         zoomOffset={-1}
         maxZoom={21}
       />
-      <GeojsonLayer mapState={ mapState } setMapState={ setMapState } user={user} />
+          <UserContext.Consumer>
+              {(user) => <GeojsonLayer mapState={ mapState } setMapState={ setMapState } user={user} />}
+          </UserContext.Consumer>
     </MapContainer>
         {/*<div>*/}
         {/*    <TreeForm activeTree = {null}/>*/}

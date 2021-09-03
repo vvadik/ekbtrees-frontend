@@ -65,9 +65,8 @@ export default class Main extends Component {
       <main className={styles.mainWrapper}>
         <Switch>
           <Route exact path='/' render={(props) => <Home {...props} user={user} />} />
-          <Route exact path='/map' render={(props) => <MapContain {...props} styleName="shrinkMap" user={user} />} />
-            <Route exact path='/trees/tree=:id'
-                   render={(props) => <Tree {...props} user={user} />} />
+          <Route exact path='/map' render={(props) => <MapContain {...props} user={user} className='fullMap' />} />
+            <Route exact path='/trees/tree=:id' render={(props) => <Tree {...props} user={user} />} />
           <Route exact path='/passRecovery' component={PassRecovery} />
           <Route exact path='/aboutUs' component={AboutUs} />
           <Route path='/vk' component={() => {

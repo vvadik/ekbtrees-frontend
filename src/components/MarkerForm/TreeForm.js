@@ -6,7 +6,9 @@ import {NavLink} from "react-router-dom";
 export const TreeForm = ({activeTree, onClose}) => {
     return (
         <figure className={styles.block}>
-            <div className={styles.closeWrapper}><button className={styles.close}><i className="fa fa-times" /></button></div>
+            <div className={styles.closeWrapper}>
+              <button className={styles.close} onClick={onClose}><i className="fa fa-times" /></button>
+            </div>
             <h3 className={styles.title}> Карточка дерева </h3>
             <div className={styles.wrapperFlex}>
                 <div className={cn([styles.blockWrapper, styles.blockWrapperDesktop])}>

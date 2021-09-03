@@ -1,35 +1,37 @@
-import React, { Component } from 'react';
-import { MapSate } from "../Map/MapState";
+import React from 'react';
+import {MapState} from "../Map/MapState";
 import styles from './MapButton.module.css';
 
-export default class MapButton extends Component {
-    render() {
-        return (
-            <button disabled={this.props.mapState === MapSate.addTreeBegin}
-            className={styles.mapButton}
-            onClick={ () => buttonOnClickHandler(this.props.mapState, this.props.setMapState) }>
-                {getButtonText(this.props.mapState)}</button>
-        )
-    }
+const MapButton = ({mapState, setMapState}) => {
+	const handleClick = () => {
+		if (mapState === MapState.default) {
+			setMapState(MapState.addTreeBegin);
+		}
+		if (mapState === MapState.addTreeSelected) {
+			setMapState(MapState.addTreeSubmit);
+		}
+	}
+
+	const renderTitle = () => {
+		if (mapState === MapState.default) {
+			return "Добавить дерево";
+		}
+		if (mapState === MapState.addTreeBegin) {
+			return "Укажите точку на карте";
+		}
+		if (mapState === MapState.addTreeSelected || mapState === MapState.addTreeSubmit) {
+			return "Добавить";
+		}
+	}
+
+	return (
+		<button
+			disabled={mapState === MapState.addTreeBegin}
+			className={styles.mapButton}
+			onClick={handleClick}>
+			{renderTitle(mapState)}
+		</button>
+	)
 }
 
-const buttonOnClickHandler = (mapSate, setMapState) => {
-    if (mapSate === MapSate.default) {
-        setMapState(MapSate.addTreeBegin);
-    }
-    if (mapSate === MapSate.addTreeSelected) {
-        setMapState(MapSate.addTreeSubmit);
-    }
-}
-
-const getButtonText = (mapSate) => {
-    if (mapSate === MapSate.default) {
-        return "Добавить дерево";
-    }
-    if (mapSate === MapSate.addTreeBegin) {
-        return "Укажите точку на карте";
-    }
-    if (mapSate === MapSate.addTreeSelected || mapSate === MapSate.addTreeSubmit) {
-        return "Добавить";
-    }
-}
+export default MapButton;

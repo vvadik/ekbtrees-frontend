@@ -242,7 +242,7 @@ export default class AddNewTreeForm extends Component {
             if (tree[key]) {
                 if (Object.prototype.hasOwnProperty.call(tree[key], 'values')) {
                     result.push(
-                        <div className={cn([styles.blockWrapper, styles.blockWrapperDesktop])} key={key}>
+                        <div key={tree[key].title} className={cn([styles.blockWrapper, styles.blockWrapperDesktop])} key={key}>
                             <Select
                                 onChange={this.handleChange(key)}
                                 onOpen={this.handleOpenSelect(key)}
@@ -253,7 +253,7 @@ export default class AddNewTreeForm extends Component {
                     )
                 } else if (tree[key].title) {
                     result.push(
-                        <div className={cn([styles.blockWrapper, styles.blockWrapperDesktop])} key={key}>
+                        <div key={tree[key].title} className={cn([styles.blockWrapper, styles.blockWrapperDesktop])} key={key}>
                             <TextField
                                 item={tree[key]}
                                 id={key}

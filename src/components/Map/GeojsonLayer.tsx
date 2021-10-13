@@ -29,6 +29,7 @@ const GeojsonLayer = ({map, mapState, setMapState, user} : IGeojsonLayerProps) =
 	const disableClusteringAtZoom = 19;
 	const markerLayer = DG.featureGroup();
 	const treesLayer = DG.featureGroup();
+	const geometryLayer = DG.featureGroup();
 
 	const [activeTreeId, setActiveTreeId] = useState<string | number | null>(null);
 	const [activeTreeData, setActiveTreeData] = useState<IJsonTree | null>(null);
@@ -38,12 +39,51 @@ const GeojsonLayer = ({map, mapState, setMapState, user} : IGeojsonLayerProps) =
 	const buttonRef = useRef<HTMLButtonElement>(null);
 	const history = useHistory();
 
+	// User geolocation
+	const userGeolocationZoom: number = 30;
+	const userCircleColor: string = "#35C1DE";
+	const userCircleRef = useRef<any>(null);
+	const userCircleMarkerRef = useRef<any>(null);
+	const watchingUserGeolocationRef = useRef<boolean>(false);
+
+
+	const startWatchUserGeolocation = () => {
+		watchingUserGeolocationRef.current = true;
+		// FIXME: Requires https if not localhost
+		map.locate({watch: true}).on('locationfound', function(e: any) {
+			if (userCircleRef.current == null) {
+				userCircleRef.current = new DG.circle([e.latitude, e.longitude], e.accuracy, { color: userCircleColor })
+					.bindPopup("You are Here").openPopup().addTo(geometryLayer);
+				userCircleMarkerRef.current = new DG.circleMarker([e.latitude, e.longitude],
+					{ color: '#ffffff', fillColor: userCircleColor, fill: true, fillOpacity: 1 })
+					.bindPopup("You are Here").openPopup()
+					.addTo(geometryLayer);
+				map.setView([e.latitude, e.longitude], userGeolocationZoom);
+			} else {
+				userCircleRef.current.setLatLng([e.latitude, e.longitude]);
+				userCircleRef.current.setRadius(e.accuracy);
+				userCircleMarkerRef.current.setLatLng([e.latitude, e.longitude]);
+			}
+		}, () => {}, { enableHighAccuracy: true });
+		geometryLayer.addTo(map);
+	}
+
+	useEffect( () => () => {
+		map && map.stopLocate();
+		watchingUserGeolocationRef.current = false;
+	}, [] );
+
 	// FIXME: type of 2-gis event
 	const updateMarkerRef = (event: any) => {
 		markerRef.current = event.latlng;
 	}
 
 	const loadData = () => {
+		// Start watching User geolocation if haven't started before
+		if (!watchingUserGeolocationRef.current) {
+			startWatchUserGeolocation();
+		}
+
 		const containerLatLng = getMapContainerLatLng();
 		const isCluster = false;
 
@@ -192,32 +232,42 @@ function getMarkerClusterGroup(state: number, data: any, setActiveTree: any, map
 					))}
 			</MarkerClusterGroup>);
 	} else {
-		const isCluster = map.getZoom() < 19;
 		console.log(map.getZoom(), 'zoom');
 		return (
 			<MarkerClusterGroup disableClusteringAtZoom={19}>
 				{data.json
-					.map((f: any, idx: any) => {
-						const customProps = {title: 1};
-						return (
-							<Circle
-								eventHandlers={{click: () => state === MapState.default && setActiveTree(f.id)}}
-								key={idx}
-								center={[f.geographicalPoint.latitude, f.geographicalPoint.longitude]}
-								pathOptions={getCircleOptions(f.species.title)}
-								radius={getCircleRadius(f.diameterOfCrown ?? 10)}
-								weight={1}
-								// title={1}
-								{...customProps} // used instead of "title={1}"
-							>
-							</Circle>
-						)
-					}
-					)
+					.map((f: IJsonTree, idx: number) => GenerateCircleForTree(f, idx,
+						() => state === MapState.default && setActiveTree(f.id), 1))
 				}
 			</MarkerClusterGroup>
 		);
 	}
 }
+
+
+function GenerateCircleForTree(f: IJsonTree, key: number, onClick: any, title: string | number) {
+	if (f.geographicalPoint === undefined ||
+		f.geographicalPoint.latitude === null ||
+		f.geographicalPoint.longitude === null
+	) {
+		return null;
+	}
+
+	const customProps = {title: title};
+	return (
+		<Circle
+			eventHandlers={{click: onClick}}
+			key={key}
+			center={[f.geographicalPoint.latitude, f.geographicalPoint.longitude]}
+			pathOptions={getCircleOptions(f.species?.title ?? "")}
+			radius={getCircleRadius(f.diameterOfCrown ?? 10)}
+			weight={1}
+			// title={1}
+			{...customProps} // used instead of "title={1}"
+		>
+		</Circle>
+	)
+}
+
 
 export default GeojsonLayer;

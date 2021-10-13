@@ -41,7 +41,7 @@ const GeojsonLayer = ({map, mapState, setMapState, user} : IGeojsonLayerProps) =
 
 	// User geoposition
 	const userGeolocationZoom: number = 30;
-	const userCircleMarkerSizeInPixel: number = 20;
+	// const userCircleMarkerSizeInPixel: number = 20;
 	const userCircleColor: string = "#35C1DE";
 	let userCircle: any = null;
 	let userCircleMarker: any = null;
@@ -49,14 +49,14 @@ const GeojsonLayer = ({map, mapState, setMapState, user} : IGeojsonLayerProps) =
 
 
 	const startWatchUserGeolocation = () => {
-		console.log("User Geolocation start");
+		// console.log("User Geolocation start");
 		watchingUserGeolocation = true;
 		// FIXME: Requires https if not localhost
 		map.locate({watch: true}).on('locationfound', function(e: any) {
 			if (userCircle == null) {
-				console.log("User Circle Created");
-				console.log(`${e.latitude} ${e.longitude} ${e.accuracy}`);
-				console.log(e);
+				// console.log("User Circle Created");
+				// console.log(`${e.latitude} ${e.longitude} ${e.accuracy}`);
+				// console.log(e);
 				userCircle = new DG.circle([e.latitude, e.longitude], e.accuracy, { color: userCircleColor })
 					.bindPopup("You are Here").openPopup().addTo(geometryLayer);
 				userCircleMarker = new DG.circleMarker([e.latitude, e.longitude],
@@ -65,7 +65,7 @@ const GeojsonLayer = ({map, mapState, setMapState, user} : IGeojsonLayerProps) =
 					.addTo(geometryLayer);
 				map.setView([e.latitude, e.longitude], userGeolocationZoom);
 			} else {
-				console.log("User Circle Update");
+				// console.log("User Circle Update");
 				userCircle.setLatLng([e.latitude, e.longitude]);
 				userCircle.setRadius(e.accuracy);
 				userCircleMarker.setLatLng([e.latitude, e.longitude]);
@@ -75,9 +75,10 @@ const GeojsonLayer = ({map, mapState, setMapState, user} : IGeojsonLayerProps) =
 	}
 
 	useEffect( () => () => {
-		console.log("User Geolocation stop");
-		console.log(`Map is set ${map !== undefined && map !== null}`);
+		// console.log("User Geolocation stop");
+		// console.log(`Map is set ${map !== undefined && map !== null}`);
 		map && map.stopLocate();
+		watchingUserGeolocation = false;
 	}, [] );
 
 	// FIXME: type of 2-gis event

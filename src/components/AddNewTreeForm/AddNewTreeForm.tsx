@@ -8,12 +8,15 @@ import styles from "./AddNewTreeForm.module.css";
 import {getFilesByIds, getTypesOfTrees} from "../EditTreeForm/actions";
 import {
     ResourceAction, INewTree, ITreePropertyValue,
-    FileGroupType, IJsonTree, IGeographicalPoint, IFile
+    FileGroupType, IPostJsonTree, IGeographicalPoint, IFile
 } from "../../common/types";
-import { IAddNewTreeFormProps, IAddNewTreeFormState } from "./types";
+import {IAddNewTreeFormProps, IAddNewTreeFormState} from "./types";
+import {conditionAssessmentOptions, treePlantingTypeOptions, treeStatusOptions} from "../../common/treeForm";
 
 
 export default class AddNewTreeForm extends Component<IAddNewTreeFormProps, IAddNewTreeFormState> {
+
+
     constructor(props: IAddNewTreeFormProps) {
         super(props);
 
@@ -40,28 +43,7 @@ export default class AddNewTreeForm extends Component<IAddNewTreeFormProps, IAdd
                 conditionAssessment: {
                     title: 'Визуальная оценка состония',
                     value: '',
-                    values: [
-                        {
-                            id: 1,
-                            title: '1'
-                        },
-                        {
-                            id: 2,
-                            title: '2'
-                        },
-                        {
-                            id: 3,
-                            title: '3'
-                        },
-                        {
-                            id: 4,
-                            title: '4'
-                        },
-                        {
-                            id: 5,
-                            title: '5'
-                        },
-                    ],
+                    values: conditionAssessmentOptions,
                     loading: false
                 },
                 diameterOfCrown: {
@@ -96,16 +78,7 @@ export default class AddNewTreeForm extends Component<IAddNewTreeFormProps, IAdd
                 },
                 status: {
                     title: 'Статус дерева',
-                    values: [
-                        {
-                            id: 1,
-                            title: 'Живое'
-                        },
-                        {
-                            id: 2,
-                            title: 'Не живое'
-                        }
-                    ],
+                    values: treeStatusOptions,
                     value: '',
                     loading: false,
                     parse: this.toStr
@@ -113,16 +86,7 @@ export default class AddNewTreeForm extends Component<IAddNewTreeFormProps, IAdd
                 treePlantingType: {
                     title: 'Тип посадки дерева',
                     value: '',
-                    values: [
-                        {
-                            id: 1,
-                            title: 'Культурная посадка'
-                        },
-                        {
-                            id: 2,
-                            title: 'Самосев'
-                        }
-                    ],
+                    values: treePlantingTypeOptions,
                     parse: this.toStr
                 },
                 trunkGirth: {
@@ -157,20 +121,30 @@ export default class AddNewTreeForm extends Component<IAddNewTreeFormProps, IAdd
     handleAddTree = () => {
         const {tree} = this.state;
 
-        const data: IJsonTree = {
+        // const data: IJsonTree = {
+        //     geographicalPoint: {
+        //         latitude: null,
+        //         longitude: null
+        //     }
+        // };
+
+        const data: IPostJsonTree = {
             geographicalPoint: {
                 latitude: null,
                 longitude: null
             }
-        };
+        }
 
         Object.keys(tree).forEach((key: string) => {
             let treeKey = key as keyof INewTree;
-            if (treeKey == 'fileIds' || treeKey == 'speciesId') {
-                // should be in else branch
-                return;
-            }
+            // console.log(treeKey);
+
             if (Object.prototype.hasOwnProperty.call(tree[treeKey], 'value')) {
+                // console.log(`${treeKey} has value`);
+                if (treeKey == 'fileIds') {
+                    // should be in else branch
+                    return;
+                }
                 // TODO: find other way to filter this case
 
                 const {parse, value, values} = tree[treeKey];
@@ -194,7 +168,7 @@ export default class AddNewTreeForm extends Component<IAddNewTreeFormProps, IAdd
                 }
             }
         })
-
+        // console.log(data);
         addTree(data as {geographicalPoint: {latitude: number | null, longitude: number | null}})
             .then(_ => {
                 alert('Дерево успешно добавлено!');
@@ -264,7 +238,7 @@ export default class AddNewTreeForm extends Component<IAddNewTreeFormProps, IAdd
         const {tree} = this.state;
 
         const result: React.ReactNode[] = [];
-        Object.keys(tree).forEach(key => {
+        Object.keys(tree).forEach((key, index) => {
             let treeKey = key as keyof INewTree;
             // TODO: find other way to filter this case
             if (treeKey == 'fileIds') {
@@ -274,7 +248,7 @@ export default class AddNewTreeForm extends Component<IAddNewTreeFormProps, IAdd
             if (tree[treeKey]) {
                 if (Object.prototype.hasOwnProperty.call(tree[treeKey], 'values')) {
                     result.push(
-                        <div key={tree[treeKey].title} className={cn([styles.blockWrapper, styles.blockWrapperDesktop])} /*key={key}*/>
+                        <div key={index} className={cn([styles.blockWrapper, styles.blockWrapperDesktop])}>
                             <Select
                                 onChange={this.handleChange(treeKey)}
                                 onOpen={this.handleOpenSelect(key)}
@@ -285,7 +259,7 @@ export default class AddNewTreeForm extends Component<IAddNewTreeFormProps, IAdd
                     )
                 } else if (tree[treeKey].title) {
                     result.push(
-                        <div key={tree[treeKey].title} className={cn([styles.blockWrapper, styles.blockWrapperDesktop])} /*key={key}*/>
+                        <div key={tree[treeKey].title} className={cn([styles.blockWrapper, styles.blockWrapperDesktop])}>
                             <TextField
                                 item={tree[treeKey]}
                                 id={key}
@@ -382,7 +356,6 @@ export default class AddNewTreeForm extends Component<IAddNewTreeFormProps, IAdd
 
     renderFiles () {
         const {files, uploadingFiles} = this.state;
-
         return (
             <>
                 <h3 className={styles.title}> Файлы </h3>
@@ -398,7 +371,6 @@ export default class AddNewTreeForm extends Component<IAddNewTreeFormProps, IAdd
 
     renderImages () {
         const {images, uploadingImages} = this.state;
-
         return (
             <>
                 <h3 className={styles.title}> Картинки </h3>

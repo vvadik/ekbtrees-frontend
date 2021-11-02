@@ -2,7 +2,7 @@ import {MouseEventHandler} from "react";
 
 
 export interface IModalImgProps {
-    modalOpen: string | undefined;
+    modalOpen: boolean;
     handleClose: MouseEventHandler<HTMLElement>;//(event: MouseEvent) => void;
     modalData: string | undefined;
 }

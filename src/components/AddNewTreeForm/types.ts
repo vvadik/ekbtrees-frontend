@@ -17,3 +17,4 @@ export interface IAddNewTreeFormState {
     uploadingFiles?: boolean;
     uploadingImages?: boolean;
 }
+

@@ -20,15 +20,19 @@ import {
     IFile,
     IJsonTree,
     ITreePropertyValue,
+    IPostJsonTree,
 } from "../../common/types";
 import { IEditTreeFormProps, IEditTreeFormState } from "./types";
+import {conditionAssessmentOptions, treePlantingTypeOptions, treeStatusOptions} from "../../common/treeForm";
 
 
 export class EditTreeForm extends Component<IEditTreeFormProps, IEditTreeFormState> {
     public treeUuid: string;
+
     constructor(props: IEditTreeFormProps) {
         super(props);
-
+        // console.log(" > EditTreeForm: constructor ");
+        // console.log(props);
         this.state = {
             tree: null,
             loading: true,
@@ -59,6 +63,10 @@ export class EditTreeForm extends Component<IEditTreeFormProps, IEditTreeFormSta
             id
         } = tree;
 
+        let conditionAssessmentId = conditionAssessmentOptions.find(op => op.title == conditionAssessment)?.id ?? '';
+        let treeStatusOptionId = treeStatusOptions.find(op => op.title == status)?.id ?? '';
+        let treePlantingTypeId = treePlantingTypeOptions.find(op => op.title == treePlantingType)?.id ?? '';
+
         return {
             age: {
                 title: 'Возраст (в годах)',
@@ -67,29 +75,8 @@ export class EditTreeForm extends Component<IEditTreeFormProps, IEditTreeFormSta
             },
             conditionAssessment: {
                 title: 'Визуальная оценка состония',
-                value: conditionAssessment,
-                values: [
-                    {
-                        id: 1,
-                        title: '1'
-                    },
-                    {
-                        id: 2,
-                        title: '2'
-                    },
-                    {
-                        id: 3,
-                        title: '3'
-                    },
-                    {
-                        id: 4,
-                        title: '4'
-                    },
-                    {
-                        id: 5,
-                        title: '5'
-                    },
-                ],
+                value: conditionAssessmentId,
+                values: conditionAssessmentOptions,
                 loading: false
             },
             diameterOfCrown: {
@@ -120,32 +107,14 @@ export class EditTreeForm extends Component<IEditTreeFormProps, IEditTreeFormSta
             },
             status: {
                 title: 'Статус дерева',
-                values: [
-                    {
-                        id: 1,
-                        title: 'Живое'
-                    },
-                    {
-                        id: 2,
-                        title: 'Не живое'
-                    }
-                ],
-                value: status,
+                values: treeStatusOptions,
+                value: treeStatusOptionId,
                 loading: false
             },
             treePlantingType: {
                 title: 'Тип посадки дерева',
-                value: treePlantingType,
-                values: [
-                    {
-                        id: 1,
-                        title: 'Культурная посадка'
-                    },
-                    {
-                        id: 2,
-                        title: 'Самосев'
-                    }
-                ]
+                value: treePlantingTypeId,
+                values: treePlantingTypeOptions
             },
             trunkGirth: {
                 title: 'Обхват самого толстого ствола (в сантиметрах)',
@@ -175,7 +144,7 @@ export class EditTreeForm extends Component<IEditTreeFormProps, IEditTreeFormSta
                         tree: this.convertTree(tree),
                         loading: false
                     }, () => {
-                        getFilesByTree([16, 18, 20, 62, 62, 62])
+                        getFilesByTree(tree.fileIds ?? []) // TODO: Find out if it's test data
                             .then((files: IFile[]) => {
                                 const images = files.filter((file: IFile) => file.mimeType.startsWith('image'));
                                 const filesWithoutImages = files.filter((file: IFile) => !file.mimeType.startsWith('image'));
@@ -184,7 +153,7 @@ export class EditTreeForm extends Component<IEditTreeFormProps, IEditTreeFormSta
                                     files: filesWithoutImages,
                                     tree: {
                                         ...this.state.tree,
-                                        fileIds: [16, 18, 20, 62, 62, 62]
+                                        fileIds: tree.fileIds
                                     },
                                     images,
                                     loadingFiles: false
@@ -213,25 +182,53 @@ export class EditTreeForm extends Component<IEditTreeFormProps, IEditTreeFormSta
         if (tree === null) {
             return;
         }
-        const data: IJsonTree = {};
-
+        const data: IPostJsonTree = {};
+        // console.log("> handleEditTree: tree");
+        // console.log(tree);
         Object.keys(tree).forEach(key => {
             const jsonTreeKey = key as keyof IJsonTree;
-            if (Object.prototype.hasOwnProperty.call(tree[jsonTreeKey], 'value')) {
-                const selects = ['species', 'treePlantingType', 'conditionAssessment'];
+            if (jsonTreeKey === "fileIds" && tree[jsonTreeKey] === null) {
+                tree[jsonTreeKey] = [];
+            }
+            if (tree[jsonTreeKey] && Object.prototype.hasOwnProperty.call(tree[jsonTreeKey], 'value')) {
+                // const selects = ['species', 'treePlantingType', 'conditionAssessment'];
+                // const selects = ['species', 'treePlantingType'];
+                const selects = ['species'];
+                // const selects = ['never'];
 
                 if (selects.includes(jsonTreeKey)) {
-                    //@ts-ignore: must be protected by a condition from above
-                    data[jsonTreeKey] = {id: tree[jsonTreeKey]?.value}
+                    // if (jsonTreeKey === "species") {
+                        //@ts-ignore: must be protected by a condition from above
+                        // data["speciesId"] = {id: tree[jsonTreeKey]?.value}
+                    // } else {
+                        //@ts-ignore: must be protected by a condition from above
+                        data[jsonTreeKey] = tree[jsonTreeKey].values.find(s => s.id == tree[jsonTreeKey]?.value) //{id: tree[jsonTreeKey]?.value}
+                    // }
                 } else {
-                    //@ts-ignore: must be protected by a condition from above
-                    data[jsonTreeKey] = tree[jsonTreeKey].value;
+                    if (jsonTreeKey === "species") {
+                        //@ts-ignore: must be protected by a condition from above
+                        data["speciesId"] = tree[jsonTreeKey].value;
+                    } else if (jsonTreeKey === "status") {
+                        //@ts-ignore: must be protected by a condition from above
+                        data[jsonTreeKey] = treeStatusOptions.find(op => op.id == tree[jsonTreeKey].value)?.title ;
+                    } else if (jsonTreeKey === "treePlantingType") {
+                        //@ts-ignore: must be protected by a condition from above
+                        data[jsonTreeKey] = treePlantingTypeOptions.find(op => op.id == tree[jsonTreeKey].value)?.title ;
+                    } else {
+                        //@ts-ignore: must be protected by a condition from above
+                        data[jsonTreeKey] = tree[jsonTreeKey].value;
+                    }
                 }
             } else {
+                //@ts-ignore: must be protected by a condition from above
                 data[jsonTreeKey] = tree[jsonTreeKey];
             }
         })
-
+        data.authorId = this.props.user?.id;
+        data.created = "2021-11-16T06:09:02.141Z"; // TODO: use real dates
+        data.updated = "2021-11-16T06:09:02.141Z"; // TODO: use real dates
+        // console.log("> handleEditTree: data");
+        // console.log(data);
         editTree(data)
             .then(_ => {
                 alert('Дерево успешно изменено!');
@@ -249,7 +246,7 @@ export class EditTreeForm extends Component<IEditTreeFormProps, IEditTreeFormSta
             return;
         }
         if (fieldName !== 'id' && fieldName !== 'geographicalPoint' && fieldName !== 'fileIds')
-            tree[fieldName]!.value = event.target.value as any; // to use unknown value
+            tree[fieldName]!.value = "" + event.target.value as any; // to use unknown value
 
         this.setState({tree})
     }
@@ -278,7 +275,7 @@ export class EditTreeForm extends Component<IEditTreeFormProps, IEditTreeFormSta
                                     loading: false
                                 }
                             }
-                        })
+                        });
                     })
                     .catch(error => {
                         this.setState({
@@ -303,13 +300,13 @@ export class EditTreeForm extends Component<IEditTreeFormProps, IEditTreeFormSta
             return;
         }
         const result: JSX.Element[]  = [];
-        Object.keys(tree).forEach(keyStr => {
+        Object.keys(tree).forEach((keyStr, index) => {
             const key = keyStr as keyof IEditedTree;
             if (tree[key]) {
                 if (key !== 'id' && key !== 'geographicalPoint' && key !== 'fileIds') {
                     if (Object.prototype.hasOwnProperty.call(tree[key], 'values')) {
                         result.push(
-                            <div className={cn([styles.blockWrapper, styles.blockWrapperDesktop])}>
+                            <div key={index} className={cn([styles.blockWrapper, styles.blockWrapperDesktop])}>
                                 <Select
                                     onChange={this.handleChange(key)}
                                     onOpen={this.handleOpenSelect(key)}
@@ -319,7 +316,7 @@ export class EditTreeForm extends Component<IEditTreeFormProps, IEditTreeFormSta
                         );
                     } else if (tree[key]?.title) {
                         result.push(
-                            <div className={cn([styles.blockWrapper, styles.blockWrapperDesktop])}>
+                            <div key={index} className={cn([styles.blockWrapper, styles.blockWrapperDesktop])}>
                                 <TextField
                                     item={tree[key]!} // must be protected by a condition from above
                                     id={key}

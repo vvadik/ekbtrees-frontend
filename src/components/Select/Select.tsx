@@ -19,7 +19,6 @@ const useStyles = makeStyles(() => ({
 
 export const Select = (props: ISelectProps) => {
     const {id, item, onChange, onOpen} = props;
-
     const styles = useStyles();
 
     const renderOptions = (values: ISelectOption[]) => {
@@ -29,13 +28,14 @@ export const Select = (props: ISelectProps) => {
             </MenuItem>;
         }
 
-        return values.map(value => {
+        const menuItems = values.map(value => {
             return (
                 <MenuItem value={value.id} key={value.id}>
                     {value.title}
                 </MenuItem>
             );
-        })
+        });
+        return menuItems;
     }
 
     return (

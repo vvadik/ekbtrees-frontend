@@ -11,6 +11,8 @@ import {
     ITreeListsState,
     ITreeListsStateLocale
 } from "./types";
+// import defaultTreeImage from './default_treelists_tree_img.png';
+import defaultTreeImage from '../../common/images/default_treelists_tree_img.png';
 
 
 const locale: ITreeListsStateLocale = {
@@ -59,11 +61,11 @@ export default class TreeLists extends Component<ITreeListsProps, ITreeListsStat
 
     getTree = (tree: IJsonTreeWithImage, index: string | number) => {
         const {age, created, id, image, species, treeHeight} = tree;
-
+        // console.log(tree);
         return ( id &&
             <NavLink to={getTreeLink(id)} className={styles.treeTableItemWrapper} key={id}>
                 <div className={cn([styles.treeTableItem, styles.treeTableItemImg])}>
-                    <img src={image} alt='tree' className={styles.tableImg} />
+                    <img src={image || defaultTreeImage} alt='tree' className={styles.tableImg} />
                 </div>
                 <div className={styles.treeTableItem}>
                     <label htmlFor={String(index)}>{species?.title}</label>
@@ -93,7 +95,7 @@ export default class TreeLists extends Component<ITreeListsProps, ITreeListsStat
         const pageCount = Math.ceil(trees.length / treeCountPerPage);
         const pageNumbers = [];
 
-        for (let i =0; i <= pageCount; i++) {
+        for (let i = 0; i < pageCount; i++) {
             pageNumbers.push(i);
         }
 
@@ -113,7 +115,7 @@ export default class TreeLists extends Component<ITreeListsProps, ITreeListsStat
                 id={String(number)}
                 className={classNameCN}
             >
-                {number}
+                {number + 1}
             </button>
         );
     }

@@ -1,6 +1,6 @@
 
 export interface IFile {
-    id: string | number;
+    id: number;
     title: string;
     mimeType: string;
     size?: number,
@@ -136,6 +136,26 @@ export interface IJsonTree {
     treePlantingType?: string;
     created?: number;
     updated?: number;
+    authorId?: string;
+    status?: string;
+    fileIds?: number[];
+}
+
+
+export interface IPostJsonTree {
+    id?: number;
+    geographicalPoint?: IGeographicalPoint;
+    speciesId?: number;
+    treeHeight?: number;
+    numberOfTreeTrunks?: number;
+    trunkGirth?: number;
+    diameterOfCrown?: number;
+    heightOfTheFirstBranch?: number;
+    conditionAssessment?: any;
+    age?: number;
+    treePlantingType?: string;
+    created?: number | string;
+    updated?: number | string;
     authorId?: string;
     status?: string;
     fileIds?: number[];

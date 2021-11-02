@@ -1,6 +1,6 @@
 import cn from 'classnames';
-import {icon} from 'leaflet';
-import React, {useState, useEffect, useRef} from 'react';
+import {divIcon, icon} from 'leaflet';
+import React, {useState, useEffect, useRef, useCallback} from 'react';
 import {Circle} from 'react-leaflet';
 import markerIcon from './markerIcon';
 import {getCircleOptions, getCircleRadius} from "./MapHelpers";
@@ -19,8 +19,16 @@ import styles from "./GeojsonLayer.module.css";
 import ClusterMarker from '../ClusterMarker/ClusterMarker';
 import MarkerClusterGroup from "react-leaflet-markercluster/src/react-leaflet-markercluster";
 import { IJsonTree } from "../../common/types";
-import { IGeojsonLayerProps, ILatLng, IMapData } from "./types";
-
+import {
+	IGeojsonLayerProps,
+	IJsonMapTree,
+	IJsonMapTreeCluster,
+	ILatLng,
+	IMapDataClustered,
+	IMapDataSeparateTrees
+} from "./types";
+import {DefaultClusterColor, DefaultTreeColor, TreeSpeciesColors} from "./treeSpeciesColors";
+import "./GeojsonLayer.module.css";
 
 const DG = require('2gis-maps');
 
@@ -34,7 +42,9 @@ const GeojsonLayer = ({map, mapState, setMapState, user} : IGeojsonLayerProps) =
 	const [activeTreeId, setActiveTreeId] = useState<string | number | null>(null);
 	const [activeTreeData, setActiveTreeData] = useState<IJsonTree | null>(null);
 	const [newTreePosition, setNewTreePosition] = useState(null);
-	const [mapData, setMapData] = useState<IMapData | null>(null);
+	const [mapData, setMapData] = useState<IMapDataSeparateTrees | IMapDataClustered | null>(null);
+	const waitingLoadData = useRef<boolean>(false);
+	const componentMounted = useRef<boolean>(false);
 	const markerRef = useRef<ILatLng | null>(null);
 	const buttonRef = useRef<HTMLButtonElement>(null);
 	const history = useHistory();
@@ -44,33 +54,50 @@ const GeojsonLayer = ({map, mapState, setMapState, user} : IGeojsonLayerProps) =
 	const userCircleColor: string = "#35C1DE";
 	const userCircleRef = useRef<any>(null);
 	const userCircleMarkerRef = useRef<any>(null);
-	const watchingUserGeolocationRef = useRef<boolean>(false);
+	const watchPositionId = useRef<number | null>(null);
 
 
 	const startWatchUserGeolocation = () => {
-		watchingUserGeolocationRef.current = true;
-		// FIXME: Requires https if not localhost
-		map.locate({watch: true}).on('locationfound', function(e: any) {
+		watchPositionId.current = navigator.geolocation.watchPosition((e) => {
+			const latitude = e.coords.latitude;
+			const longitude = e.coords.longitude;
+			const accuracy = e.coords.accuracy;
 			if (userCircleRef.current == null) {
-				userCircleRef.current = new DG.circle([e.latitude, e.longitude], e.accuracy, { color: userCircleColor })
-					.bindPopup("You are Here").openPopup().addTo(geometryLayer);
-				userCircleMarkerRef.current = new DG.circleMarker([e.latitude, e.longitude],
+				// FIXME: The circle is quite large when accuracy is big
+				// console.log(`> geolocation: ${latitude} ${longitude}`);
+				userCircleRef.current = new DG.circle([latitude, longitude], accuracy, { color: userCircleColor })
+					// .bindPopup("You are Here").openPopup()
+					.addTo(geometryLayer);
+				userCircleMarkerRef.current = new DG.circleMarker([latitude, longitude],
 					{ color: '#ffffff', fillColor: userCircleColor, fill: true, fillOpacity: 1 })
 					.bindPopup("You are Here").openPopup()
 					.addTo(geometryLayer);
-				map.setView([e.latitude, e.longitude], userGeolocationZoom);
+				map.setView([latitude, longitude], userGeolocationZoom);
 			} else {
-				userCircleRef.current.setLatLng([e.latitude, e.longitude]);
-				userCircleRef.current.setRadius(e.accuracy);
-				userCircleMarkerRef.current.setLatLng([e.latitude, e.longitude]);
+				userCircleRef.current.setLatLng([latitude, longitude]);
+				userCircleRef.current.setRadius(accuracy);
+				userCircleMarkerRef.current.setLatLng([latitude, longitude]);
 			}
 		}, () => {}, { enableHighAccuracy: true });
 		geometryLayer.addTo(map);
 	}
 
+	useEffect(() => {
+		componentMounted.current = true;
+	}, []);
+
 	useEffect( () => () => {
-		map && map.stopLocate();
-		watchingUserGeolocationRef.current = false;
+		componentMounted.current = false;
+		// console.log(" > onUnmount");
+		if (watchPositionId.current !== null) {
+			// console.log("disposing watch location id");
+			navigator.geolocation.clearWatch(watchPositionId.current);
+		}
+		// console.log(" > map");
+		// console.log(map);
+		map && map.off('click', handleClick);
+		map && map.off('zoomend', handleZoomEndMoveEnd);
+		map && map.off('moveend', handleZoomEndMoveEnd);
 	}, [] );
 
 	// FIXME: type of 2-gis event
@@ -79,33 +106,63 @@ const GeojsonLayer = ({map, mapState, setMapState, user} : IGeojsonLayerProps) =
 	}
 
 	const loadData = () => {
+		// console.log("> loadData: start loading data...");
+		// console.log(`watching geoposition: ${watchPositionId.current}`);
 		// Start watching User geolocation if haven't started before
-		if (!watchingUserGeolocationRef.current) {
+		if (watchPositionId.current === null) {
+			// console.log("started watching geolocation");
 			startWatchUserGeolocation();
+		}
+		if (waitingLoadData.current) {
+			return;
 		}
 
 		const containerLatLng = getMapContainerLatLng();
-		const isCluster = false;
+		const dataIsClustered = map.getZoom() < 14;
+		waitingLoadData.current = true;
+		if (dataIsClustered) {
+			// console.log("Fetching Clustered data");
 
-		// FIXME: What type of events should 2-gis have
-		fetchData(getTreeMapInfoUrl(containerLatLng))
-			.then((jsonData: IJsonTree[]) => {
-				jsonData.forEach(item => {
-					if (item.geographicalPoint === undefined) {
+			fetchData(getClusterMapInfoUrl(containerLatLng))
+				.then((jsonData: IJsonMapTreeCluster[]) => {
+					if (!componentMounted.current) {
+						// console.log(" > fetch but component Unmounted");
 						return;
 					}
-					const {latitude, longitude} = item.geographicalPoint;
-					DG.marker([latitude, longitude], {icon: markerIcon})
-						.addTo(treesLayer)
-						.on('click', (e: any) => handleTreeClick(e, item));
+					// console.log(`Fetched ${jsonData.length} clusters`)
+					setMapData({isClusterData: dataIsClustered, json: jsonData});
+					setUpTreeCircles(mapState, {isClusterData: dataIsClustered, json: jsonData}, handleTreeClick, treesLayer);
+					treesLayer.addTo(map);
+					// console.log("> loadData: data is loaded!");
+					waitingLoadData.current = false;
 				})
-				treesLayer.addTo(map);
-				setMapData({isClusterData: isCluster, json: jsonData});
-			})
-			.catch(err => {
-				alert("Возникла ошибка при загрузке деревьев");
-				console.error(err);
-			});
+				.catch(err => {
+					waitingLoadData.current = false;
+					alert("Возникла ошибка при загрузке деревьев");
+					console.error(err);
+				});
+		} else {
+			// console.log("Fetching not Clustered data");
+			// FIXME: What type of events should 2-gis have
+			fetchData(getTreeMapInfoUrl(containerLatLng))
+				.then((jsonData: IJsonMapTree[]) => {
+					if (!componentMounted.current) {
+						// console.log(" > fetch but component Unmounted");
+						return;
+					}
+					// console.log(`Fetched ${jsonData.length} trees`)
+					setMapData({isClusterData: dataIsClustered, json: jsonData});
+					setUpTreeCircles(mapState, {isClusterData: dataIsClustered, json: jsonData}, handleTreeClick, treesLayer);
+					treesLayer.addTo(map);
+					// console.log("> loadData: data is loaded!");
+					waitingLoadData.current = false;
+				})
+				.catch(err => {
+					waitingLoadData.current = false;
+					alert("Возникла ошибка при загрузке деревьев");
+					console.error(err);
+				});
+		}
 	};
 
 	const getMapContainerLatLng = () => {
@@ -120,13 +177,14 @@ const GeojsonLayer = ({map, mapState, setMapState, user} : IGeojsonLayerProps) =
 	};
 
 	// FIXME: What type of events should 2-gis have
-	const handleTreeClick = (e: any, item: IJsonTree) => {
+	const handleTreeClick = (e: any, item: IJsonMapTree) => {
 		map.setView([e.latlng.lat, e.latlng.lng]);
-		setActiveTreeData(item)
+		// setActiveTreeData(item)
+		item.id && setActiveTreeId(item.id);
 	}
 
 	// FIXME: What type of events should 2-gis have
-	const handleClick = (event: any) => {
+	const handleClick = useCallback((event: any) => {
 		if (event.originalEvent.target.tagName === 'BUTTON') {
 			return;
 		}
@@ -145,7 +203,14 @@ const GeojsonLayer = ({map, mapState, setMapState, user} : IGeojsonLayerProps) =
 				.on('drag', updateMarkerRef)
 			markerLayer.addTo(map)
 		}
-	}
+	}, [map, markerLayer]);
+
+	const clearLayer = (mapLayer: any) => {
+		for (const layer in mapLayer._layers) {
+			mapLayer._layers[layer].removeFrom(map);
+			delete mapLayer._layers[layer];
+		}
+	};
 
 	const handleClickTreeFormWrapper = () => {
 		setActiveTreeId(null);
@@ -155,26 +220,36 @@ const GeojsonLayer = ({map, mapState, setMapState, user} : IGeojsonLayerProps) =
 		setActiveTreeData(null)
 	}
 
-	const handleZoomEndMoveEnd = () => {
-		loadData();
-	}
+	const handleZoomEndMoveEnd = useCallback(() => {
+		clearLayer(treesLayer);
+		// console.log("> handleZoomEndMoveEnd: clearLayer(treesLayer)");
+		map && loadData();
+
+	}, [map])
 
 	useEffect(() => {
+		// console.log("> useEffect [mapState]: 'click', 'zoomend', 'moveend' -> handleClick");
+		// console.log(map.listens('click'));
 		map && map.on('click', handleClick);
 		map && map.on('zoomend', handleZoomEndMoveEnd);
 		map && map.on('moveend', handleZoomEndMoveEnd);
-	}, [mapState])
+	}, [map, mapState]);
 
 	useEffect(() => {
 		map && !mapData && loadData();
-	}, [map, mapData])
+	}, [map, mapData]);
 
 	useEffect(() => {
+		if (map === null || map === undefined) return;
 		setActiveTreeData(null);
+		// if (activeTreeId) {
+		// 	console.log("> useEffect [activeTreeId]: requesting activeTree info...");
+		// }
 		activeTreeId &&
 		fetchData(getTreeDataUrl(activeTreeId))
 			.then((jsonData: IJsonTree) => {
 				setActiveTreeData(jsonData);
+				// console.log("> useEffect [activeTreeId]: activeTree info loaded");
 			})
 			.catch(err => {
 				alert("Возникла ошибка при загрузке информации о дереве");
@@ -210,7 +285,51 @@ const GeojsonLayer = ({map, mapState, setMapState, user} : IGeojsonLayerProps) =
 }
 
 
-function getMarkerClusterGroup(state: number, data: any, setActiveTree: any, map: any) {
+function setUpTreeCircles(state: number, data: IMapDataSeparateTrees | IMapDataClustered, handleTreeClick: any, layer: any) {
+	if (data.isClusterData) {
+		data.json.forEach(item => {
+			const {latitude, longitude} = item.centre;
+			const clusterMarkerDivStyle = `
+				width: 30px;
+				height: 30px;
+				margin: 5px;
+				border-radius: 20px;
+				background-color:rgba(110,204,57,0.6);
+				text-align: center;
+    			font-size: 12px;
+			`;
+			const clusterMarkerSpanStyle = `
+				line-height: 30px;
+			`;
+			const markerIcon = divIcon({
+				html: `<div style="${clusterMarkerDivStyle}"><span style="${clusterMarkerSpanStyle}">${item.count}</span></div>`,
+				className: "circle-div-icon",
+				iconSize: [40, 40]
+			});
+			DG.marker([latitude, longitude], {icon: markerIcon}).addTo(layer);
+		});
+	} else {
+		data.json.forEach(item => {
+			const {latitude, longitude} = item.geographicalPoint;
+			let color: string = DefaultTreeColor;
+			const species = item.species.title;
+			if (species in TreeSpeciesColors) {
+				color = TreeSpeciesColors[species];
+			}
+			let circleRadius = item.diameterOfCrown / 2;
+			circleRadius = circleRadius < 3 ? 3 : circleRadius;
+			// console.log(`tree radius is ${circleRadius}`);
+			DG.circle([latitude, longitude], circleRadius, {
+				color: color, fillColor: color, fill: true, fillOpacity: 1, weight: 1
+			}).addTo(layer)
+				.on('click', (e: any) => handleTreeClick(e, item));
+		});
+	}
+}
+
+
+// NOTE: not used, function setUpTreeCircles is used instead
+function getMarkerClusterGroup(state: number, data: IMapDataSeparateTrees | IMapDataClustered, setActiveTree: any, map: any) {
 	/* FixMe - Этот кусок кода игнорируется, т.к isClusterData зашит на false.
 			Как я понял, MarkerClusterGroup должен принимать столько точек, сколько реально должно отрисоваться.
 			Т.е. если нам пришло 8 точек, то в MarkerClusterGroup должно быть 8 объектов, тогда кластеризация происходит корректно.
@@ -218,6 +337,7 @@ function getMarkerClusterGroup(state: number, data: any, setActiveTree: any, map
 			На экране отрисовывается точка с числом 8, а после слияния с другой точкой отображается число 2, т.к. отрисовано всего 2 объекта.
 	*/
 	if (data.isClusterData) {
+		console.log("Creating MarkerClusterGroup");
 		return (
 			<MarkerClusterGroup disableClusteringAtZoom={19}>
 				{data.json

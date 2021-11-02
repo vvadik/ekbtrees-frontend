@@ -24,7 +24,8 @@ export default class Main extends Component<IMainProps, IMainState> {
       return (
             <Switch>
                 <Route exact path='/addtree/:lat/:lng' component={AddNewTreeForm} />
-                <Route exact path='/trees/tree=:id/edit' component={EditTreeForm} />
+                {/*<Route exact path='/trees/tree=:id/edit' component={EditTreeForm} />*/}
+                <Route exact path='/trees/tree=:id/edit' render={(props) => <EditTreeForm {...props} user={user} />} />
                 <Route exact path='/trees' component={TreeLists} />
                 <Route exact path='/users' component={UserList} />
                 <Route exact path='/profileSettings'

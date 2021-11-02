@@ -51,7 +51,7 @@ export class FileUpload extends Component<IFileUploadProps, IFileUploadState> {
 
 		return files.map((file: IFile) => {
 			return (
-				<a className={styles.editLink} href={file.uri}>
+				<a key={file.id}  className={styles.editLink} href={file.uri}>
 					{file.title}
 				</a>
 			)
@@ -63,7 +63,7 @@ export class FileUpload extends Component<IFileUploadProps, IFileUploadState> {
 
 		return files.map((file: IFile) => {
 			return (							
-				<img className={styles.image} src={file.uri} alt={file.title} onClick={this.ShowModal}/>										
+				<img key={file.id} className={styles.image} src={file.uri} alt={file.title} onClick={this.ShowModal}/>
 			)			
 		});		
 	}
@@ -85,7 +85,7 @@ export class FileUpload extends Component<IFileUploadProps, IFileUploadState> {
 
 		return files.map((file: IFile) => {
 			return (
-				<div className={styles.item}>
+				<div key={file.id} className={styles.item}>
 					<div className={styles.file}>
 						<button onClick={this.handleDelete(file.id)} className={styles.deleteFile}>
 							<i className={classNames(["fa", "fa-times"])} />
@@ -99,10 +99,9 @@ export class FileUpload extends Component<IFileUploadProps, IFileUploadState> {
 
 	renderEditImageLinks () {
 		const {files} = this.props;
-
 		return files.map((file: IFile) => {
 			return (
-				<div className={styles.itemImage}>
+				<div key={file.id} className={styles.itemImage}>
 					<div className={styles.file}>
 						<button onClick={this.handleDelete(file.id)} className={styles.deleteFile}>
 							<i className={classNames(["fa", "fa-times"])} />
@@ -230,7 +229,7 @@ export class FileUpload extends Component<IFileUploadProps, IFileUploadState> {
 		return (
 			<>
 				{this.renderContent()}
-				<ModalImg modalOpen={String(this.state.modalOpen)} handleClose={this.CloseModal} modalData={this.state.modalData ?? undefined}/>
+				<ModalImg modalOpen={this.state.modalOpen} handleClose={this.CloseModal} modalData={this.state.modalData ?? undefined}/>
 			</>
 		)
 	}

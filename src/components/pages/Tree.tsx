@@ -116,7 +116,7 @@ export class Tree extends Component<ITreeProps, ITreeState> {
 						tree: this.convertTree(tree),
 						loading: false
 					}, () => {
-						getFilesByTree([16, 18, 62, 62, 62])
+						getFilesByTree(tree.fileIds ?? [])
 							.then(files => {
 								const images = files.filter((file: IFile) => file.mimeType.startsWith('image'));
 								const filesWithoutImages = files.filter((file: IFile) => !file.mimeType.startsWith('image'));
@@ -162,14 +162,14 @@ export class Tree extends Component<ITreeProps, ITreeState> {
 		if (tree == null) {
 			return result;
 		}
-		Object.keys(tree).forEach((key) => {
+		Object.keys(tree).forEach((key, index) => {
 			const treeKey = key as keyof ITreeModelConverted;
 			if (treeKey == 'id') {
 				return;
 			}
 			if (tree[treeKey].value) {
 				result.push(
-					<div className={styles.row}>
+					<div key={index} className={styles.row}>
 						<div className={styles.col}>
 							{tree[treeKey].title}
 						</div>

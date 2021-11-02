@@ -1,4 +1,4 @@
-import {IJsonTree, IUser} from "../../common/types";
+import {IGeographicalPoint, ITreePropertyValue, IUser} from "../../common/types";
 
 
 export interface ILatLng {
@@ -6,9 +6,28 @@ export interface ILatLng {
     lng: number;
 }
 
-export interface IMapData {
-    isClusterData: boolean;
-    json: IJsonTree[];
+export interface IJsonMapTree {
+    id: number;
+    geographicalPoint: IGeographicalPoint;
+    diameterOfCrown: number;
+    species: ITreePropertyValue;
+}
+
+export interface IJsonMapTreeCluster {
+    id: number;
+    centre: IGeographicalPoint;
+    count: number;
+}
+
+
+export interface IMapDataSeparateTrees {
+    isClusterData: false;
+    json: IJsonMapTree[];
+}
+
+export interface IMapDataClustered {
+    isClusterData: true;
+    json: IJsonMapTreeCluster[];
 }
 
 export interface ICircleOptions {

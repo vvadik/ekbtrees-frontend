@@ -53,6 +53,7 @@ export default class Menu extends Component<IMenuProps, IMenuState> {
         return links.map(link => {
             return (
                 <NavLink
+                    key={link.title}
                     exact={link.exact}
                     to={link.to}
                     activeClassName={link.activeClassName}

@@ -1,11 +1,12 @@
 import Cookies from 'universal-cookie';
+import decode from "jwt-decode";
 
 const cookies = new Cookies();
 
 export default class RequestService {
 	static getData (url: string, headers: HeadersInit = {}) {
+		this.refreshToken();
 		const token = cookies.get('AccessToken');
-
 		return fetch(url, {
 			method: 'GET',
 			headers: {
@@ -24,8 +25,8 @@ export default class RequestService {
 
 	// TODO: find а more specific type for body
 	static postData (url: string, body: BodyInit | null | undefined, headers: HeadersInit = {}): Promise<any> {
+		this.refreshToken();
 		const token = cookies.get('AccessToken');
-
 		return fetch(url, {
 			method: 'POST',
 			headers: {
@@ -42,6 +43,19 @@ export default class RequestService {
 				}
 
 				return response.json()
-		})
+			})
+	}
+
+	static refreshToken (): Promise<any> | void {
+		const token = cookies.get('AccessToken');
+		const decoded_token: any = token ? decode(token) : null;
+		if(decoded_token && decoded_token.exp - Math.round(Date.now() / 1000) < 10) {
+			return fetch("/auth/newTokens", {
+				method: 'POST',
+				headers: {
+					'Authorization': `Bearer ${token}`
+				},
+			})
+		}
 	}
 }
